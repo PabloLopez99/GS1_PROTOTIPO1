@@ -19,6 +19,9 @@ import java.net.URL;
  */
 public class RandomNameGenerator {
     
+    public static void main(String[] args){
+        
+    }
    
     public static String sendGet(String recurso) throws IOException {
 		String res="";
