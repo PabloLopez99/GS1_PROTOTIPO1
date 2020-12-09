@@ -1,32 +1,39 @@
 package com.mycompany.gs1_prototipo1.model;
 
+import com.mycompany.gs1_prototipo1.model.types.Gender;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 public class User {
     private String name;
+    private String passwd;
     private String firstName;
     private String lastName;
-    private int age; //Lo cambiaría por fecha de nacimiento
-    private double rating; //Sacaría una clase
-    private String description; //Sacaría description a una clase, poder darle un formato mas concreto a las descipciones
-    private File[] files;//Xd en ningún momento hemos añadido en las historias el tema de las bases de datos
+    private Login login;
+    private Location location;
+    private Date age; //Lo cambiaría por fecha de nacimiento
+    private Rating rating; //Sacaría una clase
+    private Description description; 
+    private List<File> files;//Xd en ningún momento hemos añadido en las historias el tema de las bases de datos
     private BufferedImage profileImage; //Lo añadí
-    
+    private Gender gender;
+
     private List<Mission> missions;
     private List<Mission> subscribedMissions;
     
-    public User(String name, String firstName, String lastName, int age, String description) {
+    public User(String name, String firstName, String lastName, Date age) {
         this.name = name;
         this.firstName=firstName;
         this.lastName=lastName;
         this.age = age;
-        this.description = description;
         missions= new LinkedList<>();
         subscribedMissions= new LinkedList<>();
     }
+    
+    
 
 
     public boolean addMission(Mission newMission) {
@@ -62,8 +69,12 @@ public class User {
         }else{
             return false;
         }
-        
     }
+    
+    public void setProfileImage(BufferedImage profileImage) {
+        this.profileImage = profileImage;
+    }
+    
    
     public String getName() {
         return name;
@@ -73,36 +84,48 @@ public class User {
         this.name = name;
     }
 
-    public int getAge() {
+    public Date getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Date age) {
         this.age = age;
     }
 
-    public double getRating() {
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public Rating getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(Rating rating) {
         this.rating = rating;
     }
 
-    public String getDescription() {
+    public Description getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.description = new Description(description);
     }
 
-    public File[] getFiles() {
+    public List<File> getFiles() {
         return files;
     }
-
-    public void setFiles(File[] files) {
-        this.files = files;
+    
+    public void addFile(File file){
+        files.add(file);
+    }
+    
+    public void removeFile(File file){
+        files.remove(file);
     }
 
     public List<Mission> getMissions() {

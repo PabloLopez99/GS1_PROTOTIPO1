@@ -1,29 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.gs1_prototipo1.model;
 
-/**
- *
- * @author pabloantoniolopezmartin
- */
+import java.awt.Point;
+import java.util.TimeZone;
+
 public class Location {
-    private String country;
-    private String zipCode;
+    private Street street;
     private String city;
-    private String street;
-    private int number;
+    private String state;
+    private String country;
+    private String postCode;
     private enum type{inPerson,nonInPerson};
-    public Location(String country, String zipCode, String city, String street, int number) {
-        this.country = country;
-        this.zipCode = zipCode;
-        this.city = city;
+    private Coordinates coordinates;
+    private TimeZone timeZone;
+    private Point point;
+
+    public Location(Street street, String city, String state, String country, String postCode, Coordinates coordinates, TimeZone timeZone) {
         this.street = street;
-        this.number = number;
+        this.city = city;
+        this.state = state;
+        this.country = country;
+        this.postCode = postCode;
+        this.coordinates = coordinates;
+        this.timeZone = timeZone;
     }
-    
+
     
     
 }
