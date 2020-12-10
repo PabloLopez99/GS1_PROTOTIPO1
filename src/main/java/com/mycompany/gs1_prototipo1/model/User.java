@@ -1,41 +1,82 @@
 package com.mycompany.gs1_prototipo1.model;
 
-import com.mycompany.gs1_prototipo1.model.types.Gender;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 public class User {
-    private String name;
-    private String passwd;
+
+
     private String firstName;
     private String lastName;
     private Login login;
+    private String email;
+    private String dateBorn;
+    private String registeredDate;
+    
+    private String phone;
+    private BufferedImage pictureLarge;
+    private BufferedImage pictureMedium;
+    private BufferedImage pictureThumbnail;
     private Location location;
-    private Date age; //Lo cambiaría por fecha de nacimiento
+  
+  
     private Rating rating; //Sacaría una clase
     private Description description; 
     private List<File> files;//Xd en ningún momento hemos añadido en las historias el tema de las bases de datos
-    private BufferedImage profileImage; //Lo añadí
-    private Gender gender;
-
-    private List<Mission> missions;
-    private List<Mission> subscribedMissions;
     
-    public User(String name, String firstName, String lastName, Date age) {
-        this.name = name;
-        this.firstName=firstName;
-        this.lastName=lastName;
-        this.age = age;
+  
+    private String gender;
+
+    public User( String firstName, String lastName, Login login,String email, Location location, String dateBorn, String registeredDate, Description description, String gender, String phone, BufferedImage pictureLarge, BufferedImage pictureMedium, BufferedImage pictureThumbnail) {
+       
+        this.dateBorn=dateBorn;
+        this.registeredDate=registeredDate;
+        this.email=email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.login = login;
+        this.location = location;
+        this.rating=null;
+        this.phone=phone;
+       // this.rating Aquí se llama a metodo para utogenerar el rating en la  instanciación
+        this.description = description;
+        this.pictureMedium=pictureMedium;
+        this.pictureLarge=pictureLarge;
+        this.pictureThumbnail=pictureThumbnail;
+        this.gender = gender;
         missions= new LinkedList<>();
         subscribedMissions= new LinkedList<>();
     }
     
+    private List<Mission> missions;
+    private List<Mission> subscribedMissions;
     
+    public User(String name, String firstName, String lastName, Date age) {
+ 
+        this.firstName=firstName;
+        this.lastName=lastName;
 
+        missions= new LinkedList<>();
+        subscribedMissions= new LinkedList<>();
+        
+    }
+    /*
+     private static class Dob {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String date; 
+        public Dob(String date) {
+            this.date = date;
+        }
+    }
 
+*/
     public boolean addMission(Mission newMission) {
         if(!missions.contains(newMission)){
             missions.add(newMission);
@@ -71,26 +112,12 @@ public class User {
         }
     }
     
-    public void setProfileImage(BufferedImage profileImage) {
-        this.profileImage = profileImage;
-    }
+  
     
    
-    public String getName() {
-        return name;
-    }
+  
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
-    public Date getAge() {
-        return age;
-    }
-
-    public void setAge(Date age) {
-        this.age = age;
-    }
 
     public Location getLocation() {
         return location;
@@ -142,6 +169,10 @@ public class User {
 
     public void setSubscribedMissions(List<Mission> subscribedMissions) {
         this.subscribedMissions = subscribedMissions;
+    }
+
+    public String getName() {
+      return firstName;
     }
 
     

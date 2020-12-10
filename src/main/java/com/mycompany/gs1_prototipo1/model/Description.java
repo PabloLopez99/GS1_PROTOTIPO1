@@ -5,7 +5,7 @@ import com.mycompany.gs1_prototipo1.model.types.Weekday;
 import java.util.ArrayList;
 import java.util.List;
 
-class Description {
+public class Description {
     private List<Weekday> availability;
     private List<Label> preferences;
     private String aboutMe;

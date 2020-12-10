@@ -10,18 +10,18 @@ public class Location {
     private String country;
     private String postCode;
     private enum type{inPerson,nonInPerson};
-    private Coordinates coordinates;
-    private TimeZone timeZone;
+    private Coordinate coordinates;
+    private String offset;
     private Point point;
 
-    public Location(Street street, String city, String state, String country, String postCode, Coordinates coordinates, TimeZone timeZone) {
+    public Location(Street street, String city, String state, String country, String postCode, Coordinate coordinates, String offset) {
         this.street = street;
         this.city = city;
         this.state = state;
         this.country = country;
         this.postCode = postCode;
         this.coordinates = coordinates;
-        this.timeZone = timeZone;
+        this.offset = offset;
     }
 
     

@@ -17,13 +17,13 @@ public class MissionFactory {
        Mission newMission = new Mission(owner,subscribedUsers,description,startDate,endDate,labels,inPerson,location);
        owner.addMission(newMission);
        subscribeUsers(subscribedUsers,newMission);
-       Control.addMission(newMission);
+      // Control.addMission(newMission);
     }
     //Without subscribedUsers List
     public static void NewMission(User owner,String description, Date startDate, Date endDate, Boolean inPerson, Location location, List<Label> labels){
        Mission newMission = new Mission(owner,description,startDate,endDate,labels,inPerson,location);
        owner.addMission(newMission);
-       Control.addMission(newMission);
+       Control.getInstance().addMission(newMission);
 
     }
     
@@ -46,7 +46,7 @@ public class MissionFactory {
         removeAllSubscribed(mission);
         mission.getOwner().removeMission(mission);
         //allMissions.remove(mission);
-        Control.removeMission(mission);
+        Control.getInstance().removeMission(mission); 
        // removedMissions.add(mission);
      
     }

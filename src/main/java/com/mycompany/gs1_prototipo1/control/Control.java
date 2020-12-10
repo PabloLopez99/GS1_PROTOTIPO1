@@ -15,12 +15,15 @@ import java.util.List;
  * @author pabloantoniolopezmartin
  */
 public class Control {
-    private static List<User> users;
+    private static Members members;
     private static List<Mission> catalogo;
-    private static List<Mission> removedMissions; //
+    private  static List<Mission> removedMissions; //
+    private static Control instance =null;
+
     
-    {
-        this.users= new LinkedList<>();
+    public Control(){
+        this.members= new Members();
+  
         this.catalogo = new LinkedList<>();
         this.removedMissions= new LinkedList<>();
     }
@@ -32,4 +35,15 @@ public class Control {
         catalogo.remove(mission);
        removedMissions.add(mission);
     }
+    public static Members getAllMembers(){
+        return members;
+    }
+    public static Control getInstance(){
+        if(instance==null){
+            instance=new Control();
+        }
+        return instance;
+    }
+
+  
 }
