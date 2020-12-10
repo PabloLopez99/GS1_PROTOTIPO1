@@ -47,16 +47,6 @@ public class UserGenerator {
             
         }
     }
-  
-    /*
-        String res= sendGet("https://randomuser.me/api/");
-       // System.out.println(res);
-        JSONObject obj = new JSONObject(res);
-        System.out.println(obj.toString());
-       // JSONArray obbj=obj.getJSONArray("results");
-        System.out.println(obj);
-        System.out.println(obj.getJSONArray("results").getJSONObject(0).getJSONObject("name").getString("first"));
-  */
     public static User genUser() throws InterruptedException{
           User user=null;
         try {
@@ -65,7 +55,6 @@ public class UserGenerator {
             JSONObject location = response.getJSONObject("location");
      
            
-           //Location location, String dateBorn, String registeredDate, Description description, Gender gender, String phone, String pictureLarge, String pictureMedium, String pictureThumbnail
                 user = new User(
                                 response.getJSONObject("name").getString("first"),
                                 "String lastName", 
@@ -97,12 +86,8 @@ public class UserGenerator {
                                 Helper.getBufferedImage(response.getJSONObject("picture").getString("thumbnail")));
                                 
                            
-                                // response.getJSONObject("login").getJSONObject("dob").getString("date"),response.getJSONObject("login").getJSONObject("registered").getString("date"), String phone, BufferedImage pictureLarge, BufferedImage pictureMedium, BufferedImage pictureThumbnail)
         } catch (Exception ex) {
-           // Logger.getLogger(UserGenerator.class.getName()).log(Level.SEVERE, null, ex);
-            Thread.sleep(2000);
-            System.out.println(ex.getCause());
-           return genUser();
+           return genUser(); //Debido a que en ocasiones, la api devuelve error 503 (api gratis) se usa recursividad
         }
        return user;
     }

@@ -22,26 +22,17 @@ import org.json.JSONArray;
  */
 public class MainTest {
     public static void main(String args[]) throws IOException, InterruptedException{
-       //String name, int age, String descriptio
-       
-       
+   
+    
         String res= sendGet("https://randomuser.me/api/");
-       // System.out.println(res);
+     
         JSONObject obj = new JSONObject(res);
-      //  System.out.println(obj.toString());
-       // JSONArray obbj=obj.getJSONArray("results");
-       // System.out.println(obj);
-    //    System.out.println(obj.getJSONArray("results").getJSONObject(0).getJSONObject("name").getString("first"));
-       // obj.get(res);
-       // System.out.println(obj.getJSONObject("results"));
-       // System.out.println(obj.getJSONArray("results").getJSONObject(1).getString("first"));
-     //   User user1 = new User(obj.getJSONArray("results").getJSONObject(1).getString("first"),"Pérez","Cobo",21,"Hola me llamo Juán");    
-     //   MissionFactory.NewMission(owner, description, startDate, endDate, Boolean.TRUE, location, labels);
+
         try {
-            UserGenerator.generateUsers(19);
+            UserGenerator.generateUsers(100);
         } catch (InterruptedException ex) {
            Logger.getLogger(MainTest.class.getName()).log(Level.SEVERE, null, ex);
-            
+            System.out.println("pepese");
         }
     }
 }
