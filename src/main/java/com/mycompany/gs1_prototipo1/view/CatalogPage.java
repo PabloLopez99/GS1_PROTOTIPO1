@@ -15,7 +15,7 @@ public class CatalogPage extends AbstractFrame {
      * Creates new form FeedPage
      */
     public CatalogPage() {
-        initComponents();
+       super();
     }
 
     /**
