@@ -16,7 +16,7 @@ public class MissionFactory {
     public static void NewMission(User owner,List<User> subscribedUsers,String description, Date startDate, Date endDate, Boolean inPerson, Location location, List<Label> labels){
        Mission newMission = new Mission(owner,subscribedUsers,description,startDate,endDate,labels,inPerson,location);
        owner.addMission(newMission);
-       subscribeUsers(subscribedUsers,newMission);
+       subscribeUsers(subscribedUsers,newMission); //Suscribe a los usuarios en la misión
        Control.addMission(newMission);
     }
     //Without subscribedUsers List

@@ -5,6 +5,7 @@
  */
 package com.mycompany.gs1_prototipo1.control;
 
+import com.mycompany.gs1_prototipo1.develop.UserGenerator;
 import com.mycompany.gs1_prototipo1.model.Mission;
 import com.mycompany.gs1_prototipo1.model.User;
 import java.util.LinkedList;
@@ -20,12 +21,18 @@ public class Control {
     private  static List<Mission> removedMissions; //
     private static Control instance =null;
 
+   
     
     public Control(){
         this.members= new Members();
   
         this.catalogo = new LinkedList<>();
         this.removedMissions= new LinkedList<>();
+    }
+    
+    public void run() throws InterruptedException {
+       UIController uiController= new UIController();
+       loadTestUsers();
     }
     
     public static void addMission(Mission mission){
@@ -43,6 +50,12 @@ public class Control {
             instance=new Control();
         }
         return instance;
+    }
+
+   
+
+    private void loadTestUsers() throws InterruptedException {
+         UserGenerator.generateUsers(100);
     }
 
   
