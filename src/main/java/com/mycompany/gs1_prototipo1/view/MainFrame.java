@@ -5,8 +5,13 @@
  */
 package com.mycompany.gs1_prototipo1.view;
 
+import com.mycompany.gs1_prototipo1.model.Mission;
+import com.mycompany.gs1_prototipo1.model.User;
+import com.mycompany.gs1_prototipo1.view.pages.MissionPage;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BoxLayout;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -24,9 +29,13 @@ public class MainFrame extends javax.swing.JFrame {
     
     public MainFrame() {
         initComponents();
-       
+       //jPanel1.setLayout(new BoxLayout(jPanel1, BoxLayout.PAGE_AXIS));
+       Mission mission = new Mission(new User("p","pp","ppp", new Date()));
+       MissionPage missionPage = new MissionPage(mission);
+       this.setPage(missionPage);
     }
     public void setPage(JPanel pane){
+        displayPagePane.setLayout(new BoxLayout(displayPagePane, BoxLayout.PAGE_AXIS));
         displayPagePane.add(pane);
     }
 
@@ -55,11 +64,11 @@ public class MainFrame extends javax.swing.JFrame {
         buttonsPane.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(231, 231, 179), 2, true));
         buttonsPane.setForeground(new java.awt.Color(255, 255, 204));
 
-        homeIco.setIcon(new javax.swing.ImageIcon("/Users/pabloantoniolopezmartin/NetBeansProjects/GS1_PROTOTIPO1/src/main/java/com/mycompany/gs1_prototipo1/media/icons8-home-50.png")); // NOI18N
+        homeIco.setIcon(new javax.swing.ImageIcon("C:\\Users\\esthe\\Documents\\NetBeansProjects\\GS1_PROTOTIPO1\\src\\main\\java\\com\\mycompany\\gs1_prototipo1\\media\\icons8-home-50.png")); // NOI18N
 
-        profileIco.setIcon(new javax.swing.ImageIcon("/Users/pabloantoniolopezmartin/NetBeansProjects/GS1_PROTOTIPO1/src/main/java/com/mycompany/gs1_prototipo1/media/icons8-user-male-60.png")); // NOI18N
+        profileIco.setIcon(new javax.swing.ImageIcon("C:\\Users\\esthe\\Documents\\NetBeansProjects\\GS1_PROTOTIPO1\\src\\main\\java\\com\\mycompany\\gs1_prototipo1\\media\\icons8-user-male-60.png")); // NOI18N
 
-        ladderIco.setIcon(new javax.swing.ImageIcon("/Users/pabloantoniolopezmartin/NetBeansProjects/GS1_PROTOTIPO1/src/main/java/com/mycompany/gs1_prototipo1/media/icons8-trophy-60.png")); // NOI18N
+        ladderIco.setIcon(new javax.swing.ImageIcon("C:\\Users\\esthe\\Documents\\NetBeansProjects\\GS1_PROTOTIPO1\\src\\main\\java\\com\\mycompany\\gs1_prototipo1\\media\\icons8-trophy-60.png")); // NOI18N
 
         javax.swing.GroupLayout buttonsPaneLayout = new javax.swing.GroupLayout(buttonsPane);
         buttonsPane.setLayout(buttonsPaneLayout);
@@ -70,7 +79,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(ladderIco)
                 .addGap(84, 84, 84)
                 .addComponent(homeIco)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
                 .addComponent(profileIco)
                 .addGap(14, 14, 14))
         );
