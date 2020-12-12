@@ -34,5 +34,8 @@ public class Members {
             active.add(user);
         }
     }
+    public List<User> getActiveMembers(){
+        return active;
+    }
     
 }

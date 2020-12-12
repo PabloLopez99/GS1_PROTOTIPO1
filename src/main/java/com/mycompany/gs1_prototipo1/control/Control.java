@@ -5,6 +5,7 @@
  */
 package com.mycompany.gs1_prototipo1.control;
 
+import com.mycompany.gs1_prototipo1.develop.MissionGenerator;
 import com.mycompany.gs1_prototipo1.develop.UserGenerator;
 import com.mycompany.gs1_prototipo1.model.Mission;
 import com.mycompany.gs1_prototipo1.model.User;
@@ -24,15 +25,15 @@ public class Control {
    
     
     public Control(){
-        this.members= new Members();
-  
+        this.members= new Members(); 
         this.catalogo = new LinkedList<>();
         this.removedMissions= new LinkedList<>();
     }
     
-    public void run() throws InterruptedException {
-       UIController uiController= new UIController();
+    public void run() throws InterruptedException { //OJO TIENEN Q GENERARSE MINIMO LA MISMA CANTIDAD DE USUARIOS QUE DE MISIONES
+      // UIController uiController= new UIController();
        loadTestUsers();
+       loadTestMissions();
     }
     
     public static void addMission(Mission mission){
@@ -51,12 +52,16 @@ public class Control {
         }
         return instance;
     }
-
+    public static List getAllMissions(){
+        return catalogo;
+    }
    
 
     private void loadTestUsers() throws InterruptedException {
-         UserGenerator.generateUsers(100);
+         UserGenerator.generateUsers(20);
     }
-
-  
+    private void loadTestMissions(){
+        MissionGenerator.generateMissions(10);
+    }
+   
 }

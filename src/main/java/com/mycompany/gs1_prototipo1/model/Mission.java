@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class Mission {
+    private String title;
     private User owner;
     private List<User> subscribedUsers; 
     private final UUID missionId;
@@ -18,7 +19,8 @@ public class Mission {
     private Location location;
     
     //Constructor with all params
-    public Mission(User owner, List<User> subscribedUsers, String description, Date startDate, Date endDate, List<Label> labels, Boolean inPerson, Location location) {
+    public Mission(String title,User owner, List<User> subscribedUsers, String description, Date startDate, Date endDate, List<Label> labels, Boolean inPerson, Location location) {
+        this.title=title;
         this.owner = owner;
         this.subscribedUsers = subscribedUsers;
         this.description = description;
@@ -32,7 +34,8 @@ public class Mission {
         missionId=UUID.randomUUID();
     }
      //Constructor without subscribedUsers
-    public Mission(User owner, String description, Date startDate, Date endDate, List<Label> labels, Boolean inPerson, Location location) {
+    public Mission(String title, User owner, String description, Date startDate, Date endDate, List<Label> labels, Boolean inPerson, Location location) {
+        this.title=title;
         this.owner = owner;
         this.description = description;
         this.startDate = startDate;

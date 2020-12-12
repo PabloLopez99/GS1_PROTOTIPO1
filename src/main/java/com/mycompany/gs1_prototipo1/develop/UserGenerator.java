@@ -28,6 +28,7 @@ import org.json.JSONObject;
 public class UserGenerator {
       
      //It adds users to members
+    private static int count;
     public static void generateUsers(int ammount) throws InterruptedException{
       
         Members members= Control.getInstance().getAllMembers();
@@ -57,7 +58,7 @@ public class UserGenerator {
            
                 user = new User(
                                 response.getJSONObject("name").getString("first"),
-                                "String lastName", 
+                                response.getJSONObject("name").getString("last"), 
                                 new Login(login.getString("uuid"), 
                                           login.getString("username"), 
                                           login.getString("password"), 
@@ -87,7 +88,13 @@ public class UserGenerator {
                                 
                            
         } catch (Exception ex) {
-           return genUser(); //Debido a que en ocasiones, la api devuelve error 503 (api gratis) se usa recursividad
+            count++;
+            if(count>30){ //Se pone umbral para que no entre en bucle infinito
+                ex.printStackTrace();
+            }else{
+                return genUser(); //Debido a que en ocasiones, la api devuelve error 503 (api gratis) se usa recursividad
+            }
+           
         }
        return user;
     }
