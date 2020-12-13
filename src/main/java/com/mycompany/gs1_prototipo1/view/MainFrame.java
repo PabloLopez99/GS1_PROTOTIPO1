@@ -5,6 +5,7 @@
  */
 package com.mycompany.gs1_prototipo1.view;
 
+import com.mycompany.gs1_prototipo1.control.Control;
 import com.mycompany.gs1_prototipo1.model.Mission;
 import com.mycompany.gs1_prototipo1.model.User;
 import com.mycompany.gs1_prototipo1.view.pages.MissionPage;
@@ -26,13 +27,18 @@ public class MainFrame extends javax.swing.JFrame {
      * He creado una clase Abstracta para cubrir todas las posibles ventanas de la apliación
      * con uan interfaz genérica
      */
-    
+    private Control control;
     public MainFrame() {
+        control = Control.getInstance();
+        
+        
+        
+        
         initComponents();
        //jPanel1.setLayout(new BoxLayout(jPanel1, BoxLayout.PAGE_AXIS));
-       Mission mission = new Mission(new User("p","pp","ppp", new Date()));
-       MissionPage missionPage = new MissionPage(mission);
-       this.setPage(missionPage);
+       //Mission mission = new Mission(new User("p","pp","ppp", new Date()));
+     //  MissionPage missionPage = new MissionPage(mission);
+     //  this.setPage(missionPage);
     }
     public void setPage(JPanel pane){
         displayPagePane.setLayout(new BoxLayout(displayPagePane, BoxLayout.PAGE_AXIS));

@@ -21,7 +21,7 @@ public class Control {
     private static List<Mission> catalogo;
     private  static List<Mission> removedMissions; //
     private static Control instance =null;
-
+    private static UIController uiController;
    
     
     public Control(){
@@ -31,9 +31,12 @@ public class Control {
     }
     
     public void run() throws InterruptedException { //OJO TIENEN Q GENERARSE MINIMO LA MISMA CANTIDAD DE USUARIOS QUE DE MISIONES
-       UIController uiController= new UIController();
-       loadTestUsers();
-       loadTestMissions();
+        uiController= new UIController();
+        loadTestUsers();
+        loadTestMissions();
+    }
+    public static UIController getUiController(){
+        return uiController;
     }
     
     public static void addMission(Mission mission){
@@ -52,6 +55,7 @@ public class Control {
         }
         return instance;
     }
+
     public static List getAllMissions(){
         return catalogo;
     }

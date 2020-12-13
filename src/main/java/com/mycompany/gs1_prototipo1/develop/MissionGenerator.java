@@ -42,7 +42,7 @@ public class MissionGenerator {
          titles[2]="Campaña recogida de alimentos";
          titles[3]="Compra a domicilio para persona dependiente";
          titles[4]="Compañía y ayuda a las personas sin techo de mesa y lópez";
-         titles[5]="Clases de matemáticas";
+         titles[5]="Clases de matemáticas para m";
          titles[6]="";
          titles[7]="";
          titles[8]="";

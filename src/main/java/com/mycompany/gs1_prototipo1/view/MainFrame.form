@@ -109,25 +109,10 @@
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JLabel" name="homeIco">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\esthe\Documents\NetBeansProjects\GS1_PROTOTIPO1\src\main\java\com\mycompany\gs1_prototipo1\media\icons8-home-50.png"/>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="profileIco">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\esthe\Documents\NetBeansProjects\GS1_PROTOTIPO1\src\main\java\com\mycompany\gs1_prototipo1\media\icons8-user-male-60.png"/>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="ladderIco">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\esthe\Documents\NetBeansProjects\GS1_PROTOTIPO1\src\main\java\com\mycompany\gs1_prototipo1\media\icons8-trophy-60.png"/>
-                </Property>
-              </Properties>
             </Component>
           </SubComponents>
         </Container>

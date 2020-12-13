@@ -24,12 +24,13 @@ public class User {
     private BufferedImage pictureMedium;
     private BufferedImage pictureThumbnail;
     private Location location;
-  
+    
   
     private Rating rating; //Sacaría una clase
     private Description description; 
     private List<File> files;//Xd en ningún momento hemos añadido en las historias el tema de las bases de datos
-    
+    private List<Mission> missions;
+    private List<Mission> subscribedMissions;
   
     private String gender;
 
@@ -54,10 +55,9 @@ public class User {
         subscribedMissions= new LinkedList<>();
     }
     
-    private List<Mission> missions;
-    private List<Mission> subscribedMissions;
+  
     
-    public User(String name, String firstName, String lastName, Date age) {
+    public User(String firstName, String lastName, Date age) {
  
         this.firstName=firstName;
         this.lastName=lastName;

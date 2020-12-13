@@ -33,6 +33,7 @@ public class UIController {
     private MissionPage missionPage;
     private PublicProfile publicProfile;
     private Welcome welcome;
+    
     public UIController(){
         mainFrame= new MainFrame();
         catalog = new Catalog();
