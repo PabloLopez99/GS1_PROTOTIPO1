@@ -18,6 +18,7 @@ import com.mycompany.gs1_prototipo1.model.types.Label;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -31,22 +32,23 @@ public class MissionGenerator {
      private static Boolean[] inPersons;
      private static List<Label>[] labels;
      private static List<User> members;
+     private static int ammount;
      
      //Aquí se crean las 10 plantillas
      static{
          titles= new String[10];
-         titles[0]="Recogida de basura en la playa";
+         titles[0]="Recogida de basura en las Canteras";
          titles[1]="Acompañamiento telefónico para persona mayor";
          titles[2]="Campaña recogida de alimentos";
-         titles[3]="";
-         titles[4]="";
-         titles[5]="";
+         titles[3]="Compra a domicilio para persona dependiente";
+         titles[4]="Compañía y ayuda a las personas sin techo de mesa y lópez";
+         titles[5]="Clases de matemáticas";
          titles[6]="";
          titles[7]="";
          titles[8]="";
          titles[9]="";
          descriptions= new String[10];
-         descriptions[0]="Recogida de basura en la playa de las canteras";
+         descriptions[0]="Recogida de basura en playa chica";
          descriptions[1]="";
          descriptions[2]="";
          descriptions[3]="";
@@ -58,7 +60,7 @@ public class MissionGenerator {
          descriptions[9]="";
          locations = new Location[10];
          // public Location(Street street, String city, String state, String country, String postCode, Coordinate coordinates, String offset) {
-         locations[0]= new Location(new Street(1,"Paseo de las Canteras"),"Las Palmas de Gran Canaria","Las Palmas","España","35007",new Coordinate(28.1400909,-15.4367679),"a");
+         locations[0]= new Location(new Street(1,"Paseo de las Canteras"),"Las Palmas de Gran Canaria","Las Palmas","España","35007",new Coordinate(28.1400909,-15.4367679),"00:00");
          locations[1]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
          locations[2]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
          locations[3]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
@@ -126,7 +128,8 @@ public class MissionGenerator {
          a.add(Label.Cuidado_de_mayores);
          
      }
-     public static void generateMissions(int ammount){ 
+     public static void generateMissions(int a){ 
+         MissionGenerator.ammount=a;
          members= Control.getInstance().getAllMembers().getActiveMembers();
          for (int i = 0; i < ammount; i++) {
              Date startDate= genStartDate(i);
@@ -140,10 +143,13 @@ public class MissionGenerator {
      
      private static List<User> genSuscribedUsers(User owner){
          List<User> users= new LinkedList<User>();
-         int randomNum = ThreadLocalRandom.current().nextInt(1, 4 + 1); //Cantidad de usuarios suscritos que va a tener la misión
-         for (int i = 0; i < randomNum; i++) {    //siempre se cogen los x primeros, cambiarlo para que los coja de forma aleatoria
-             if(!members.get(i).getName().equals(owner.getName())){ //Aquí se comprueba de que el usuario seleccionado no sea el dueño de la misión (no puede suscribirse a su propia misión)
-                 users.add(members.get(i));
+         int randomNum = ThreadLocalRandom.current().nextInt(1, 4 + 1); //Cantidad de usuarios suscritos que va a tener la misión, le summo la cantidad de misiones que se han generado para
+         for (int i = 0; i < randomNum; i++) { 
+             Random rand = new Random();
+             User user =members.get(rand.nextInt(members.size()));
+             
+             if(!user.equals(owner)){ //Aquí se comprueba de que el usuario seleccionado no sea el dueño de la misión (no puede suscribirse a su propia misión)
+                users.add(user);
              }    
          }
      

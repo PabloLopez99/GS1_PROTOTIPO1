@@ -31,7 +31,7 @@ public class Control {
     }
     
     public void run() throws InterruptedException { //OJO TIENEN Q GENERARSE MINIMO LA MISMA CANTIDAD DE USUARIOS QUE DE MISIONES
-      // UIController uiController= new UIController();
+       UIController uiController= new UIController();
        loadTestUsers();
        loadTestMissions();
     }

@@ -29,6 +29,33 @@ public class UserGenerator {
       
      //It adds users to members
     private static int count;
+    private static String[] descriptions;
+    private static Location[] locations;
+    static{
+        descriptions= new String[10];
+        descriptions[0]="Soy una persona muy amable y atenta, me encanta ayudar a los demás y";
+        descriptions[0]="";
+        descriptions[0]="";
+        descriptions[0]="";
+        descriptions[0]="";
+        descriptions[0]="";
+        descriptions[0]="";
+        descriptions[0]="";
+        descriptions[0]="";
+        descriptions[0]="";
+        locations= new Location[10];
+        locations[0]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
+        locations[1]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
+        locations[2]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
+        locations[3]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
+        locations[4]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
+        locations[5]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
+        locations[6]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
+        locations[7]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
+        locations[8]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
+        locations[9]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
+     
+    }
     public static void generateUsers(int ammount) throws InterruptedException{
       
         Members members= Control.getInstance().getAllMembers();
@@ -43,10 +70,9 @@ public class UserGenerator {
           
             System.out.println(user.getName());
             System.out.println("");
-           }
-           
-            
+           } 
         }
+  
     }
     public static User genUser() throws InterruptedException{
           User user=null;
@@ -97,6 +123,15 @@ public class UserGenerator {
            
         }
        return user;
+    }
+
+    private static void genPersonalInfo() {
+        
+        for (int i = 0; i <  Control.getInstance().getAllMembers().getActiveMembers().size(); i++) {
+            Control.getInstance().getAllMembers().getActiveMembers().get(i).setDescription(descriptions[i%descriptions.length]);
+            Control.getInstance().getAllMembers().getActiveMembers().get(i).setLocation(locations[i%locations.length]);
+            
+        }
     }
       
 }
