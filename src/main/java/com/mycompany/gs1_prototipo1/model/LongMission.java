@@ -17,6 +17,22 @@ import java.util.List;
  * @author pabloantoniolopezmartin
  */
 public class LongMission extends Mission {
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public Weekday getDays() {
+        return days;
+    }
+
+    public void setDays(Weekday days) {
+        this.days = days;
+    }
     private int duration;
     private Weekday days;
     public LongMission(int duration, Weekday days, User owner) {
