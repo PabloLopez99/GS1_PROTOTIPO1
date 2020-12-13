@@ -43,6 +43,9 @@ public class MainFrame extends javax.swing.JFrame {
     public void setPage(JPanel pane){
         displayPagePane.setLayout(new BoxLayout(displayPagePane, BoxLayout.PAGE_AXIS));
         displayPagePane.add(pane);
+        
+        jPanel1.setLayout(new BoxLayout(jPanel1, BoxLayout.PAGE_AXIS));
+        jPanel1.add(pane);
     }
 
     /**
