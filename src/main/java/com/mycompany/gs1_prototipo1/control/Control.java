@@ -35,7 +35,7 @@ public class Control {
         loadTestUsers();
         loadTestMissions();
     }
-    public static UIController getUiController(){
+    public static UIController getUiController(){ //a
         return uiController;
     }
     
