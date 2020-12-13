@@ -69,7 +69,7 @@ public class UserGenerator {
                  System.out.println("USUARIO AUTOGEn N:"+i+"\n");
           
             System.out.println(user.getName());
-            //System.out.println();
+            System.out.println("");
            } 
         }
   
@@ -130,7 +130,6 @@ public class UserGenerator {
         for (int i = 0; i <  Control.getInstance().getAllMembers().getActiveMembers().size(); i++) {
             Control.getInstance().getAllMembers().getActiveMembers().get(i).setDescription(descriptions[i%descriptions.length]);
             Control.getInstance().getAllMembers().getActiveMembers().get(i).setLocation(locations[i%locations.length]);
-            
             
         }
     }
