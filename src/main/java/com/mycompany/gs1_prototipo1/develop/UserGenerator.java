@@ -14,8 +14,12 @@ import com.mycompany.gs1_prototipo1.model.Login;
 import com.mycompany.gs1_prototipo1.model.Street;
 import com.mycompany.gs1_prototipo1.model.User;
 import com.mycompany.gs1_prototipo1.model.Description;
+import com.mycompany.gs1_prototipo1.model.types.Label;
+import com.mycompany.gs1_prototipo1.model.types.Weekday;
 import java.io.IOException;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,11 +33,20 @@ public class UserGenerator {
       
      //It adds users to members
     private static int count;
-    private static String[] descriptions;
+    private static Description[] descriptions;
     private static Location[] locations;
     static{
-        descriptions= new String[10];
-        descriptions[0]="Soy una persona muy amable y atenta, me encanta ayudar a los demás y";
+        descriptions= new Description[10];
+        List preferences= new LinkedList<Label>();
+        preferences.add(Label.Ambiental);
+        List availability= new LinkedList<Weekday>();
+        
+        availability.add(Weekday.Jueves);
+        availability.add(Weekday.Miercoles);
+        descriptions[0]=new Description("Soy una persona muy amable y atenta, me encanta ayudar a los demás",preferences,availability){
+            
+        };
+       /* descriptions[0]="Soy una persona muy amable y atenta, me encanta ayudar a los demás y";
         descriptions[0]="";
         descriptions[0]="";
         descriptions[0]="";
@@ -41,8 +54,7 @@ public class UserGenerator {
         descriptions[0]="";
         descriptions[0]="";
         descriptions[0]="";
-        descriptions[0]="";
-        descriptions[0]="";
+        descriptions[0]="";*/
         locations= new Location[10];
         locations[0]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
         locations[1]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
@@ -68,7 +80,7 @@ public class UserGenerator {
                 members.addMember(user);
                  System.out.println("USUARIO AUTOGEn N:"+i+"\n");
           
-            System.out.println(user.getName());
+            System.out.println(user.getFirstName());
             System.out.println("");
            } 
         }

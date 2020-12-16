@@ -17,36 +17,49 @@ import java.util.List;
  * @author pabloantoniolopezmartin
  */
 public class Control {
-    private static Members members;
-    private static List<Mission> catalogo;
-    private  static List<Mission> removedMissions; //
+    private  Members members;
+    private  List<Mission> catalogo;
+    private   List<Mission> removedMissions; //
     private static Control instance =null;
-    private static UIController uiController;
-   
+    private  UIController uiController;
+    private User loggedUser;
     
     public Control(){
         this.members= new Members(); 
         this.catalogo = new LinkedList<>();
         this.removedMissions= new LinkedList<>();
+        
     }
     
     public void run() throws InterruptedException { //OJO TIENEN Q GENERARSE MINIMO LA MISMA CANTIDAD DE USUARIOS QUE DE MISIONES
-        uiController= new UIController();
+       
         loadTestUsers();
         loadTestMissions();
+         uiController= new UIController(loggedUser);
     }
-    public static UIController getUiController(){ //a
+    public  UIController getUiController(){ 
         return uiController;
     }
+    public Boolean setLoggedUser(String input){
+        
+        if(members.getUserByMailAndUsername(input)!=null){
+             loggedUser=members.getUserByMailAndUsername(input);
+             return true;
+        }
+        return false;  
+    }
+    public User getLoggedUser(){
+        return loggedUser;
+    }
     
-    public static void addMission(Mission mission){
+    public  void addMission(Mission mission){
         catalogo.add(mission);
     }
-    public static void removeMission(Mission mission){
+    public  void removeMission(Mission mission){
         catalogo.remove(mission);
        removedMissions.add(mission);
     }
-    public static Members getAllMembers(){
+    public  Members getAllMembers(){
         return members;
     }
     public static Control getInstance(){
@@ -56,16 +69,17 @@ public class Control {
         return instance;
     }
 
-    public static List getAllMissions(){
+    public  List getAllMissions(){
         return catalogo;
     }
    
 
     private void loadTestUsers() throws InterruptedException {
-         UserGenerator.generateUsers(20);
+         UserGenerator.generateUsers(5);
+         loggedUser=members.getActiveMembers().get(0);
     }
     private void loadTestMissions(){
-        MissionGenerator.generateMissions(10);
+        MissionGenerator.generateMissions(1);
     }
    
 }

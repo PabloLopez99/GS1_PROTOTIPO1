@@ -10,10 +10,15 @@ public class Description {
     private List<Label> preferences;
     private String aboutMe;
 
+    public Description(String aboutMe, List<Label>preferences, List<Weekday>availability) {
+        this.aboutMe = aboutMe;
+        this.availability = availability;
+        this.preferences = preferences;
+    }
     public Description(String aboutMe) {
         this.aboutMe = aboutMe;
         availability = new ArrayList<>();
-        availability = new ArrayList<>();
+        preferences = new ArrayList<>();
     }
 
     public List<Weekday> getAvailability() {
@@ -48,5 +53,42 @@ public class Description {
 
     public void setAboutMe(String aboutMe) {
         this.aboutMe = aboutMe;
+    }
+    public String preferencesToString(){
+        String string = "Label preferences:\n";
+        for (Label label : preferences) {
+            string+= label +"\n";
+        }
+        return string; 
+    }
+    
+    public String availabilityToString(){
+        String string = "Weekday availabilty:\n";
+        for (Weekday day : availability) {
+            string+= day +"\n";
+        }
+        return string; 
+    }
+    @Override
+    public String toString(){
+        String res = "Disponibilidad\n";
+        if(availability.size() > 0){
+            for (int i = 0; i < availability.size(); i++){
+               res += availability.get(i) + " ";
+            }
+        }else{
+            res += "No especificado";
+        }
+        res += "\nPreferencias\n";
+        if(preferences.size() > 0){
+            for (int i = 0; i < preferences.size(); i++){
+               res += preferences.get(i) + " ";
+            }
+        }else{
+            res += "No especificado";
+        }
+        res += "\nSobre mi\n";
+        res += aboutMe;
+        return res;
     }
 }

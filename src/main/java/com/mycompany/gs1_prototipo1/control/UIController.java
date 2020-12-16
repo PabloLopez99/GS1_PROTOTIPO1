@@ -14,7 +14,8 @@ import com.mycompany.gs1_prototipo1.view.pages.Ladder;
 import com.mycompany.gs1_prototipo1.view.MainFrame;
 import com.mycompany.gs1_prototipo1.view.pages.PersonalProfile;
 import com.mycompany.gs1_prototipo1.view.pages.PublicProfile;
-import com.mycompany.gs1_prototipo1.view.pages.Welcome;
+import com.mycompany.gs1_prototipo1.view.pages.Login;
+import com.mycompany.gs1_prototipo1.view.pages.Personalmission;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JFrame;
@@ -32,18 +33,24 @@ public class UIController {
     private Register register;
     private MissionPage missionPage;
     private PublicProfile publicProfile;
-    private Welcome welcome;
+    private Login welcome;
+    private Personalmission personalMission;
     
-    public UIController(){
+    public UIController(User loggedUser){
+ 
         mainFrame= new MainFrame();
         catalog = new Catalog();
         ladder= new Ladder();
         register= new Register();
-        welcome= new Welcome();
-        personalProfile = new PersonalProfile();
+        welcome= new Login();
         
+        personalProfile = new PersonalProfile(loggedUser);
+        personalMission= new Personalmission(loggedUser);
         mainFrame.setVisible(true);
-     
+        //setPage("Welcome");
+        //setPersonalProfile();
+       // setPersonalMissions();
+        setProfilePage(loggedUser);
     }
     
     public void setPage(String pageName){
@@ -58,6 +65,11 @@ public class UIController {
                 display(welcome);
             case "Register":
                 display(register);
+            
+            case "PersonalMission":
+                display(personalMission);    
+            case "MissionPage":
+                display(missionPage);    
         }
             
        
@@ -68,10 +80,18 @@ public class UIController {
     }
     public void setProfilePage(User user){
         publicProfile= new PublicProfile(user);
+        mainFrame.setPage(publicProfile);
     }
-    
+     public void setPersonalMissions(){
+        mainFrame.setPage(personalMission);
+    }
     
     private void display(JPanel pane) {
         mainFrame.setPage(pane);
     }
+    private void setPersonalProfile(){
+    
+        mainFrame.setPage(personalProfile);
+    }
+   
 }

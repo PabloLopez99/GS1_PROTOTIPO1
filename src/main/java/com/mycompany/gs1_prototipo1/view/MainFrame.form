@@ -89,7 +89,7 @@
                       <Component id="ladderIco" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
                       <Component id="homeIco" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="87" max="32767" attributes="0"/>
+                      <EmptySpace pref="186" max="32767" attributes="0"/>
                       <Component id="profileIco" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                   </Group>
@@ -111,6 +111,9 @@
             <Component class="javax.swing.JLabel" name="homeIco">
             </Component>
             <Component class="javax.swing.JLabel" name="profileIco">
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="profileIcoMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="ladderIco">
             </Component>

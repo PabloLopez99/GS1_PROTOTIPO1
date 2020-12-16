@@ -5,18 +5,40 @@
  */
 package com.mycompany.gs1_prototipo1.view.pages;
 
+import com.mycompany.gs1_prototipo1.model.User;
+import com.mycompany.gs1_prototipo1.model.types.Label;
+import com.mycompany.gs1_prototipo1.model.types.Weekday;
+import com.mycompany.gs1_prototipo1.view.MainFrame;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 /**
  *
  * @author pabloantoniolopezmartin
  */
-public class PersonalProfile extends javax.swing.JPanel {
+public class PersonalProfile extends JPanel {
+    private User user;
+    private boolean editable;
+      
 
     /**
      * Creates new form PersonalProfile
      */
-    public PersonalProfile() {
+    public PersonalProfile(User user) {
+        this.user=user;
         initComponents();
+        this.editable = false;
+        
+        System.out.println(user.getFirstName());
     }
+       
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,21 +49,515 @@ public class PersonalProfile extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        profileImagePanel = new javax.swing.JPanel();
+        imageLabel = new javax.swing.JLabel();
+        personalDataPanel = new javax.swing.JPanel();
+        modifyLabel = new javax.swing.JLabel();
+        nameField = new javax.swing.JTextField();
+        emailField = new javax.swing.JTextField();
+        ageField = new javax.swing.JTextField();
+        genderField = new javax.swing.JTextField();
+        phoneField = new javax.swing.JTextField();
+        locationPanel = new javax.swing.JPanel();
+        streetField = new javax.swing.JTextField();
+        cityField = new javax.swing.JTextField();
+        countryField = new javax.swing.JTextField();
+        stateField = new javax.swing.JTextField();
+        postCodeField = new javax.swing.JTextField();
+        descriptionPanel = new javax.swing.JPanel();
+        aboutMe = new javax.swing.JTextField();
+        availability = new javax.swing.JTextField();
+        preferences = new javax.swing.JTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        availabilityList = new javax.swing.JList();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        preferencesList = new javax.swing.JList();
+        addDayLabel = new javax.swing.JLabel();
+        removeDayLabel = new javax.swing.JLabel();
+        addLabelLabel = new javax.swing.JLabel();
+        removeLabelLabel = new javax.swing.JLabel();
+        listsPanel = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        filesList = new javax.swing.JList();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        ownedMissions = new javax.swing.JList();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        activeMissions = new javax.swing.JList();
+        filesLabel = new javax.swing.JLabel();
+        ownedMissionsLabel = new javax.swing.JLabel();
+        activeMissionsLabel = new javax.swing.JLabel();
+        addFileLabel = new javax.swing.JLabel();
+        removeFileLabel = new javax.swing.JLabel();
+
         setPreferredSize(new java.awt.Dimension(303, 608));
+
+        profileImagePanel.setBackground(new java.awt.Color(255, 255, 255));
+        profileImagePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        profileImagePanel.setForeground(new java.awt.Color(0, 0, 255));
+
+        javax.swing.GroupLayout profileImagePanelLayout = new javax.swing.GroupLayout(profileImagePanel);
+        profileImagePanel.setLayout(profileImagePanelLayout);
+        profileImagePanelLayout.setHorizontalGroup(
+            profileImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profileImagePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        profileImagePanelLayout.setVerticalGroup(
+            profileImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profileImagePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        modifyLabel.setText("Modificar perfil");
+        modifyLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                modifyLabelMouseClicked(evt);
+            }
+        });
+
+        nameField.setEditable(false);
+        nameField.setText("Nombre:");
+
+        emailField.setEditable(false);
+        emailField.setText("Email:");
+
+        ageField.setEditable(false);
+        ageField.setText("Edad:");
+
+        genderField.setEditable(false);
+        genderField.setText("Género:");
+
+        phoneField.setEditable(false);
+        phoneField.setText("Telefono:");
+
+        javax.swing.GroupLayout personalDataPanelLayout = new javax.swing.GroupLayout(personalDataPanel);
+        personalDataPanel.setLayout(personalDataPanelLayout);
+        personalDataPanelLayout.setHorizontalGroup(
+            personalDataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(personalDataPanelLayout.createSequentialGroup()
+                .addGroup(personalDataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(personalDataPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(personalDataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(phoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ageField, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(genderField, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(personalDataPanelLayout.createSequentialGroup()
+                        .addGap(87, 87, 87)
+                        .addComponent(modifyLabel)))
+                .addContainerGap(82, Short.MAX_VALUE))
+        );
+        personalDataPanelLayout.setVerticalGroup(
+            personalDataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(personalDataPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ageField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(genderField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(phoneField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(modifyLabel))
+        );
+
+        streetField.setEditable(false);
+        streetField.setText("Calle:");
+
+        cityField.setEditable(false);
+        cityField.setText("Ciudad:");
+
+        countryField.setEditable(false);
+        countryField.setText("Pais:");
+
+        stateField.setEditable(false);
+        stateField.setText("Estado:");
+
+        postCodeField.setEditable(false);
+        postCodeField.setText("Post Code:");
+
+        javax.swing.GroupLayout locationPanelLayout = new javax.swing.GroupLayout(locationPanel);
+        locationPanel.setLayout(locationPanelLayout);
+        locationPanelLayout.setHorizontalGroup(
+            locationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(locationPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(locationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(streetField, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(locationPanelLayout.createSequentialGroup()
+                        .addGroup(locationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cityField, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(countryField, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(98, 98, 98)
+                        .addGroup(locationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(postCodeField, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(stateField, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        locationPanelLayout.setVerticalGroup(
+            locationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(locationPanelLayout.createSequentialGroup()
+                .addComponent(streetField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(locationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cityField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(stateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(locationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(countryField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(postCodeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 10, Short.MAX_VALUE))
+        );
+
+        aboutMe.setEditable(false);
+        aboutMe.setText(user.getDescription().getAboutMe());
+
+        availability.setEditable(false);
+        availability.setText(user.getDescription().availabilityToString());
+
+        preferences.setEditable(false);
+        preferences.setText(user.getDescription().preferencesToString());
+
+        availabilityList.setModel(new javax.swing.AbstractListModel() {
+            Weekday[] weekdays = {Weekday.Lunes,Weekday.Martes, Weekday.Miercoles,
+                Weekday.Jueves, Weekday.Viernes, Weekday.Sabado, Weekday.Domingo};
+            public int getSize() { return weekdays.length; }
+            public Object getElementAt(int i) { return weekdays[i]; }
+        });
+        jScrollPane4.setViewportView(availabilityList);
+
+        preferencesList.setModel(new javax.swing.AbstractListModel() {
+            Label[] labels = {Label.Ambiental, Label.Apoyo_socio_sanitario,
+                Label.Comunitario, Label.Cuidado_de_mayores, Label.Cuidado_de_menores,
+                Label.Cultural, Label.Deportivo, Label.Educativo, Label.Social};
+            public int getSize() { return labels.length; }
+            public Object getElementAt(int i) { return labels[i]; }
+        });
+        jScrollPane5.setViewportView(preferencesList);
+
+        addDayLabel.setText("Añadir día");
+        addDayLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addDayLabelMouseClicked(evt);
+            }
+        });
+
+        removeDayLabel.setText("Quitar día");
+        removeDayLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                removeDayLabelMouseClicked(evt);
+            }
+        });
+
+        addLabelLabel.setText("Añadir etiqueta");
+        addLabelLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addLabelLabelMouseClicked(evt);
+            }
+        });
+
+        removeLabelLabel.setText("Quitar etiqueta");
+        removeLabelLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                removeLabelLabelMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout descriptionPanelLayout = new javax.swing.GroupLayout(descriptionPanel);
+        descriptionPanel.setLayout(descriptionPanelLayout);
+        descriptionPanelLayout.setHorizontalGroup(
+            descriptionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(descriptionPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(descriptionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(aboutMe, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(descriptionPanelLayout.createSequentialGroup()
+                        .addGroup(descriptionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(descriptionPanelLayout.createSequentialGroup()
+                                .addComponent(preferences, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                            .addGroup(descriptionPanelLayout.createSequentialGroup()
+                                .addComponent(availability, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(33, 33, 33)
+                        .addGroup(descriptionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(removeDayLabel)
+                            .addComponent(addDayLabel)
+                            .addComponent(addLabelLabel)
+                            .addComponent(removeLabelLabel)))))
+        );
+        descriptionPanelLayout.setVerticalGroup(
+            descriptionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(descriptionPanelLayout.createSequentialGroup()
+                .addGroup(descriptionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(descriptionPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(descriptionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(availability, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)))
+                    .addGroup(descriptionPanelLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(addDayLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(removeDayLabel)))
+                .addGroup(descriptionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(descriptionPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(descriptionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(preferences, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE))
+                    .addGroup(descriptionPanelLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(addLabelLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(removeLabelLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(aboutMe, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        filesList.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = user.getFilesName();
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(filesList);
+
+        ownedMissions.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = user.getMissionName();
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(ownedMissions);
+
+        activeMissions.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = user.getSubscribedMissionName();
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane3.setViewportView(activeMissions);
+
+        filesLabel.setText("Files");
+
+        ownedMissionsLabel.setText("Owned Missions");
+
+        activeMissionsLabel.setText("Active Missions");
+
+        addFileLabel.setText("Añadir archivo");
+        addFileLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addFileLabelMouseClicked(evt);
+            }
+        });
+
+        removeFileLabel.setText("Quitar archivo");
+        removeFileLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                removeFileLabelMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout listsPanelLayout = new javax.swing.GroupLayout(listsPanel);
+        listsPanel.setLayout(listsPanelLayout);
+        listsPanelLayout.setHorizontalGroup(
+            listsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(listsPanelLayout.createSequentialGroup()
+                .addGroup(listsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(listsPanelLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(listsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(filesLabel))
+                        .addGap(18, 18, 18)
+                        .addGroup(listsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ownedMissionsLabel))
+                        .addGap(18, 18, 18)
+                        .addGroup(listsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(activeMissionsLabel)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(listsPanelLayout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(addFileLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(removeFileLabel)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        listsPanelLayout.setVerticalGroup(
+            listsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, listsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(listsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addFileLabel)
+                    .addComponent(removeFileLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(listsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, listsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(ownedMissionsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(activeMissionsLabel))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, listsPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(filesLabel)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(listsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(profileImagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(personalDataPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addComponent(descriptionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(listsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(locationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(personalDataPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(profileImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(locationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(descriptionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(listsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void modifyLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modifyLabelMouseClicked
+        if(editable){
+            setEditable(false);
+        }else{
+            setEditable(true);
+        }
+    }//GEN-LAST:event_modifyLabelMouseClicked
+
+    private void addDayLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addDayLabelMouseClicked
+        if (editable){
+            user.getDescription().addAvailability((Weekday) availabilityList.getSelectedValue());
+            availability.repaint();
+        }
+    }//GEN-LAST:event_addDayLabelMouseClicked
+
+    private void removeDayLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeDayLabelMouseClicked
+        if (editable){
+            user.getDescription().removeAvailability((Weekday) availabilityList.getSelectedValue());
+            availability.repaint();
+        }
+    }//GEN-LAST:event_removeDayLabelMouseClicked
+
+    private void addLabelLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addLabelLabelMouseClicked
+        if (editable){
+            user.getDescription().addPreferences((Label) preferencesList.getSelectedValue());
+            preferences.repaint();
+        }
+    }//GEN-LAST:event_addLabelLabelMouseClicked
+
+    private void removeLabelLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeLabelLabelMouseClicked
+        if (editable){
+            user.getDescription().removePreferences((Label) preferencesList.getSelectedValue());
+            preferences.repaint();
+        }
+    }//GEN-LAST:event_removeLabelLabelMouseClicked
+
+    private void addFileLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addFileLabelMouseClicked
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.showOpenDialog(this);
+        user.addFile(fileChooser.getSelectedFile());
+        filesList.repaint();
+    }//GEN-LAST:event_addFileLabelMouseClicked
+
+    private void removeFileLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeFileLabelMouseClicked
+        user.removeFile((File) filesList.getSelectedValue());
+        filesList.repaint();
+    }//GEN-LAST:event_removeFileLabelMouseClicked
+
+    private void setEditable(boolean editable){
+        this.editable = editable;
+        nameField.setEditable(editable);
+        ageField.setEditable(editable);
+        genderField.setEditable(editable);
+        emailField.setEditable(editable);
+        phoneField.setEditable(editable);
+        
+        streetField.setEditable(editable);
+        cityField.setEditable(editable);
+        stateField.setEditable(editable);      
+        countryField.setEditable(editable);
+        postCodeField.setEditable(editable);
+        
+        aboutMe.setEditable(editable);
+        availability.setEditable(editable);
+        preferences.setEditable(editable);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField aboutMe;
+    private javax.swing.JList activeMissions;
+    private javax.swing.JLabel activeMissionsLabel;
+    private javax.swing.JLabel addDayLabel;
+    private javax.swing.JLabel addFileLabel;
+    private javax.swing.JLabel addLabelLabel;
+    private javax.swing.JTextField ageField;
+    private javax.swing.JTextField availability;
+    private javax.swing.JList availabilityList;
+    private javax.swing.JTextField cityField;
+    private javax.swing.JTextField countryField;
+    private javax.swing.JPanel descriptionPanel;
+    private javax.swing.JTextField emailField;
+    private javax.swing.JLabel filesLabel;
+    private javax.swing.JList filesList;
+    private javax.swing.JTextField genderField;
+    private javax.swing.JLabel imageLabel;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JPanel listsPanel;
+    private javax.swing.JPanel locationPanel;
+    private javax.swing.JLabel modifyLabel;
+    private javax.swing.JTextField nameField;
+    private javax.swing.JList ownedMissions;
+    private javax.swing.JLabel ownedMissionsLabel;
+    private javax.swing.JPanel personalDataPanel;
+    private javax.swing.JTextField phoneField;
+    private javax.swing.JTextField postCodeField;
+    private javax.swing.JTextField preferences;
+    private javax.swing.JList preferencesList;
+    private javax.swing.JPanel profileImagePanel;
+    private javax.swing.JLabel removeDayLabel;
+    private javax.swing.JLabel removeFileLabel;
+    private javax.swing.JLabel removeLabelLabel;
+    private javax.swing.JTextField stateField;
+    private javax.swing.JTextField streetField;
     // End of variables declaration//GEN-END:variables
+
+
 }

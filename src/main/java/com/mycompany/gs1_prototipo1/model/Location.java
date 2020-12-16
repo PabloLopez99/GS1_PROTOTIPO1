@@ -86,7 +86,9 @@ public class Location {
     public void setPoint(Point point) {
         this.point = point;
     }
-   
+     public String toString(){
+        return city;
+    }
 
     
     
