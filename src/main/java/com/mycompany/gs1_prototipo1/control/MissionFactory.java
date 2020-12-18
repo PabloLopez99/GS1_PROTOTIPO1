@@ -13,15 +13,15 @@ public class MissionFactory {
     //LLAMARLO QUIZÁS MISSIONCONTRL EN LUGAR DE FACTORY?
     
     //CONSTRUCTORES
-    public static void NewMission(User owner,List<User> subscribedUsers,String description, Date startDate, Date endDate, Boolean inPerson, Location location, List<Label> labels){
-       Mission newMission = new Mission(owner,subscribedUsers,description,startDate,endDate,labels,inPerson,location);
+    public static void NewMission(String title,User owner,List<User> subscribedUsers,String description, Date startDate, Date endDate, Boolean inPerson, Location location, List<Label> labels){
+       Mission newMission = new Mission(title,owner,subscribedUsers,description,startDate,endDate,labels,inPerson,location);
        owner.addMission(newMission);
        subscribeUsers(subscribedUsers,newMission); //Suscribe a los usuarios en la misión
-       Control.addMission(newMission);
+       Control.getInstance().addMission(newMission);
     }
     //Without subscribedUsers List
-    public static void NewMission(User owner,String description, Date startDate, Date endDate, Boolean inPerson, Location location, List<Label> labels){
-       Mission newMission = new Mission(owner,description,startDate,endDate,labels,inPerson,location);
+    public static void NewMission(String title,User owner,String description, Date startDate, Date endDate, Boolean inPerson, Location location, List<Label> labels){
+       Mission newMission = new Mission(title,owner,description,startDate,endDate,labels,inPerson,location);
        owner.addMission(newMission);
        Control.getInstance().addMission(newMission);
 
@@ -39,9 +39,7 @@ public class MissionFactory {
         mission.removeSubscribedUser(user);
         user.unSubscribeMission(mission);
     }
-    public static List<Mission> getAllMissions(){
-        return null; //TODO
-    }
+    
     public static void removeMission(Mission mission){
         removeAllSubscribed(mission);
         mission.getOwner().removeMission(mission);

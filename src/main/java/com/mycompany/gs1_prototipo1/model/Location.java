@@ -23,7 +23,55 @@ public class Location {
         this.coordinates = coordinates;
         this.offset = offset;
     }
-
-    
-    
+    public Street getStreet() {
+        return street;
+    }
+    public void setStreet(Street street) {
+        this.street = street;
+    }
+    public String getCity() {
+        return city;
+    }
+    public void setCity(String city) {
+        this.city = city;
+    }
+    public String getState() {
+        return state;
+    }
+    public void setState(String state) {
+        this.state = state;
+    }
+    public String getCountry() {
+        return country;
+    }
+    public void setCountry(String country) {
+        this.country = country;
+    }
+    public String getPostCode() {
+        return postCode;
+    }
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
+    }
+    public Coordinate getCoordinates() {
+        return coordinates;
+    }
+    public void setCoordinates(Coordinate coordinates) {
+        this.coordinates = coordinates;
+    }
+    public String getOffset() {
+        return offset;
+    }
+    public void setOffset(String offset) {
+        this.offset = offset;
+    }
+    public Point getPoint() {
+        return point;
+    }
+    public void setPoint(Point point) {
+        this.point = point;
+    }
+     public String toString(){
+        return city;
+    } 
 }

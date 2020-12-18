@@ -89,7 +89,7 @@
                       <Component id="ladderIco" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
                       <Component id="homeIco" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="90" max="32767" attributes="0"/>
+                      <EmptySpace pref="186" max="32767" attributes="0"/>
                       <Component id="profileIco" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                   </Group>
@@ -109,25 +109,13 @@
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JLabel" name="homeIco">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/Users/pabloantoniolopezmartin/NetBeansProjects/GS1_PROTOTIPO1/src/main/java/com/mycompany/gs1_prototipo1/media/icons8-home-50.png"/>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="profileIco">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/Users/pabloantoniolopezmartin/NetBeansProjects/GS1_PROTOTIPO1/src/main/java/com/mycompany/gs1_prototipo1/media/icons8-user-male-60.png"/>
-                </Property>
-              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="profileIcoMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="ladderIco">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/Users/pabloantoniolopezmartin/NetBeansProjects/GS1_PROTOTIPO1/src/main/java/com/mycompany/gs1_prototipo1/media/icons8-trophy-60.png"/>
-                </Property>
-              </Properties>
             </Component>
           </SubComponents>
         </Container>

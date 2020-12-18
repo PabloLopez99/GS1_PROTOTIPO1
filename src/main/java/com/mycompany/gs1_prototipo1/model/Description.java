@@ -10,10 +10,15 @@ public class Description {
     private List<Label> preferences;
     private String aboutMe;
 
+    public Description(String aboutMe, List<Label>preferences, List<Weekday>availability) {
+        this.aboutMe = aboutMe;
+        this.availability = availability;
+        this.preferences = preferences;
+    }
     public Description(String aboutMe) {
         this.aboutMe = aboutMe;
         availability = new ArrayList<>();
-        availability = new ArrayList<>();
+        preferences = new ArrayList<>();
     }
 
     public List<Weekday> getAvailability() {
@@ -48,5 +53,50 @@ public class Description {
 
     public void setAboutMe(String aboutMe) {
         this.aboutMe = aboutMe;
+    }
+    public String preferencesToString(){
+        String res = "Preferencias\n";
+        if(preferences.size() > 0){
+            for (int i = 0; i < preferences.size(); i++){
+               res += preferences.get(i) + " ";
+            }
+        }else{
+            res += "No especificado";
+        }
+        return res;
+    }
+    
+    public String availabilityToString(){
+        String res = "Disponibilidad\n";
+        if(availability.size() > 0){
+            for (int i = 0; i < availability.size(); i++){
+               res += availability.get(i) + " ";
+            }
+        }else{
+            res += "No especificado";
+        } 
+        return res;
+    }
+    @Override
+    public String toString(){
+        String res = "Disponibilidad\n";
+        if(availability.size() > 0){
+            for (int i = 0; i < availability.size(); i++){
+               res += availability.get(i) + " ";
+            }
+        }else{
+            res += "No especificado";
+        }
+        res += "\nPreferencias\n";
+        if(preferences.size() > 0){
+            for (int i = 0; i < preferences.size(); i++){
+               res += preferences.get(i) + " ";
+            }
+        }else{
+            res += "No especificado";
+        }
+        res += "\nSobre mi\n";
+        res += aboutMe;
+        return res;
     }
 }

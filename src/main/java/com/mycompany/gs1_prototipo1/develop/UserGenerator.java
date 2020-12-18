@@ -14,8 +14,13 @@ import com.mycompany.gs1_prototipo1.model.Login;
 import com.mycompany.gs1_prototipo1.model.Street;
 import com.mycompany.gs1_prototipo1.model.User;
 import com.mycompany.gs1_prototipo1.model.Description;
+import com.mycompany.gs1_prototipo1.model.types.Label;
+import com.mycompany.gs1_prototipo1.model.types.Weekday;
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +33,42 @@ import org.json.JSONObject;
 public class UserGenerator {
       
      //It adds users to members
+    private static int count;
+    private static Description[] descriptions;
+    private static Location[] locations;
+    static{
+        descriptions= new Description[10];
+        List preferences= new LinkedList<Label>();
+        preferences.add(Label.Ambiental);
+        List availability= new LinkedList<Weekday>();
+        
+        availability.add(Weekday.Jueves);
+        availability.add(Weekday.Miercoles);
+        descriptions[0]=new Description("Soy una persona muy amable y atenta, me encanta ayudar a los demás",preferences,availability){
+            
+        };
+       /* descriptions[0]="Soy una persona muy amable y atenta, me encanta ayudar a los demás y";
+        descriptions[0]="";
+        descriptions[0]="";
+        descriptions[0]="";
+        descriptions[0]="";
+        descriptions[0]="";
+        descriptions[0]="";
+        descriptions[0]="";
+        descriptions[0]="";*/
+        locations= new Location[10];
+        locations[0]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
+        locations[1]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
+        locations[2]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
+        locations[3]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
+        locations[4]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
+        locations[5]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
+        locations[6]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
+        locations[7]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
+        locations[8]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
+        locations[9]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
+     
+    }
     public static void generateUsers(int ammount) throws InterruptedException{
       
         Members members= Control.getInstance().getAllMembers();
@@ -40,12 +81,14 @@ public class UserGenerator {
                 members.addMember(user);
                  System.out.println("USUARIO AUTOGEn N:"+i+"\n");
           
-            System.out.println(user.getName());
+            System.out.println(user.getFirstName());
+             System.out.println(user.getLogin().getUsername());
+             System.out.println(user.getLogin().getPasswd());
+               System.out.println("");
             System.out.println("");
-           }
-           
-            
+           } 
         }
+  
     }
     public static User genUser() throws InterruptedException{
           User user=null;
@@ -57,7 +100,7 @@ public class UserGenerator {
            
                 user = new User(
                                 response.getJSONObject("name").getString("first"),
-                                "String lastName", 
+                                response.getJSONObject("name").getString("last"), 
                                 new Login(login.getString("uuid"), 
                                           login.getString("username"), 
                                           login.getString("password"), 
@@ -87,9 +130,24 @@ public class UserGenerator {
                                 
                            
         } catch (Exception ex) {
-           return genUser(); //Debido a que en ocasiones, la api devuelve error 503 (api gratis) se usa recursividad
+            count++;
+            if(count>30){ //Se pone umbral para que no entre en bucle infinito
+                ex.printStackTrace();
+            }else{
+                return genUser(); //Debido a que en ocasiones, la api devuelve error 503 (api gratis) se usa recursividad
+            }
+           
         }
        return user;
+    }
+
+    private static void genPersonalInfo() {
+        
+        for (int i = 0; i <  Control.getInstance().getAllMembers().getActiveMembers().size(); i++) {
+            Control.getInstance().getAllMembers().getActiveMembers().get(i).setDescription(descriptions[i%descriptions.length]);
+            Control.getInstance().getAllMembers().getActiveMembers().get(i).setLocation(locations[i%locations.length]);
+           
+        }
     }
       
 }

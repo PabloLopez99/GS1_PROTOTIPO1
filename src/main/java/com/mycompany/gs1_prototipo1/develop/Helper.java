@@ -9,6 +9,8 @@ import com.mycompany.gs1_prototipo1.model.Coordinate;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.imageio.ImageIO;
 
 /**
@@ -28,5 +30,11 @@ public class Helper {
               e.printStackTrace();
           } 
           return image;
+    }
+
+    public static String getCurrentDate() {
+        SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy");
+        Date date = new Date(System.currentTimeMillis());
+        return formatter.format(date);
     }
 }

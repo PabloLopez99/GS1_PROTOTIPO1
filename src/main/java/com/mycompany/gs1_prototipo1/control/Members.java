@@ -13,12 +13,30 @@ public class Members {
         total = new ArrayList<>();
     }
     
+    
     public void addMember(User user){
         if (!total.contains(user)){
             total.add(user);
             active.add(user);
         }
     }
+    public boolean containsUsername(String input){ 
+         for (User user : active) {
+            if(user.getLogin().getUsername().equals(input)){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean containsMail(String input){
+         for (User user : active) {
+            if(user.getEmail().equals(input)){
+                return true;
+            }
+        }
+         return false;
+    }
+   
     
     public void deleteMember(User user){
         total.remove(user);
@@ -34,5 +52,15 @@ public class Members {
             active.add(user);
         }
     }
-    
+    public List<User> getActiveMembers(){
+        return active;
+    }
+    public User getUserByMailAndUsername(String input){
+        for (User user : active) {
+            if(user.getLogin().getUsername().equals(input)||user.getEmail().equals(input)){
+                return user;
+            }
+        }
+        return null;
+    }
 }

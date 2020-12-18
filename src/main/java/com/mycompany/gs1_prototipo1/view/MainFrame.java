@@ -5,8 +5,11 @@
  */
 package com.mycompany.gs1_prototipo1.view;
 
+import com.mycompany.gs1_prototipo1.control.Control;
+import com.mycompany.gs1_prototipo1.view.pages.PersonalProfile;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BoxLayout;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -16,6 +19,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author pabloantoniolopezmartin
  */
 public class MainFrame extends javax.swing.JFrame {
+    private final Control control;
 
     /**
      * He creado una clase Abstracta para cubrir todas las posibles ventanas de la apliación
@@ -24,10 +28,16 @@ public class MainFrame extends javax.swing.JFrame {
     
     public MainFrame() {
         initComponents();
+        control = Control.getInstance();
        
     }
     public void setPage(JPanel pane){
+        
+        System.out.println("a");
+        displayPagePane.removeAll();
+        displayPagePane.setLayout(new BoxLayout(displayPagePane, BoxLayout.PAGE_AXIS));
         displayPagePane.add(pane);
+        pack();
     }
 
     /**
@@ -55,11 +65,11 @@ public class MainFrame extends javax.swing.JFrame {
         buttonsPane.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(231, 231, 179), 2, true));
         buttonsPane.setForeground(new java.awt.Color(255, 255, 204));
 
-        homeIco.setIcon(new javax.swing.ImageIcon("/Users/pabloantoniolopezmartin/NetBeansProjects/GS1_PROTOTIPO1/src/main/java/com/mycompany/gs1_prototipo1/media/icons8-home-50.png")); // NOI18N
-
-        profileIco.setIcon(new javax.swing.ImageIcon("/Users/pabloantoniolopezmartin/NetBeansProjects/GS1_PROTOTIPO1/src/main/java/com/mycompany/gs1_prototipo1/media/icons8-user-male-60.png")); // NOI18N
-
-        ladderIco.setIcon(new javax.swing.ImageIcon("/Users/pabloantoniolopezmartin/NetBeansProjects/GS1_PROTOTIPO1/src/main/java/com/mycompany/gs1_prototipo1/media/icons8-trophy-60.png")); // NOI18N
+        profileIco.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                profileIcoMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout buttonsPaneLayout = new javax.swing.GroupLayout(buttonsPane);
         buttonsPane.setLayout(buttonsPaneLayout);
@@ -70,7 +80,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(ladderIco)
                 .addGap(84, 84, 84)
                 .addComponent(homeIco)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
                 .addComponent(profileIco)
                 .addGap(14, 14, 14))
         );
@@ -125,6 +135,10 @@ public class MainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void profileIcoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileIcoMouseClicked
+        control.getUiController().setPage("PersonalProfile");
+    }//GEN-LAST:event_profileIcoMouseClicked
 
     
 

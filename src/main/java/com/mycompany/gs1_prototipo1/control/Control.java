@@ -5,6 +5,7 @@
  */
 package com.mycompany.gs1_prototipo1.control;
 
+import com.mycompany.gs1_prototipo1.develop.MissionGenerator;
 import com.mycompany.gs1_prototipo1.develop.UserGenerator;
 import com.mycompany.gs1_prototipo1.model.Mission;
 import com.mycompany.gs1_prototipo1.model.User;
@@ -16,33 +17,49 @@ import java.util.List;
  * @author pabloantoniolopezmartin
  */
 public class Control {
-    private static Members members;
-    private static List<Mission> catalogo;
-    private  static List<Mission> removedMissions; //
+    private  Members members;
+    private  List<Mission> catalogo;
+    private   List<Mission> removedMissions; //
     private static Control instance =null;
-
-   
+    private  UIController uiController;
+    private User loggedUser;
     
     public Control(){
-        this.members= new Members();
-  
+        this.members= new Members(); 
         this.catalogo = new LinkedList<>();
         this.removedMissions= new LinkedList<>();
+        
     }
     
-    public void run() throws InterruptedException {
-       UIController uiController= new UIController();
-       loadTestUsers();
+    public void run() throws InterruptedException { //OJO TIENEN Q GENERARSE MINIMO LA MISMA CANTIDAD DE USUARIOS QUE DE MISIONES
+       
+        loadTestUsers();
+        loadTestMissions();
+         uiController= new UIController(loggedUser);
+    }
+    public  UIController getUiController(){ 
+        return uiController;
+    }
+    public Boolean setLoggedUser(String input){
+        
+        if(members.getUserByMailAndUsername(input)!=null){
+             loggedUser=members.getUserByMailAndUsername(input);
+             return true;
+        }
+        return false;  
+    }
+    public User getLoggedUser(){
+        return loggedUser;
     }
     
-    public static void addMission(Mission mission){
+    public  void addMission(Mission mission){
         catalogo.add(mission);
     }
-    public static void removeMission(Mission mission){
+    public  void removeMission(Mission mission){
         catalogo.remove(mission);
        removedMissions.add(mission);
     }
-    public static Members getAllMembers(){
+    public  Members getAllMembers(){
         return members;
     }
     public static Control getInstance(){
@@ -52,11 +69,17 @@ public class Control {
         return instance;
     }
 
+    public  List getAllMissions(){
+        return catalogo;
+    }
    
 
     private void loadTestUsers() throws InterruptedException {
-         UserGenerator.generateUsers(100);
+         UserGenerator.generateUsers(5);
+         loggedUser=members.getActiveMembers().get(0);
     }
-
-  
+    private void loadTestMissions(){
+        MissionGenerator.generateMissions(1);
+    }
+   
 }
