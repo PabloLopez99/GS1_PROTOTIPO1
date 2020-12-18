@@ -13,6 +13,7 @@ import com.mycompany.gs1_prototipo1.model.types.Label;
 import com.mycompany.gs1_prototipo1.model.types.Weekday;
 import com.mycompany.gs1_prototipo1.view.MainFrame;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FilenameFilter;
@@ -44,7 +45,7 @@ public class PersonalProfile extends JPanel {
         initComponents();
         this.editable = false;
         
-        System.out.println(user.getFirstName());
+        System.out.println("asdfasdfasdf:"+user.getFirstName());
     }
        
 
@@ -481,7 +482,7 @@ public class PersonalProfile extends JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(locationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(profileImagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(profileImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(personalDataPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -574,6 +575,7 @@ public class PersonalProfile extends JPanel {
     }//GEN-LAST:event_addFileLabelMouseClicked
 
     private void changePhotoLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changePhotoLabelMouseClicked
+                                             
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.showOpenDialog(this);
         try {
@@ -581,7 +583,8 @@ public class PersonalProfile extends JPanel {
         } catch (IOException ex) {
             Logger.getLogger(PersonalProfile.class.getName()).log(Level.SEVERE, null, ex);
         }
-        imageLabel.setIcon(new ImageIcon(user.getPictureMedium()));
+        Image img = new ImageIcon(user.getPictureMedium()).getImage();
+        imageLabel.setIcon(new ImageIcon(img.getScaledInstance(imageLabel.getWidth(), imageLabel.getHeight(), Image.SCALE_SMOOTH)));
     }//GEN-LAST:event_changePhotoLabelMouseClicked
 
     private void setEditable(boolean editable){

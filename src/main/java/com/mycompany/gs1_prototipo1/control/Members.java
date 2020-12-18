@@ -20,6 +20,12 @@ public class Members {
             active.add(user);
         }
     }
+    public boolean containsUser(User user){
+        if(active.contains(user)){
+            return true;
+        }
+        return false;
+    }
     public boolean containsUsername(String input){ 
          for (User user : active) {
             if(user.getLogin().getUsername().equals(input)){
@@ -57,7 +63,9 @@ public class Members {
     }
     public User getUserByMailAndUsername(String input){
         for (User user : active) {
-            if(user.getLogin().getUsername().equals(input)||user.getEmail().equals(input)){
+            if(user.getLogin().getUsername().equals(input)){
+              
+                System.out.println(user.getName());
                 return user;
             }
         }

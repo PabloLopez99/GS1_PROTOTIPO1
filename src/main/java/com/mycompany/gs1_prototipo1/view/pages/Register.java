@@ -280,9 +280,9 @@ public class Register extends javax.swing.JPanel {
         User user= RegisterHandler.registerUser(userNameTextField.getText(), nameTextField.getText(), lastNameTextField.getText(),birthDateTextField.getText() ,mailTextField.getText(), String.valueOf(password1TextField.getPassword()),  String.valueOf(password1TextField.getPassword()));
         if(user!=null){
             Control.getInstance().getAllMembers().addMember(user);
-            Control.getInstance().setLoggedUser("userNameTextField");
+            Control.getInstance().setLoggedUser(user);
             System.out.println("queso");
-            Control.getInstance().getUiController().setPersonalProfile();
+            Control.getInstance().getUiController().setPersonalProfile(user);
         }else{
             System.out.println("null");
         }
