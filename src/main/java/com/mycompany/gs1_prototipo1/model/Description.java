@@ -55,19 +55,27 @@ public class Description {
         this.aboutMe = aboutMe;
     }
     public String preferencesToString(){
-        String string = "Label preferences:\n";
-        for (Label label : preferences) {
-            string+= label +"\n";
+        String res = "Preferencias\n";
+        if(preferences.size() > 0){
+            for (int i = 0; i < preferences.size(); i++){
+               res += preferences.get(i) + " ";
+            }
+        }else{
+            res += "No especificado";
         }
-        return string; 
+        return res;
     }
     
     public String availabilityToString(){
-        String string = "Weekday availabilty:\n";
-        for (Weekday day : availability) {
-            string+= day +"\n";
-        }
-        return string; 
+        String res = "Disponibilidad\n";
+        if(availability.size() > 0){
+            for (int i = 0; i < availability.size(); i++){
+               res += availability.get(i) + " ";
+            }
+        }else{
+            res += "No especificado";
+        } 
+        return res;
     }
     @Override
     public String toString(){

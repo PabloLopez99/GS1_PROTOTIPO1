@@ -16,6 +16,7 @@ import com.mycompany.gs1_prototipo1.view.pages.PersonalProfile;
 import com.mycompany.gs1_prototipo1.view.pages.PublicProfile;
 import com.mycompany.gs1_prototipo1.view.pages.Login;
 import com.mycompany.gs1_prototipo1.view.pages.Personalmission;
+import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JFrame;
@@ -35,63 +36,98 @@ public class UIController {
     private PublicProfile publicProfile;
     private Login welcome;
     private Personalmission personalMission;
+
+    
+    
     
     public UIController(User loggedUser){
  
         mainFrame= new MainFrame();
         catalog = new Catalog();
-        ladder= new Ladder();
+        ladder        = new Ladder();
         register= new Register();
         welcome= new Login();
         
         personalProfile = new PersonalProfile(loggedUser);
-        personalMission= new Personalmission(loggedUser);
+
         mainFrame.setVisible(true);
-        //setPage("Welcome");
-        //setPersonalProfile();
-       // setPersonalMissions();
-        setProfilePage(loggedUser);
+      
+        mainFrame.setPage(welcome);
+        //Control.getInstance().getLoggedUser().addFile(new File("/Users/pabloantoniolopezmartin/Documents/intellij_shortcuts.docx"));
+        //setProfilePage(Control.getInstance().getLoggedUser());
     }
     
     public void setPage(String pageName){
-        switch(pageName){
-            case "PersonalProfile":
-                display(personalProfile);
-            case "Catalog":
-                display(catalog);
-            case "Ladder":
-                display(ladder);
-            case "Welcome":
-                display(welcome);
-            case "Register":
-                display(register);
-            
-            case "PersonalMission":
-                display(personalMission);    
-            case "MissionPage":
-                display(missionPage);    
-        }
-            
-       
+       if(pageName.equals("PersonalProfile")){
+            display(personalProfile);
+       }else if(pageName.equals("Catalog")){
+            display(catalog);
+       }else if(pageName.equals("Ladder")){
+            display(ladder);
+       }else if(pageName.equals("Register")){
+            display(register); 
+       }else if(pageName.equals("PersonalMission")){
+            display(personalMission);    
+       }else if(pageName.equals("Welcome")){
+            display(welcome);    
+       }
+   
     }
     public void setMissionPage(Mission mission){
         missionPage= new MissionPage(mission);
         
     }
     public void setProfilePage(User user){
+       
         publicProfile= new PublicProfile(user);
         mainFrame.setPage(publicProfile);
     }
-     public void setPersonalMissions(){
+     public void setPersonalMissions(User user){
+        personalMission= new Personalmission(user);
         mainFrame.setPage(personalMission);
     }
     
     private void display(JPanel pane) {
         mainFrame.setPage(pane);
     }
-    private void setPersonalProfile(){
+    public void setPersonalProfile(){
     
         mainFrame.setPage(personalProfile);
+    }
+    public MainFrame getMainFrame() {
+        return mainFrame;
+    }
+
+    public Catalog getCatalog() {
+        return catalog;
+    }
+
+    public Ladder getLadder() {
+        return ladder;
+    }
+
+    public PersonalProfile getPersonalProfile() {
+        return personalProfile;
+    }
+
+    public Register getRegister() {
+        return register;
+    }
+
+    public MissionPage getMissionPage() {
+        return missionPage;
+    }
+
+    public PublicProfile getPublicProfile() {
+        return publicProfile;
+    }
+
+    public Login getWelcome() {
+        return welcome;
+    }
+
+    public Personalmission getPersonalMission() {
+        return personalMission;
     }
    
 }

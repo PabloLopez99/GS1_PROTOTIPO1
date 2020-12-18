@@ -32,8 +32,12 @@ public class MainFrame extends javax.swing.JFrame {
        
     }
     public void setPage(JPanel pane){
+        
+        System.out.println("a");
+        displayPagePane.removeAll();
         displayPagePane.setLayout(new BoxLayout(displayPagePane, BoxLayout.PAGE_AXIS));
         displayPagePane.add(pane);
+        pack();
     }
 
     /**

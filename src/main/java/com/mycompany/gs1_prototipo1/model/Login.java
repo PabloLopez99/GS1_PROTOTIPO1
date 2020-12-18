@@ -13,7 +13,11 @@ public class Login {
     private String shal;
     private String sha256;
   
-
+    public Login(String username,String passwd){
+        this.username=username;
+        this.passwd=passwd;
+    }
+    
     public Login(String uid, String username, String passwd, String salt, String md5, String shal, String sha256) {
         this.uid = uid;
         this.username = username;

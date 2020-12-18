@@ -17,18 +17,18 @@ public class AuthHandler {
     
     
     
-    private static boolean checkUser(String input, String password){
+    public static User checkUser(String input, String password){
         
         User user= Control.getInstance().getAllMembers().getUserByMailAndUsername(input);
         if(user==null){
             badUserInputHandler.noUsername();
-            return false;
+            return null;
         }
         if(user.getLogin().getPasswd().equals(password)){
-            return true;
+            return user;
         }
         badUserInputHandler.badPassword();
-        return false;
+        return null;
        
     }
 }

@@ -16,6 +16,7 @@ import com.mycompany.gs1_prototipo1.model.User;
 import com.mycompany.gs1_prototipo1.model.Description;
 import com.mycompany.gs1_prototipo1.model.types.Label;
 import com.mycompany.gs1_prototipo1.model.types.Weekday;
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.LinkedList;
@@ -81,6 +82,9 @@ public class UserGenerator {
                  System.out.println("USUARIO AUTOGEn N:"+i+"\n");
           
             System.out.println(user.getFirstName());
+             System.out.println(user.getLogin().getUsername());
+             System.out.println(user.getLogin().getPasswd());
+               System.out.println("");
             System.out.println("");
            } 
         }
@@ -142,7 +146,7 @@ public class UserGenerator {
         for (int i = 0; i <  Control.getInstance().getAllMembers().getActiveMembers().size(); i++) {
             Control.getInstance().getAllMembers().getActiveMembers().get(i).setDescription(descriptions[i%descriptions.length]);
             Control.getInstance().getAllMembers().getActiveMembers().get(i).setLocation(locations[i%locations.length]);
-            
+           
         }
     }
       

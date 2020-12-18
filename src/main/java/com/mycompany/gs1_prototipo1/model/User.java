@@ -1,6 +1,7 @@
 package com.mycompany.gs1_prototipo1.model;
 
 
+import com.mycompany.gs1_prototipo1.develop.Helper;
 import com.mycompany.gs1_prototipo1.model.types.Label;
 import com.mycompany.gs1_prototipo1.model.types.Weekday;
 import java.awt.image.BufferedImage;
@@ -71,6 +72,22 @@ public class User {
         missions= new LinkedList<>();
         subscribedMissions= new LinkedList<>();
         
+    }
+
+    public User(String username, String name, String lastName, String dateBorn, String email, String password, String registeredDate) {
+      
+        this.email=email;
+        this.firstName=name;
+        this.lastName=lastName;
+        this.dateBorn=dateBorn;
+        this.login=new Login(username,password);
+    
+        this.registeredDate=registeredDate;
+        this.location=location;
+        this.ratings=new LinkedList<Rating>();
+        this.phone=phone;
+       
+        this.description=new Description("Mi descripción...",new LinkedList<Label>(),new LinkedList<Weekday>());
     }
     /*
      private static class Dob {
@@ -203,6 +220,7 @@ public class User {
         return login;
     }
     public String getAge(){
+        //DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-d"); OJO
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate fechaNac = LocalDate.parse(dateBorn, fmt);
         LocalDate ahora = LocalDate.now();
@@ -280,13 +298,41 @@ public class User {
         description.removePreferences(label);
     }
 
-
-   
-   
-
     public String getDateBorn() {
         return dateBorn;
     }
-    
-    
+ 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setDateBorn(String dateBorn) {
+        this.dateBorn = dateBorn;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setPictureMedium(BufferedImage pictureMedium) {
+        this.pictureMedium = pictureMedium;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+     
 }

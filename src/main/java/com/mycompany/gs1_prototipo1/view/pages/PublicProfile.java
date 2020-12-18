@@ -70,7 +70,6 @@ public class PublicProfile extends javax.swing.JPanel {
         Imagen.setForeground(new java.awt.Color(240, 240, 240));
 
         jLabel1.setIcon(new ImageIcon(user.getPictureThumbnail()));
-        jLabel1.setText("jLabel1");
 
         javax.swing.GroupLayout ImagenLayout = new javax.swing.GroupLayout(Imagen);
         Imagen.setLayout(ImagenLayout);
@@ -242,7 +241,7 @@ public class PublicProfile extends javax.swing.JPanel {
 
     private void MisionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MisionesMouseClicked
         UIController uiController = control.getUiController();
-        uiController.setPersonalMissions();
+        uiController.setPersonalMissions(this.user);
        // uiController.setPage("PersonalMission");
         this.setVisible(false);
     }//GEN-LAST:event_MisionesMouseClicked

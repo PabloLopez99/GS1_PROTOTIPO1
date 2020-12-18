@@ -13,6 +13,7 @@ public class Members {
         total = new ArrayList<>();
     }
     
+    
     public void addMember(User user){
         if (!total.contains(user)){
             total.add(user);
