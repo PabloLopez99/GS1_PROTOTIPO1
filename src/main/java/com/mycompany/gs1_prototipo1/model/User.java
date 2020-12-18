@@ -32,7 +32,8 @@ public class User {
     
   
     private String gender;
-
+    private List<Mission> missions;
+    private List<Mission> subscribedMissions;
     public User( String firstName, String lastName, Login login,String email, Location location, String dateBorn, String registeredDate, Description description, String gender, String phone, BufferedImage pictureLarge, BufferedImage pictureMedium, BufferedImage pictureThumbnail) {
        
         this.dateBorn=dateBorn;
@@ -54,8 +55,6 @@ public class User {
         subscribedMissions= new LinkedList<>();
     }
     
-    private List<Mission> missions;
-    private List<Mission> subscribedMissions;
     
     public User(String name, String firstName, String lastName, Date age) {
  
