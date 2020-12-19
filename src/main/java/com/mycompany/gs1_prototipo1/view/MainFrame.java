@@ -19,6 +19,10 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author pabloantoniolopezmartin
  */
 public class MainFrame extends javax.swing.JFrame {
+
+    public static void setPage() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     private final Control control;
 
     /**
@@ -33,11 +37,12 @@ public class MainFrame extends javax.swing.JFrame {
     }
     public void setPage(JPanel pane){
         
-        System.out.println("a");
+        System.out.println("a "+ pane.toString());
         displayPagePane.removeAll();
         displayPagePane.setLayout(new BoxLayout(displayPagePane, BoxLayout.PAGE_AXIS));
         displayPagePane.add(pane);
         pack();
+        System.out.println("b "+ pane.toString());
     }
 
     /**

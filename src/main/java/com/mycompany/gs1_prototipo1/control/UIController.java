@@ -52,7 +52,7 @@ public class UIController {
 
         mainFrame.setVisible(true);
       
-        mainFrame.setPage(welcome);
+        mainFrame.setPage(catalog);
         //Control.getInstance().getLoggedUser().addFile(new File("/Users/pabloantoniolopezmartin/Documents/intellij_shortcuts.docx"));
         //setProfilePage(Control.getInstance().getLoggedUser());
     }
@@ -70,12 +70,14 @@ public class UIController {
             display(personalMission);    
        }else if(pageName.equals("Welcome")){
             display(welcome);    
+       }else if(pageName.equals("MissionPage")){
+            display(missionPage);    
        }
    
     }
     public void setMissionPage(Mission mission){
         missionPage= new MissionPage(mission);
-        
+        mainFrame.setPage(missionPage);
     }
     public void setProfilePage(User user){
        
@@ -114,6 +116,7 @@ public class UIController {
         return register;
     }
 
+      
     public MissionPage getMissionPage() {
         return missionPage;
     }

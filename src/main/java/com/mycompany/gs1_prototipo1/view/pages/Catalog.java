@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package com.mycompany.gs1_prototipo1.view.pages;
-
+import com.mycompany.gs1_prototipo1.control.Control;
+import java.util.LinkedList;
 /**
  *
  * @author pabloantoniolopezmartin
@@ -16,6 +17,8 @@ public class Catalog extends javax.swing.JPanel {
      */
     public Catalog() {
         initComponents();
+        
+
     }
 
     /**
@@ -27,21 +30,42 @@ public class Catalog extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jListMission1 = new com.mycompany.gs1_prototipo1.view.pages.containers.jListMission();
+        jLabel1 = new javax.swing.JLabel();
+
+        setMaximumSize(new java.awt.Dimension(303, 608));
+        setMinimumSize(new java.awt.Dimension(303, 608));
         setPreferredSize(new java.awt.Dimension(303, 608));
+
+        jLabel1.setText("Misiones");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 306, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jListMission1, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(124, 124, 124)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 611, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel1)
+                .addGap(26, 26, 26)
+                .addComponent(jListMission1, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private com.mycompany.gs1_prototipo1.view.pages.containers.jListMission jListMission1;
     // End of variables declaration//GEN-END:variables
 }

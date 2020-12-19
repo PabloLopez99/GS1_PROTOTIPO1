@@ -7,6 +7,8 @@ package com.mycompany.gs1_prototipo1.view.pages.containers;
 
 import com.mycompany.gs1_prototipo1.model.Mission;
 import java.awt.Color;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -20,13 +22,13 @@ public class MissionCell extends javax.swing.JPanel {
     public MissionCell(Object value, Color bg) {
         initComponents();
         this.setBackground(bg);
-        iniLabels(value);
+        iniLabels((Mission) value);
     }
     
-    private void iniLabels(Object value) {
-        /*
-        
-        */
+    private void iniLabels(Mission value) {
+        Titulo.setText(value.getTitle());
+        Fecha.setText(value.getStartDate().toString());
+        Imagen.setIcon(new ImageIcon(value.getOwner().getPictureThumbnail()));
     }
     /**
      * This method is called from within e constructor to initialize the form.
@@ -45,7 +47,6 @@ public class MissionCell extends javax.swing.JPanel {
         setBackground(new java.awt.Color(153, 255, 255));
 
         Imagen.setBackground(new java.awt.Color(51, 255, 255));
-        Imagen.setText("Img");
 
         Titulo.setBackground(new java.awt.Color(51, 255, 255));
         Titulo.setText("Titulo");

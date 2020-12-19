@@ -30,6 +30,10 @@ public class Control {
         this.removedMissions= new LinkedList<>();
         
     }
+
+    public List<Mission> getCatalogo() {
+        return catalogo;
+    }
     
     public void run() throws InterruptedException { //OJO TIENEN Q GENERARSE MINIMO LA MISMA CANTIDAD DE USUARIOS QUE DE MISIONES
        
@@ -79,7 +83,7 @@ public class Control {
          loggedUser=members.getActiveMembers().get(0);
     }
     private void loadTestMissions(){
-        MissionGenerator.generateMissions(1);
+        MissionGenerator.generateMissions(5);
     }
    
 }

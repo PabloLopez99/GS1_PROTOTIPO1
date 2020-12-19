@@ -126,4 +126,9 @@ public class Mission {
     public void setLocation(Location location) {
         this.location = location;
     }
+
+    public String getTitle() {
+        return title;
+    }
+    
 }

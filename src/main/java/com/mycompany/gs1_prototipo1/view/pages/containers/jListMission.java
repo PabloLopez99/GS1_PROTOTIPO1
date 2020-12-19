@@ -5,10 +5,14 @@
  */
 package com.mycompany.gs1_prototipo1.view.pages.containers;
 
-import com.mycompany.gs1_prototipo1.control.Control;
+import com.mycompany.gs1_prototipo1.control.*;
 import com.mycompany.gs1_prototipo1.model.Mission;
+import com.mycompany.gs1_prototipo1.view.MainFrame;
+import com.mycompany.gs1_prototipo1.view.pages.MissionPage;
+import com.mycompany.gs1_prototipo1.view.pages.Personalmission;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.ListSelectionModel;
 
 /**
@@ -18,14 +22,19 @@ import javax.swing.ListSelectionModel;
 public class jListMission extends javax.swing.JPanel {
 
     private List<Mission> list;
+    private final DefaultListModel<Mission> jListModel;
 
 
     /**
      * Creates new form jListMission
      */
     public jListMission() {
-        this.list=new LinkedList<Mission>();
-        //this.list=Control.getAllMissions();
+        //this.list=new LinkedList<Mission>();
+        this.list=Control.getInstance().getAllMissions();
+        jListModel=new DefaultListModel<>();
+        for (Mission mission : list) {
+            jListModel.addElement(mission);
+        }
         initComponents();
         jList1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
@@ -50,13 +59,7 @@ public class jListMission extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(250, 300));
 
         jList1.setCellRenderer(new misionCellRender());
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Mision 1", "Mision 2", "Mision 3", "Mision 4", "Mision 5" };
-            /*public int getSize() { return list.length; }
-            public String getElementAt(int i) { return list.get(i); }*/
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        jList1.setModel(jListModel);
         jList1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jList1MouseClicked(evt);
@@ -84,14 +87,13 @@ public class jListMission extends javax.swing.JPanel {
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         int selectedIndex = jList1.getSelectedIndex();
-        
-        System.out.println("Se abre una mision detallada "+System.nanoTime());
-        
+        Control.getInstance().getUiController().setMissionPage((jListModel.getElementAt(selectedIndex)));
+        System.out.println("Se abre una mision detallada "+((Mission)jListModel.getElementAt(selectedIndex)).getTitle());
     }//GEN-LAST:event_jList1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JList<Mission> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
