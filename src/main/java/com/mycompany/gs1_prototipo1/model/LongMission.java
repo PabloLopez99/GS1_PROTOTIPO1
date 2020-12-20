@@ -26,31 +26,32 @@ public class LongMission extends Mission {
         this.duration = duration;
     }
 
-    public Weekday getDays() {
+    public List<Weekday> getDays() {
         return days;
     }
 
-    public void setDays(Weekday days) {
+    public void setDays(List<Weekday> days) {
         this.days = days;
     }
     private int duration;
-    private Weekday days;
-    public LongMission(int duration, Weekday days, User owner) {
+    private List<Weekday> days;
+    public LongMission(int duration, List<Weekday> days, User owner) {
         super(owner);
         this.duration = duration;
         this.days = days;
     }
 
-    public LongMission(int duration, Weekday days, String title, User owner, String description, Date startDate, Date endDate, List<Label> labels, Boolean inPerson, Location location) {
+    public LongMission(int duration, List<Weekday> days, String title, User owner, String description, Date startDate, Date endDate, List<Label> labels, Boolean inPerson, Location location) {
         super(title,owner, description, startDate, endDate, labels, inPerson, location);
         this.duration = duration;
         this.days = days;
     }
 
-    public LongMission(int duration, Weekday days, String title,User owner, List<User> subscribedUsers, String description, Date startDate, Date endDate, List<Label> labels, Boolean inPerson, Location location) {
+    public LongMission(int duration, List<Weekday> days, String title,User owner, List<User> subscribedUsers, String description, Date startDate, Date endDate, List<Label> labels, Boolean inPerson, Location location) {
         super(title,owner, subscribedUsers, description, startDate, endDate, labels, inPerson, location);
         this.duration = duration;
         this.days = days;
     }
+    
    
 }

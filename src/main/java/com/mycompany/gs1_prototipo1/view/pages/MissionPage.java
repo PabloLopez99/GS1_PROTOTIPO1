@@ -5,7 +5,14 @@
  */
 package com.mycompany.gs1_prototipo1.view.pages;
 
+import com.mycompany.gs1_prototipo1.control.Control;
+import com.mycompany.gs1_prototipo1.model.LongMission;
 import com.mycompany.gs1_prototipo1.model.Mission;
+import com.mycompany.gs1_prototipo1.model.User;
+import com.mycompany.gs1_prototipo1.model.types.Label;
+import com.mycompany.gs1_prototipo1.model.types.Weekday;
+import java.text.SimpleDateFormat;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -16,10 +23,26 @@ public class MissionPage extends javax.swing.JPanel {
     /**
      * Creates new form Mission
      */
-    private Mission mission;
+    private Mission mission=null;
+    private LongMission longMission=null;
+    DefaultListModel modeloSubscribers = new DefaultListModel();
+    DefaultListModel modeloLabels = new DefaultListModel();
+    DefaultListModel modeloDays = new DefaultListModel();
+    
     public MissionPage(Mission mission) {
         initComponents();
+        subscribers.setModel(modeloSubscribers);
+        labels.setModel(modeloLabels);
         this.mission=mission;
+        updateMissionPage();
+    }
+    public MissionPage(LongMission mission){
+        initComponents();
+        subscribers.setModel(modeloSubscribers);
+        labels.setModel(modeloLabels);
+        myDaysList.setModel(modeloDays);
+        this.longMission = mission;
+        updateLongMissionPage();
     }
 
     /**
@@ -31,35 +54,477 @@ public class MissionPage extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        header = new javax.swing.JLayeredPane();
+        title = new javax.swing.JLabel();
+        body = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        author = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        description = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
+        inicialDate = new javax.swing.JLabel();
+        endDateTitle = new javax.swing.JLabel();
+        endDate = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        subscribers = new javax.swing.JList<>();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        labels = new javax.swing.JList<>();
+        details = new javax.swing.JPanel();
+        placeTitle = new javax.swing.JLabel();
+        place = new javax.swing.JLabel();
+        myDaysTitle = new javax.swing.JLabel();
+        myDaysPane = new javax.swing.JScrollPane();
+        myDaysList = new javax.swing.JList<>();
+        durationTitle = new javax.swing.JLabel();
+        duration = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
 
-        setMaximumSize(new java.awt.Dimension(303, 608));
-        setMinimumSize(new java.awt.Dimension(303, 608));
         setPreferredSize(new java.awt.Dimension(303, 608));
-        setRequestFocusEnabled(false);
 
-        jLabel1.setText("Empty mision");
+        title.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        title.setIcon(new javax.swing.ImageIcon("C:\\Users\\esthe\\Documents\\NetBeansProjects\\GS1_PROTOTIPO1\\src\\main\\java\\com\\mycompany\\gs1_prototipo1\\media\\header1.png")); // NOI18N
+        title.setText("Misión");
+        title.setAlignmentY(1.0F);
+        title.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        header.setLayer(title, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
+        header.setLayout(headerLayout);
+        headerLayout.setHorizontalGroup(
+            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(headerLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+        headerLayout.setVerticalGroup(
+            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 83, Short.MAX_VALUE)
+        );
+
+        jLabel7.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(177, 74, 6));
+        jLabel7.setText("Autor:");
+
+        author.setBackground(new java.awt.Color(255, 255, 218));
+        author.setFont(new java.awt.Font("Yu Gothic", 3, 12)); // NOI18N
+        author.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                authorMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                authorMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                authorMouseExited(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(177, 74, 6));
+        jLabel2.setText("Descripción");
+        jLabel2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        description.setEditable(false);
+        description.setBackground(new java.awt.Color(255, 255, 204));
+        description.setColumns(20);
+        description.setFont(new java.awt.Font("Yu Gothic", 1, 11)); // NOI18N
+        description.setLineWrap(true);
+        description.setRows(5);
+        description.setWrapStyleWord(true);
+        description.setBorder(null);
+        jScrollPane1.setViewportView(description);
+
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(177, 74, 6));
+        jLabel1.setText("Inicio:");
+        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        inicialDate.setFont(new java.awt.Font("Yu Gothic UI", 1, 12)); // NOI18N
+
+        endDateTitle.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        endDateTitle.setForeground(new java.awt.Color(177, 74, 6));
+        endDateTitle.setText("Final:");
+        endDateTitle.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        endDate.setFont(new java.awt.Font("Yu Gothic UI", 1, 12)); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(177, 74, 6));
+        jLabel4.setText("Categoría:");
+
+        subscribers.setBackground(new java.awt.Color(255, 255, 204));
+        subscribers.setRequestFocusEnabled(false);
+        subscribers.setSelectionBackground(new java.awt.Color(246, 253, 212));
+        subscribers.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        subscribers.setValueIsAdjusting(true);
+        jScrollPane2.setViewportView(subscribers);
+
+        jLabel6.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(177, 74, 6));
+        jLabel6.setText("Participantes");
+
+        labels.setBackground(new java.awt.Color(255, 255, 204));
+        labels.setValueIsAdjusting(true);
+        jScrollPane3.setViewportView(labels);
+
+        placeTitle.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        placeTitle.setForeground(new java.awt.Color(177, 74, 6));
+        placeTitle.setText("Lugar:");
+
+        myDaysTitle.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        myDaysTitle.setForeground(new java.awt.Color(177, 74, 6));
+        myDaysTitle.setText("Días:");
+
+        myDaysPane.setAlignmentX(0.0F);
+
+        myDaysList.setBackground(new java.awt.Color(255, 255, 204));
+        myDaysList.setRequestFocusEnabled(false);
+        myDaysList.setSelectionBackground(new java.awt.Color(246, 253, 212));
+        myDaysList.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        myDaysList.setValueIsAdjusting(true);
+        myDaysPane.setViewportView(myDaysList);
+
+        durationTitle.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        durationTitle.setForeground(new java.awt.Color(177, 74, 6));
+        durationTitle.setText("Duración:");
+
+        javax.swing.GroupLayout detailsLayout = new javax.swing.GroupLayout(details);
+        details.setLayout(detailsLayout);
+        detailsLayout.setHorizontalGroup(
+            detailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(detailsLayout.createSequentialGroup()
+                .addGroup(detailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(detailsLayout.createSequentialGroup()
+                        .addComponent(placeTitle)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(place, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(detailsLayout.createSequentialGroup()
+                        .addGroup(detailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(myDaysTitle)
+                            .addGroup(detailsLayout.createSequentialGroup()
+                                .addComponent(durationTitle)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(duration, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(myDaysPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        detailsLayout.setVerticalGroup(
+            detailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(detailsLayout.createSequentialGroup()
+                .addGroup(detailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(placeTitle)
+                    .addComponent(place, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(detailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(duration, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(durationTitle))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(myDaysTitle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(myDaysPane, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout bodyLayout = new javax.swing.GroupLayout(body);
+        body.setLayout(bodyLayout);
+        bodyLayout.setHorizontalGroup(
+            bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(details, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(bodyLayout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(inicialDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(endDateTitle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(endDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(82, 82, 82))
+            .addGroup(bodyLayout.createSequentialGroup()
+                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, bodyLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(author, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
+            .addComponent(jSeparator1)
+            .addGroup(bodyLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        bodyLayout.setVerticalGroup(
+            bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bodyLayout.createSequentialGroup()
+                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(author))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
+                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(endDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(endDateTitle)
+                        .addComponent(inicialDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(jLabel4)
+                .addGap(4, 4, 4)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(details, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(133, 133, 133)
-                .addComponent(jLabel1)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(header)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(118, 118, 118)
-                .addComponent(jLabel1)
-                .addContainerGap(476, Short.MAX_VALUE))
+                .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void authorMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_authorMouseEntered
+        author.setForeground(new java.awt.Color(177, 74, 6));
+    }//GEN-LAST:event_authorMouseEntered
+
+    private void authorMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_authorMouseExited
+        author.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_authorMouseExited
+
+    private void authorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_authorMouseClicked
+        
+        if(mission != null){
+            Control.getInstance().getUiController().setProfilePage(mission.getOwner());
+            
+        }else{
+            Control.getInstance().getUiController().setProfilePage(longMission.getOwner());
+        }
+        this.setVisible(false);
+        this.setEnabled(false);
+        Control.getInstance().getUiController().setPage("PersonalProfile");
+    }//GEN-LAST:event_authorMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel author;
+    private javax.swing.JPanel body;
+    private javax.swing.JTextArea description;
+    private javax.swing.JPanel details;
+    private javax.swing.JLabel duration;
+    private javax.swing.JLabel durationTitle;
+    private javax.swing.JLabel endDate;
+    private javax.swing.JLabel endDateTitle;
+    private javax.swing.JLayeredPane header;
+    private javax.swing.JLabel inicialDate;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JList<String> labels;
+    private javax.swing.JList<String> myDaysList;
+    private javax.swing.JScrollPane myDaysPane;
+    private javax.swing.JLabel myDaysTitle;
+    private javax.swing.JLabel place;
+    private javax.swing.JLabel placeTitle;
+    private javax.swing.JList<String> subscribers;
+    private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
+
+    private void updateMissionPage() {
+        title.setText("Misión: "+ mission.getTitle());
+        author.setText(mission.getOwner().getName());
+        description.setText(mission.getDescription());
+        String startDate = new SimpleDateFormat("dd/MM/yyyy").format(mission.getStartDate());
+        inicialDate.setText(startDate);
+        String finalDate = new SimpleDateFormat("dd/MM/yyyy").format(mission.getEndDate());
+        endDate.setText(finalDate);
+        details.removeAll();
+        if(!mission.getInPerson()){
+            disableDetails(0);
+            
+        }else{
+            activateDetails(1);
+            disableDetails(2);
+            place.setText(mission.getLocation().getCity());
+        }
+        
+        modeloLabels.removeAllElements();
+        if(!mission.getLabels().isEmpty()){
+            for (Label label : mission.getLabels()) {
+                modeloLabels.addElement(label.name());
+            }
+        }
+        labels.setModel(modeloLabels);
+        modeloSubscribers.removeAllElements();
+        if(!mission.getSubscribedUsers().isEmpty()){
+            for (User subscribedUser : mission.getSubscribedUsers()) {
+                modeloSubscribers.addElement(subscribedUser.getLogin().getUsername());
+            }
+        }
+        subscribers.setModel(modeloSubscribers);
+    }
+
+    private void updateLongMissionPage() {
+        title.setText("Misión: "+ longMission.getTitle());
+        author.setText(longMission.getOwner().getName());
+        description.setText(longMission.getDescription());
+        String startDate = new SimpleDateFormat("dd/MM/yyyy").format(longMission.getStartDate());
+        inicialDate.setText(startDate);
+        String finalDate = new SimpleDateFormat("dd/MM/yyyy").format(longMission.getEndDate());
+        endDate.setText(finalDate);
+        
+        if(!longMission.getInPerson()){
+            disableDetails(1);
+            activateDetails(2);
+        }else{
+            activateDetails(0);
+            place.setText(longMission.getLocation().getCity());
+        }
+        duration.setText(longMission.getDuration()+" días");
+        modeloDays.removeAllElements();
+        if(!longMission.getLabels().isEmpty()){
+            for (Weekday day : longMission.getDays()) {
+                modeloDays.addElement((Weekday) day);
+            }
+        }
+        myDaysList.setModel(modeloDays);
+        modeloLabels.removeAllElements();
+        if(!longMission.getLabels().isEmpty()){
+            for (Label label : longMission.getLabels()) {
+                modeloLabels.addElement((Label) label);
+            }
+        }
+        labels.setModel(modeloLabels);
+        modeloSubscribers.removeAllElements();
+        if(!longMission.getSubscribedUsers().isEmpty()){
+            for (User subscribedUser : longMission.getSubscribedUsers()) {
+                modeloSubscribers.addElement( subscribedUser.getLogin().getUsername());
+            }
+        }
+        subscribers.setModel(modeloSubscribers);
+    }
+    
+    private void disableDetails(int disable) {
+        
+        switch(disable){
+            case 1:
+                place.setVisible(false);
+                placeTitle.setVisible(false);
+                place.setEnabled(false);
+                placeTitle.setEnabled(false);
+                break;
+            case 2:
+                durationTitle.setVisible(false);
+                duration.setVisible(false);
+                myDaysTitle.setVisible(false);
+                myDaysPane.setVisible(false);
+                myDaysList.setVisible(false);
+                durationTitle.setEnabled(false);
+                duration.setEnabled(false);
+                myDaysList.setEnabled(false);
+                myDaysTitle.setEnabled(false);
+                myDaysPane.setEnabled(false);
+                break;
+            default:
+                place.setVisible(false);
+                placeTitle.setVisible(false);
+                place.setEnabled(false);
+                placeTitle.setEnabled(false);
+                durationTitle.setVisible(false);
+                duration.setVisible(false);
+                myDaysTitle.setVisible(false);
+                myDaysPane.setVisible(false);
+                myDaysList.setVisible(false);
+                durationTitle.setEnabled(false);
+                duration.setEnabled(false);
+                myDaysList.setEnabled(false);
+                myDaysTitle.setEnabled(false);
+                myDaysPane.setEnabled(false);
+                break;
+        }
+    }
+
+    private void activateDetails(int activate) {
+       
+        switch(activate){
+            case 1:
+                place.setVisible(true);
+                placeTitle.setVisible(true);
+                place.setEnabled(true);
+                placeTitle.setEnabled(true);
+                break;
+            case 2:
+                durationTitle.setVisible(true);
+                duration.setVisible(true);
+                myDaysTitle.setVisible(true);
+                myDaysPane.setVisible(true);
+                myDaysList.setVisible(true);
+                durationTitle.setEnabled(true);
+                duration.setEnabled(true);
+                myDaysList.setEnabled(true);
+                myDaysTitle.setEnabled(true);
+                myDaysPane.setEnabled(true);
+                break;
+            default:
+                place.setVisible(true);
+                placeTitle.setVisible(true);
+                place.setEnabled(true);
+                placeTitle.setEnabled(true);
+                durationTitle.setVisible(true);
+                duration.setVisible(true);
+                myDaysTitle.setVisible(true);
+                myDaysPane.setVisible(true);
+                myDaysList.setVisible(true);
+                myDaysList.setEnabled(true);
+                myDaysTitle.setEnabled(true);
+                myDaysPane.setEnabled(true);
+                durationTitle.setEnabled(true);
+                duration.setEnabled(true);
+                break;
+        }
+    }
 }

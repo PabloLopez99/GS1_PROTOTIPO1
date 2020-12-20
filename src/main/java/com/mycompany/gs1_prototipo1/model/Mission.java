@@ -33,6 +33,11 @@ public class Mission {
         labels= new LinkedList<>();
         missionId=UUID.randomUUID();
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    
      //Constructor without subscribedUsers
     public Mission(String title, User owner, String description, Date startDate, Date endDate, List<Label> labels, Boolean inPerson, Location location) {
         this.title=title;
