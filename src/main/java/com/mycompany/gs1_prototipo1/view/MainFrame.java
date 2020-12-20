@@ -7,11 +7,16 @@ package com.mycompany.gs1_prototipo1.view;
 
 import com.mycompany.gs1_prototipo1.control.Control;
 import com.mycompany.gs1_prototipo1.view.pages.PersonalProfile;
+import com.mycompany.gs1_prototipo1.view.pages.Login;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
@@ -33,14 +38,29 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         control = Control.getInstance();
+        scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0,0));
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+    
        
     }
     public void setPage(JPanel pane){
-        
-        System.out.println("a "+ pane.toString());
+        System.out.println("a");
         displayPagePane.removeAll();
         displayPagePane.setLayout(new BoxLayout(displayPagePane, BoxLayout.PAGE_AXIS));
+        Component[] components = buttonsPane.getComponents();
+        if(pane instanceof Login) {
+            for (Component component : components) {
+                component.setVisible(false);
+            }
+        }else{
+            for (Component component : components) {
+                component.setVisible(true);
+            }
+        }
         displayPagePane.add(pane);
+        displayPagePane.setPreferredSize(new Dimension(303, 1000));
+        scrollPane.setVisible(true);
+        displayPagePane.repaint();
         pack();
         System.out.println("b "+ pane.toString());
     }
@@ -59,6 +79,7 @@ public class MainFrame extends javax.swing.JFrame {
         homeIco = new javax.swing.JLabel();
         profileIco = new javax.swing.JLabel();
         ladderIco = new javax.swing.JLabel();
+        scrollPane = new javax.swing.JScrollPane();
         displayPagePane = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -69,35 +90,47 @@ public class MainFrame extends javax.swing.JFrame {
         buttonsPane.setBackground(new java.awt.Color(255, 255, 204));
         buttonsPane.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(231, 231, 179), 2, true));
         buttonsPane.setForeground(new java.awt.Color(255, 255, 204));
+        buttonsPane.setMinimumSize(new java.awt.Dimension(229, 70));
 
+        homeIco.setIcon(new javax.swing.ImageIcon("C:\\Users\\AZAEL\\OneDrive\\Documentos\\NetBeansProjects\\GS1_PROTOTIPO1\\src\\main\\java\\com\\mycompany\\gs1_prototipo1\\media\\icons8-home-50.png")); // NOI18N
+        homeIco.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                homeIcoMouseClicked(evt);
+            }
+        });
+
+        profileIco.setIcon(new javax.swing.ImageIcon("C:\\Users\\AZAEL\\OneDrive\\Documentos\\NetBeansProjects\\GS1_PROTOTIPO1\\src\\main\\java\\com\\mycompany\\gs1_prototipo1\\media\\icons8-user-male-60.png")); // NOI18N
         profileIco.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 profileIcoMouseClicked(evt);
             }
         });
 
+        ladderIco.setIcon(new javax.swing.ImageIcon("C:\\Users\\AZAEL\\OneDrive\\Documentos\\NetBeansProjects\\GS1_PROTOTIPO1\\src\\main\\java\\com\\mycompany\\gs1_prototipo1\\media\\icons8-trophy-60.png")); // NOI18N
+
         javax.swing.GroupLayout buttonsPaneLayout = new javax.swing.GroupLayout(buttonsPane);
         buttonsPane.setLayout(buttonsPaneLayout);
         buttonsPaneLayout.setHorizontalGroup(
             buttonsPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buttonsPaneLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(26, 26, 26)
                 .addComponent(ladderIco)
-                .addGap(84, 84, 84)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(homeIco)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
+                .addGap(62, 62, 62)
                 .addComponent(profileIco)
-                .addGap(14, 14, 14))
+                .addGap(32, 32, 32))
         );
         buttonsPaneLayout.setVerticalGroup(
             buttonsPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(homeIco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(ladderIco, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
-            .addGroup(buttonsPaneLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(profileIco)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(profileIco, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        scrollPane.setPreferredSize(new java.awt.Dimension(303, 608));
+
+        displayPagePane.setPreferredSize(new java.awt.Dimension(303, 608));
 
         javax.swing.GroupLayout displayPagePaneLayout = new javax.swing.GroupLayout(displayPagePane);
         displayPagePane.setLayout(displayPagePaneLayout);
@@ -110,18 +143,22 @@ public class MainFrame extends javax.swing.JFrame {
             .addGap(0, 608, Short.MAX_VALUE)
         );
 
+        scrollPane.setViewportView(displayPagePane);
+
+        //scrollPane.setVerticalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(buttonsPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(displayPagePane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(displayPagePane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(buttonsPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -142,8 +179,13 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void profileIcoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileIcoMouseClicked
-        control.getUiController().setPage("PersonalProfile");
+        control.getUiController().setPersonalProfile(control.getLoggedUser());
+        
     }//GEN-LAST:event_profileIcoMouseClicked
+
+    private void homeIcoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeIcoMouseClicked
+        control.getUiController().setPage("Catalog");
+    }//GEN-LAST:event_homeIcoMouseClicked
 
     
 
@@ -154,5 +196,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel ladderIco;
     private javax.swing.JLabel profileIco;
+    private javax.swing.JScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables
 }

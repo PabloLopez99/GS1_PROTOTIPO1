@@ -16,6 +16,8 @@ public class Mission {
     private Date endDate;
     private List<Label> labels;
     private Boolean inPerson; //No me gusta, directamente que lo tenga location?? (location tenga un tipo enum, según sea o no presencial)
+
+   
     private Location location;
     
     //Constructor with all params
@@ -131,9 +133,7 @@ public class Mission {
     public void setLocation(Location location) {
         this.location = location;
     }
-
     public String getTitle() {
         return title;
     }
-    
 }

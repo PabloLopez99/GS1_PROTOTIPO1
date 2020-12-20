@@ -39,15 +39,17 @@ public class Control {
        
         loadTestUsers();
         loadTestMissions();
-         uiController= new UIController(loggedUser);
+
+         uiController= new UIController();
     }
     public  UIController getUiController(){ 
         return uiController;
     }
-    public Boolean setLoggedUser(String input){
-        
-        if(members.getUserByMailAndUsername(input)!=null){
-             loggedUser=members.getUserByMailAndUsername(input);
+    public Boolean setLoggedUser(User user){
+      
+        if(members.containsUser(user)){
+             loggedUser=user;
+             
              return true;
         }
         return false;  
@@ -80,7 +82,7 @@ public class Control {
 
     private void loadTestUsers() throws InterruptedException {
          UserGenerator.generateUsers(5);
-         loggedUser=members.getActiveMembers().get(0);
+         //loggedUser=members.getActiveMembers().get(0);
     }
     private void loadTestMissions(){
         MissionGenerator.generateMissions(5);

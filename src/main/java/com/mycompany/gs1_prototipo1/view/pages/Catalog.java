@@ -17,8 +17,6 @@ public class Catalog extends javax.swing.JPanel {
      */
     public Catalog() {
         initComponents();
-        
-
     }
 
     /**
@@ -33,7 +31,7 @@ public class Catalog extends javax.swing.JPanel {
         jListMission1 = new com.mycompany.gs1_prototipo1.view.pages.containers.jListMission();
         jLabel1 = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(303, 608));
+        setMaximumSize(new java.awt.Dimension(303, 60000));
         setMinimumSize(new java.awt.Dimension(303, 608));
         setPreferredSize(new java.awt.Dimension(303, 608));
 

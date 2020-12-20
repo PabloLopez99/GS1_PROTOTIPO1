@@ -37,6 +37,7 @@ public class jListMission extends javax.swing.JPanel {
         }
         initComponents();
         jList1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        this.setSize(this.getWidth(),125*jListModel.getSize());
     }
     public void setMissionList(LinkedList<Mission> customList){
         this.list=customList;
