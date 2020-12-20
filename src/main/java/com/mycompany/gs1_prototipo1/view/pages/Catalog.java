@@ -5,6 +5,7 @@
  */
 package com.mycompany.gs1_prototipo1.view.pages;
 import com.mycompany.gs1_prototipo1.control.Control;
+import com.mycompany.gs1_prototipo1.model.Mission;
 import java.util.LinkedList;
 /**
  *

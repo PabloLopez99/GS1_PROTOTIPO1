@@ -128,9 +128,9 @@ public class MainFrame extends javax.swing.JFrame {
             .addComponent(profileIco, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        scrollPane.setPreferredSize(new java.awt.Dimension(303, 608));
+        scrollPane.setPreferredSize(new java.awt.Dimension(303, 2500));
 
-        displayPagePane.setPreferredSize(new java.awt.Dimension(303, 608));
+        displayPagePane.setPreferredSize(new java.awt.Dimension(303, 2500));
 
         javax.swing.GroupLayout displayPagePaneLayout = new javax.swing.GroupLayout(displayPagePane);
         displayPagePane.setLayout(displayPagePaneLayout);
@@ -140,7 +140,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         displayPagePaneLayout.setVerticalGroup(
             displayPagePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 608, Short.MAX_VALUE)
+            .addGap(0, 2500, Short.MAX_VALUE)
         );
 
         scrollPane.setViewportView(displayPagePane);

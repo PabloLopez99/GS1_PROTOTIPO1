@@ -29,6 +29,7 @@ public class MissionCell extends javax.swing.JPanel {
         Titulo.setText(value.getTitle());
         Fecha.setText(value.getStartDate().toString());
         Imagen.setIcon(new ImageIcon(value.getOwner().getPictureThumbnail()));
+        Etiquetas.setText(value.getLabels().toString());
     }
     /**
      * This method is called from within e constructor to initialize the form.

@@ -12,7 +12,9 @@ import com.mycompany.gs1_prototipo1.model.User;
 import com.mycompany.gs1_prototipo1.model.types.Label;
 import com.mycompany.gs1_prototipo1.model.types.Weekday;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -35,6 +37,13 @@ public class MissionPage extends javax.swing.JPanel {
         labels.setModel(modeloLabels);
         this.mission=mission;
         updateMissionPage();
+        if(Control.getInstance().getLoggedUser().getLogin().getUsername().equals(mission.getOwner().getLogin().getUsername())){
+            subscriberButton.setVisible(false);
+            subscriberButton.setEnabled(false);
+        }else{
+            subscriberButton.setVisible(true);
+            subscriberButton.setEnabled(true);
+        }
     }
     public MissionPage(LongMission mission){
         initComponents();
@@ -43,6 +52,13 @@ public class MissionPage extends javax.swing.JPanel {
         myDaysList.setModel(modeloDays);
         this.longMission = mission;
         updateLongMissionPage();
+        if(Control.getInstance().getLoggedUser().getLogin().getUsername().equals(mission.getOwner().getLogin().getUsername())){
+            subscriberButton.setVisible(false);
+            subscriberButton.setEnabled(false);
+        }else{
+            subscriberButton.setVisible(true);
+            subscriberButton.setEnabled(true);
+        }
     }
 
     /**
@@ -56,6 +72,7 @@ public class MissionPage extends javax.swing.JPanel {
 
         header = new javax.swing.JLayeredPane();
         title = new javax.swing.JLabel();
+        subscriberButton = new javax.swing.JButton();
         body = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         author = new javax.swing.JLabel();
@@ -87,12 +104,19 @@ public class MissionPage extends javax.swing.JPanel {
 
         title.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title.setIcon(new javax.swing.ImageIcon("C:\\Users\\esthe\\Documents\\NetBeansProjects\\GS1_PROTOTIPO1\\src\\main\\java\\com\\mycompany\\gs1_prototipo1\\media\\header1.png")); // NOI18N
         title.setText("Misión");
         title.setAlignmentY(1.0F);
         title.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        subscriberButton.setText("Subscribirse");
+        subscriberButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                subscriberButtonActionPerformed(evt);
+            }
+        });
+
         header.setLayer(title, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        header.setLayer(subscriberButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
@@ -101,11 +125,19 @@ public class MissionPage extends javax.swing.JPanel {
             .addGroup(headerLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(subscriberButton)
+                .addGap(85, 85, 85))
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 83, Short.MAX_VALUE)
+            .addGroup(headerLayout.createSequentialGroup()
+                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(subscriberButton)
+                .addGap(0, 11, Short.MAX_VALUE))
         );
 
         jLabel7.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
@@ -213,7 +245,7 @@ public class MissionPage extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(duration, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(myDaysPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         detailsLayout.setVerticalGroup(
@@ -250,19 +282,22 @@ public class MissionPage extends javax.swing.JPanel {
                 .addGap(82, 82, 82))
             .addGroup(bodyLayout.createSequentialGroup()
                 .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, bodyLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(author, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jSeparator1)
             .addGroup(bodyLayout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(bodyLayout.createSequentialGroup()
+                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(bodyLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(author, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         bodyLayout.setVerticalGroup(
@@ -306,9 +341,10 @@ public class MissionPage extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(header)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -330,17 +366,45 @@ public class MissionPage extends javax.swing.JPanel {
     }//GEN-LAST:event_authorMouseExited
 
     private void authorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_authorMouseClicked
-        
         if(mission != null){
             Control.getInstance().getUiController().setProfilePage(mission.getOwner());
             
         }else{
             Control.getInstance().getUiController().setProfilePage(longMission.getOwner());
         }
-        this.setVisible(false);
-        this.setEnabled(false);
-        Control.getInstance().getUiController().setPage("PersonalProfile");
     }//GEN-LAST:event_authorMouseClicked
+
+    private void subscriberButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subscriberButtonActionPerformed
+        if(mission != null){
+            List<User> subscribedUsers = mission.getSubscribedUsers();
+            if(!subscribedUsers.contains(Control.getInstance().getLoggedUser())){
+                mission.addSubscribedUser(Control.getInstance().getLoggedUser());
+                modeloSubscribers.removeAllElements();
+                if(!mission.getSubscribedUsers().isEmpty()){
+                    for (User subscribedUser : mission.getSubscribedUsers()) {
+                        modeloSubscribers.addElement(subscribedUser.getLogin().getUsername());
+                    }
+                }
+                subscribers.setModel(modeloSubscribers);
+                JOptionPane.showMessageDialog(this, "Ya está suscrito a la missión", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+            }
+           
+        } else{
+            List<User> subscribedUsers = longMission.getSubscribedUsers();
+            if(!subscribedUsers.contains(Control.getInstance().getLoggedUser())){
+                longMission.addSubscribedUser(Control.getInstance().getLoggedUser());
+                modeloSubscribers.removeAllElements();
+                if(!longMission.getSubscribedUsers().isEmpty()){
+                    for (User subscribedUser : longMission.getSubscribedUsers()) {
+                        modeloSubscribers.addElement(subscribedUser.getLogin().getUsername());
+                    }
+                }
+                subscribers.setModel(modeloSubscribers);
+                JOptionPane.showMessageDialog(this, "Ya está suscrito a la missión", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+            }
+         
+        }
+    }//GEN-LAST:event_subscriberButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -370,11 +434,13 @@ public class MissionPage extends javax.swing.JPanel {
     private javax.swing.JLabel myDaysTitle;
     private javax.swing.JLabel place;
     private javax.swing.JLabel placeTitle;
+    private javax.swing.JButton subscriberButton;
     private javax.swing.JList<String> subscribers;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 
     private void updateMissionPage() {
+        
         title.setText("Misión: "+ mission.getTitle());
         author.setText(mission.getOwner().getName());
         description.setText(mission.getDescription());

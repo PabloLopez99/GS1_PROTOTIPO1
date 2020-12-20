@@ -41,6 +41,11 @@ public class jListMission extends javax.swing.JPanel {
     }
     public void setMissionList(LinkedList<Mission> customList){
         this.list=customList;
+        jListModel.removeAllElements();
+        for (Mission mission : list) {
+            jListModel.addElement(mission);
+        }
+        this.updateUI();
     }
 
     /**

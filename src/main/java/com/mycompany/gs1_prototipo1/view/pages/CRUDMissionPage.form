@@ -72,9 +72,6 @@
               <Font name="Verdana" size="14" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\esthe\Documents\NetBeansProjects\GS1_PROTOTIPO1\src\main\java\com\mycompany\gs1_prototipo1\media\header1.png"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Misi&#xf3;n"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
           </Properties>
@@ -411,9 +408,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="save">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\esthe\Documents\NetBeansProjects\GS1_PROTOTIPO1\src\main\java\com\mycompany\gs1_prototipo1\media\tick.png"/>
-            </Property>
             <Property name="autoscrolls" type="boolean" value="true"/>
             <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>

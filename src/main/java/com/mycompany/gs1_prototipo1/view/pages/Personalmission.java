@@ -7,7 +7,9 @@ package com.mycompany.gs1_prototipo1.view.pages;
 
 import com.mycompany.gs1_prototipo1.control.Control;
 import com.mycompany.gs1_prototipo1.control.UIController;
+import com.mycompany.gs1_prototipo1.model.Mission;
 import com.mycompany.gs1_prototipo1.model.User;
+import java.util.LinkedList;
 
 /**
  *
@@ -24,6 +26,8 @@ public class Personalmission extends javax.swing.JPanel {
         this.control = Control.getInstance();
         this.user = user;
         initComponents();
+        System.out.println(user.getMissionName().toString());
+        jListMission1.setMissionList((LinkedList<Mission>) user.getMissions());
     }
 
     /**
@@ -37,8 +41,7 @@ public class Personalmission extends javax.swing.JPanel {
 
         titulo = new javax.swing.JLabel();
         Volver = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        jListMission1 = new com.mycompany.gs1_prototipo1.view.pages.containers.jListMission();
 
         setPreferredSize(new java.awt.Dimension(303, 608));
 
@@ -51,18 +54,6 @@ public class Personalmission extends javax.swing.JPanel {
             }
         });
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = user.getMissionName();
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jList2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jList2MouseClicked(evt);
-            }
-        });
-        jScrollPane3.setViewportView(jList2);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -70,31 +61,29 @@ public class Personalmission extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(116, 116, 116)
+                                .addComponent(titulo)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(116, 116, 116)
-                        .addComponent(titulo)))
-                .addContainerGap(121, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(32, 32, 32)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(32, Short.MAX_VALUE)))
+                        .addContainerGap()
+                        .addComponent(jListMission1, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(titulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 547, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jListMission1, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(47, 47, 47)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(63, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -105,18 +94,10 @@ public class Personalmission extends javax.swing.JPanel {
         this.setVisible(false);
     }//GEN-LAST:event_VolverMouseClicked
 
-    private void jList2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList2MouseClicked
-        UIController uiController = control.getUiController();
-        uiController.setMissionPage(user.getMissions().get(jList2.getSelectedIndex()));
-        uiController.setPage("MisionPage");
-        this.setVisible(false);
-    }//GEN-LAST:event_jList2MouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Volver;
-    private javax.swing.JList<String> jList2;
-    private javax.swing.JScrollPane jScrollPane3;
+    private com.mycompany.gs1_prototipo1.view.pages.containers.jListMission jListMission1;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }

@@ -12,6 +12,7 @@ import com.mycompany.gs1_prototipo1.view.pages.Catalog;
 import com.mycompany.gs1_prototipo1.view.pages.Register;
 import com.mycompany.gs1_prototipo1.view.pages.Ladder;
 import com.mycompany.gs1_prototipo1.view.MainFrame;
+import com.mycompany.gs1_prototipo1.view.pages.CRUDMissionPage;
 import com.mycompany.gs1_prototipo1.view.pages.PersonalProfile;
 import com.mycompany.gs1_prototipo1.view.pages.PublicProfile;
 import com.mycompany.gs1_prototipo1.view.pages.Login;
@@ -77,14 +78,22 @@ public class UIController {
     }
     public void setMissionPage(Mission mission){
         missionPage= new MissionPage(mission);
-        mainFrame.setPage(missionPage);
-        
+        mainFrame.setPage(missionPage);   
+    }
+    public void setCreateMissionPage(){
+        CRUDMissionPage missionPage= new CRUDMissionPage();
+        mainFrame.setPage(missionPage);   
+    }
+    public void setEditMissionPage(Mission mission){
+        CRUDMissionPage missionPage= new CRUDMissionPage(mission);
+        mainFrame.setPage(missionPage);   
     }
     public void setProfilePage(User user){
        
         publicProfile= new PublicProfile(user);
         mainFrame.setPage(publicProfile);
     }
+    
      public void setPersonalMissions(User user){
         personalMission= new Personalmission(user);
         mainFrame.setPage(personalMission);

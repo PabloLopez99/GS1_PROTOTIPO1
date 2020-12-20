@@ -5,8 +5,10 @@
  */
 package com.mycompany.gs1_prototipo1.view.pages;
 
+import com.mycompany.gs1_prototipo1.control.Control;
 import com.mycompany.gs1_prototipo1.model.Description;
 import com.mycompany.gs1_prototipo1.model.Location;
+import com.mycompany.gs1_prototipo1.model.Mission;
 import com.mycompany.gs1_prototipo1.model.Street;
 import com.mycompany.gs1_prototipo1.model.User;
 import com.mycompany.gs1_prototipo1.model.types.Label;
@@ -27,6 +29,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -44,7 +47,7 @@ public class PersonalProfile extends JPanel {
         this.user=user;
         initComponents();
         this.editable = false;
-        
+        ownedMissions.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         System.out.println(user.getFirstName());
     }
        
@@ -58,7 +61,6 @@ public class PersonalProfile extends JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         profileImagePanel = new javax.swing.JPanel();
         imageLabel = new javax.swing.JLabel();
         changePhotoLabel = new javax.swing.JLabel();
@@ -86,15 +88,19 @@ public class PersonalProfile extends JPanel {
         listsPanel = new javax.swing.JPanel();
         jScrollPane35 = new javax.swing.JScrollPane();
         ownedMissions = new javax.swing.JList();
-        jScrollPane36 = new javax.swing.JScrollPane();
-        activeMissions = new javax.swing.JList();
-        filesLabel = new javax.swing.JLabel();
+        CRUDPanel = new javax.swing.JPanel();
         ownedMissionsLabel = new javax.swing.JLabel();
+        Crear = new javax.swing.JButton();
+        Editar = new javax.swing.JButton();
+        Destruir = new javax.swing.JButton();
         activeMissionsLabel = new javax.swing.JLabel();
-        removeFileLabel = new javax.swing.JLabel();
-        addFileLabel = new javax.swing.JLabel();
+        filesLabel = new javax.swing.JLabel();
         jScrollPane34 = new javax.swing.JScrollPane();
         filesList = new javax.swing.JList();
+        jScrollPane36 = new javax.swing.JScrollPane();
+        activeMissions = new javax.swing.JList();
+        addFileLabel = new javax.swing.JLabel();
+        removeFileLabel = new javax.swing.JLabel();
         personalDataPanel = new javax.swing.JPanel();
         modifyLabel = new javax.swing.JLabel();
         nameField = new javax.swing.JTextField();
@@ -102,6 +108,8 @@ public class PersonalProfile extends JPanel {
         ageField = new javax.swing.JTextField();
         genderField = new javax.swing.JTextField();
         phoneField = new javax.swing.JTextField();
+
+        setPreferredSize(new java.awt.Dimension(290, 2500));
 
         profileImagePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         profileImagePanel.setForeground(new java.awt.Color(240, 240, 240));
@@ -137,13 +145,13 @@ public class PersonalProfile extends JPanel {
         profileImagePanelLayout.setVerticalGroup(
             profileImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profileImagePanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 120, Short.MAX_VALUE)
                 .addComponent(changePhotoLabel))
             .addGroup(profileImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profileImagePanelLayout.createSequentialGroup()
-                    .addContainerGap(53, Short.MAX_VALUE)
+                    .addContainerGap(42, Short.MAX_VALUE)
                     .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(74, Short.MAX_VALUE)))
+                    .addContainerGap(62, Short.MAX_VALUE)))
         );
 
         streetField.setEditable(false);
@@ -193,6 +201,8 @@ public class PersonalProfile extends JPanel {
                     .addComponent(postCodeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        descriptionPanel.setPreferredSize(new java.awt.Dimension(311, 1500));
 
         availabilityList.setModel(new javax.swing.AbstractListModel() {
             Weekday[] weekdays = {Weekday.Lunes,Weekday.Martes, Weekday.Miercoles,
@@ -270,32 +280,65 @@ public class PersonalProfile extends JPanel {
         });
         jScrollPane35.setViewportView(ownedMissions);
 
-        activeMissions.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = user.getSubscribedMissionName();
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane36.setViewportView(activeMissions);
-
-        filesLabel.setText("Files");
-
+        ownedMissionsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ownedMissionsLabel.setText("Owned Missions");
+
+        Crear.setText("Crear Mision");
+        Crear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CrearActionPerformed(evt);
+            }
+        });
+
+        Editar.setText("Editar Mission");
+        Editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditarActionPerformed(evt);
+            }
+        });
+
+        Destruir.setText("Eliminar Mision");
+        Destruir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DestruirActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout CRUDPanelLayout = new javax.swing.GroupLayout(CRUDPanel);
+        CRUDPanel.setLayout(CRUDPanelLayout);
+        CRUDPanelLayout.setHorizontalGroup(
+            CRUDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CRUDPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(CRUDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(CRUDPanelLayout.createSequentialGroup()
+                        .addGroup(CRUDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Destruir))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(CRUDPanelLayout.createSequentialGroup()
+                        .addGroup(CRUDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(ownedMissionsLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Crear, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+        CRUDPanelLayout.setVerticalGroup(
+            CRUDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CRUDPanelLayout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(ownedMissionsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Crear)
+                .addGap(2, 2, 2)
+                .addComponent(Editar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Destruir)
+                .addGap(2, 2, 2))
+        );
 
         activeMissionsLabel.setText("Active Missions");
 
-        removeFileLabel.setText("Quitar archivo");
-        removeFileLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                removeFileLabelMouseClicked(evt);
-            }
-        });
-
-        addFileLabel.setText("Añadir archivo");
-        addFileLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addFileLabelMouseClicked(evt);
-            }
-        });
+        filesLabel.setText("Files");
 
         filesList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = user.getFilesName();
@@ -304,54 +347,79 @@ public class PersonalProfile extends JPanel {
         });
         jScrollPane34.setViewportView(filesList);
 
+        activeMissions.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = user.getSubscribedMissionName();
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane36.setViewportView(activeMissions);
+
+        addFileLabel.setText("Añadir archivo");
+        addFileLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addFileLabelMouseClicked(evt);
+            }
+        });
+
+        removeFileLabel.setText("Quitar archivo");
+        removeFileLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                removeFileLabelMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout listsPanelLayout = new javax.swing.GroupLayout(listsPanel);
         listsPanel.setLayout(listsPanelLayout);
         listsPanelLayout.setHorizontalGroup(
             listsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(listsPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(listsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(listsPanelLayout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(addFileLabel)
-                        .addGap(52, 52, 52)
-                        .addComponent(removeFileLabel))
                     .addGroup(listsPanelLayout.createSequentialGroup()
                         .addGroup(listsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(listsPanelLayout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(filesLabel)
-                                .addGap(61, 61, 61))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, listsPanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane34, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                        .addGroup(listsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane35, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(ownedMissionsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(11, 11, 11)
+                                .addComponent(activeMissionsLabel))
+                            .addComponent(jScrollPane36, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(33, 33, 33)
                         .addGroup(listsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(activeMissionsLabel)
-                            .addComponent(jScrollPane36, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane34, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(filesLabel))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(listsPanelLayout.createSequentialGroup()
+                        .addComponent(CRUDPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                        .addComponent(jScrollPane35, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, listsPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(addFileLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(removeFileLabel)
+                .addContainerGap())
         );
         listsPanelLayout.setVerticalGroup(
             listsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, listsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(listsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(removeFileLabel)
-                    .addComponent(addFileLabel))
-                .addGap(18, 18, 18)
-                .addGroup(listsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(filesLabel)
-                    .addComponent(ownedMissionsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(activeMissionsLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(2, 2, 2)
                 .addGroup(listsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane35, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane36, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane34, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(81, Short.MAX_VALUE))
+                    .addGroup(listsPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane35, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(CRUDPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(listsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(activeMissionsLabel)
+                    .addComponent(filesLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(listsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane34, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane36, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(2, 2, 2)
+                .addGroup(listsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addFileLabel)
+                    .addComponent(removeFileLabel))
+                .addGap(31, 31, 31))
         );
 
         javax.swing.GroupLayout descriptionPanelLayout = new javax.swing.GroupLayout(descriptionPanel);
@@ -386,7 +454,7 @@ public class PersonalProfile extends JPanel {
                         .addGap(46, 46, 46))))
             .addGroup(descriptionPanelLayout.createSequentialGroup()
                 .addComponent(listsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 43, Short.MAX_VALUE))
         );
         descriptionPanelLayout.setVerticalGroup(
             descriptionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -416,9 +484,9 @@ public class PersonalProfile extends JPanel {
                             .addComponent(jScrollPane33, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
                 .addComponent(listsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(191, 191, 191))
+                .addContainerGap())
         );
 
         modifyLabel.setText("Modificar perfil");
@@ -476,51 +544,34 @@ public class PersonalProfile extends JPanel {
                 .addComponent(modifyLabel))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(profileImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(personalDataPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(locationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(descriptionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(personalDataPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(profileImagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(locationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(descriptionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(306, 306, 306))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(profileImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(personalDataPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(descriptionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(locationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 913, Short.MAX_VALUE)
-                .addGap(323, 323, 323))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(personalDataPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(profileImagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addComponent(locationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(descriptionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(731, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -587,6 +638,19 @@ public class PersonalProfile extends JPanel {
         imageLabel.setIcon(new ImageIcon(img.getScaledInstance(imageLabel.getWidth(), imageLabel.getHeight(), Image.SCALE_SMOOTH)));
     }//GEN-LAST:event_changePhotoLabelMouseClicked
 
+    private void CrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearActionPerformed
+        Control.getInstance().getUiController().setCreateMissionPage();
+    }//GEN-LAST:event_CrearActionPerformed
+
+    private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
+        Control.getInstance().getUiController().setEditMissionPage(user.getMissions().get(ownedMissions.getSelectedIndex()));
+    }//GEN-LAST:event_EditarActionPerformed
+
+    private void DestruirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DestruirActionPerformed
+        user.removeMission(user.getMissions().get(ownedMissions.getSelectedIndex()));
+        this.repaint();
+    }//GEN-LAST:event_DestruirActionPerformed
+
     private void setEditable(boolean editable){
         this.editable = editable;
         nameField.setEditable(editable);
@@ -607,6 +671,10 @@ public class PersonalProfile extends JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel CRUDPanel;
+    private javax.swing.JButton Crear;
+    private javax.swing.JButton Destruir;
+    private javax.swing.JButton Editar;
     private javax.swing.JTextArea aboutMe;
     private javax.swing.JList activeMissions;
     private javax.swing.JLabel activeMissionsLabel;
@@ -625,7 +693,6 @@ public class PersonalProfile extends JPanel {
     private javax.swing.JList filesList;
     private javax.swing.JTextField genderField;
     private javax.swing.JLabel imageLabel;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane30;
     private javax.swing.JScrollPane jScrollPane31;

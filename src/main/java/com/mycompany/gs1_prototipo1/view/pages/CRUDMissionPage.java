@@ -42,6 +42,16 @@ public class CRUDMissionPage extends javax.swing.JPanel {
     DefaultListModel modeloDays = new DefaultListModel();
     DefaultListModel modeloAddDays = new DefaultListModel();
     
+    public CRUDMissionPage(){
+        initComponents();
+        longMission = null;
+        labels = null;
+        subscribedUsers = null;
+        subscribers.setModel(modeloSubscribers);
+        myLabels.setModel(modeloLabels);
+        labelsList.setModel(modeloAddLabels);
+        mission=null;
+    }
     
     public CRUDMissionPage(Mission mission) {
         initComponents();
@@ -122,7 +132,6 @@ public class CRUDMissionPage extends javax.swing.JPanel {
 
         titleHeader.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         titleHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleHeader.setIcon(new javax.swing.ImageIcon("C:\\Users\\esthe\\Documents\\NetBeansProjects\\GS1_PROTOTIPO1\\src\\main\\java\\com\\mycompany\\gs1_prototipo1\\media\\header1.png")); // NOI18N
         titleHeader.setText("Misión");
         titleHeader.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
@@ -218,7 +227,6 @@ public class CRUDMissionPage extends javax.swing.JPanel {
             }
         });
 
-        save.setIcon(new javax.swing.ImageIcon("C:\\Users\\esthe\\Documents\\NetBeansProjects\\GS1_PROTOTIPO1\\src\\main\\java\\com\\mycompany\\gs1_prototipo1\\media\\tick.png")); // NOI18N
         save.setAutoscrolls(true);
         save.setFocusPainted(false);
         save.addActionListener(new java.awt.event.ActionListener() {

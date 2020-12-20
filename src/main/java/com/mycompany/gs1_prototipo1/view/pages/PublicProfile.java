@@ -8,7 +8,9 @@ package com.mycompany.gs1_prototipo1.view.pages;
 import com.mycompany.gs1_prototipo1.control.Control;
 import com.mycompany.gs1_prototipo1.control.FileControl;
 import com.mycompany.gs1_prototipo1.control.UIController;
+import com.mycompany.gs1_prototipo1.model.Mission;
 import com.mycompany.gs1_prototipo1.model.User;
+import java.util.LinkedList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.text.SimpleAttributeSet;
@@ -26,6 +28,7 @@ public class PublicProfile extends javax.swing.JPanel {
     private Control control;
     private User user;
     public PublicProfile(User user) {
+        System.out.println("Personal profile "+user.getFirstName());
         this.control = Control.getInstance();
         this.user = user;
         initComponents();
@@ -44,10 +47,6 @@ public class PublicProfile extends javax.swing.JPanel {
         jTextArea1 = new javax.swing.JTextArea();
         Imagen = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        filestext = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        Misiones = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         nombre = new javax.swing.JLabel();
         Apellido = new javax.swing.JLabel();
@@ -58,8 +57,13 @@ public class PublicProfile extends javax.swing.JPanel {
         contactos = new javax.swing.JLabel();
         telefono = new javax.swing.JLabel();
         correo = new javax.swing.JLabel();
+        elResto = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
+        Misiones = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        filestext = new javax.swing.JLabel();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -87,29 +91,6 @@ public class PublicProfile extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addContainerGap(43, Short.MAX_VALUE))
         );
-
-        filestext.setText("Files");
-
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = user.getFilesName();
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jList1MouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(jList1);
-
-        Misiones.setBackground(new java.awt.Color(255, 255, 153));
-        Misiones.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Misiones.setText("Misions");
-        Misiones.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                MisionesMouseClicked(evt);
-            }
-        });
 
         nombre.setText(user.getName());
 
@@ -156,6 +137,68 @@ public class PublicProfile extends javax.swing.JPanel {
 
         correo.setText(user.getEmail());
 
+        jTextArea2.setEditable(false);
+        jTextArea2.setLineWrap(true);
+        jTextArea2.setWrapStyleWord(true);
+        jScrollPane3.setViewportView(jTextArea2);
+        jTextArea2.setText(user.getDescription().toString());
+
+        Misiones.setBackground(new java.awt.Color(255, 255, 153));
+        Misiones.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Misiones.setText("Misions");
+        Misiones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MisionesMouseClicked(evt);
+            }
+        });
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = user.getFilesName();
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jList1);
+
+        filestext.setText("Files");
+
+        javax.swing.GroupLayout elRestoLayout = new javax.swing.GroupLayout(elResto);
+        elResto.setLayout(elRestoLayout);
+        elRestoLayout.setHorizontalGroup(
+            elRestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(elRestoLayout.createSequentialGroup()
+                .addGroup(elRestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(elRestoLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(filestext))
+                    .addGroup(elRestoLayout.createSequentialGroup()
+                        .addGap(0, 0, 0)
+                        .addGroup(elRestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(elRestoLayout.createSequentialGroup()
+                        .addGap(89, 89, 89)
+                        .addComponent(Misiones, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        elRestoLayout.setVerticalGroup(
+            elRestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, elRestoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(filestext)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Misiones, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -169,8 +212,9 @@ public class PublicProfile extends javax.swing.JPanel {
                         .addGap(24, 24, 24)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(correo)
-                            .addComponent(telefono))))
-                .addContainerGap(37, Short.MAX_VALUE))
+                            .addComponent(telefono)))
+                    .addComponent(elResto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,42 +225,25 @@ public class PublicProfile extends javax.swing.JPanel {
                 .addComponent(telefono)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(correo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(elResto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jTextArea2.setEditable(false);
-        jTextArea2.setLineWrap(true);
-        jTextArea2.setWrapStyleWord(true);
-        jScrollPane3.setViewportView(jTextArea2);
-        jTextArea2.setText(user.getDescription().toString());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(Imagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(130, 130, 130)
-                        .addComponent(filestext))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(82, 82, 82)
-                        .addComponent(Misiones, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addComponent(Imagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,15 +254,7 @@ public class PublicProfile extends javax.swing.JPanel {
                     .addComponent(Imagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(filestext)
-                .addGap(13, 13, 13)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Misiones, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -260,6 +279,7 @@ public class PublicProfile extends javax.swing.JPanel {
     private javax.swing.JLabel contactos;
     private javax.swing.JLabel correo;
     private javax.swing.JLabel edad;
+    private javax.swing.JPanel elResto;
     private javax.swing.JLabel filestext;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList<String> jList1;
