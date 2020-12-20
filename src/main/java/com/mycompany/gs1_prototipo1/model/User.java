@@ -135,16 +135,40 @@ public class User {
         }
     }
     
-  
-    
-   
-  
+    public String[] getMissionName(){
+        String[] missionNames;
+        if(missions.size() > 0){
+            missionNames = new String[missions.size()];
+            for(int i = 0; i < missions.size(); i++){
+            missionNames[i] = missions.get(i).getTitle();
+            }
+        }else{
+            missionNames = new String[1];
+            missionNames[0] = "El usuario no ha creado ninguna Mission";
+        }
+        return missionNames;
+    }
+
+    public String[] getSubscribedMissionName(){
+        String[] missionNames;
+        if(subscribedMissions.size() > 0){
+            missionNames = new String[subscribedMissions.size()];
+            for(int i = 0; i < subscribedMissions.size(); i++){
+                missionNames[i] = subscribedMissions.get(i).getTitle();
+            }
+        }else{
+            missionNames = new String[1];
+            missionNames[0] = "El usuario no está suscrito a ninguna Mission";
+        }
+     return missionNames;
+    }
 
 
     public String getName() {
         return firstName;
     }
-     public String getLastName() {
+    
+    public String getLastName() {
         return lastName;
     }
 
@@ -261,27 +285,6 @@ public class User {
         return fileNames;
     }
     
-     public String[] getMissionName(){
-        String[] missionNames;
-        if(missions.size() > 0){
-           missionNames = new String[missions.size()];
-            for(int i = 0; i < missions.size(); i++){
-                missionNames[i] = missions.get(i).getDescription();
-            } 
-        }else{
-            missionNames = new String[1];
-            missionNames[0] = "El usuario no ha creado ninguna mission";
-        }
-        return missionNames;
-    }
-    
-    public String[] getSubscribedMissionName(){
-        String[] missionNames = new String[subscribedMissions.size()];
-        for(int i = 0; i < subscribedMissions.size(); i++){
-            missionNames[i] = subscribedMissions.get(i).getDescription();
-        }
-        return missionNames;
-    }
     public void addAvailability(Weekday weekday){
         description.addAvailability(weekday);
     }

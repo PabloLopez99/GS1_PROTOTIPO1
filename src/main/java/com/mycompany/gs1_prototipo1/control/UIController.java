@@ -40,7 +40,7 @@ public class UIController {
     
     
     
-    public UIController(User loggedUser){
+    public UIController(){
  
         mainFrame= new MainFrame();
         catalog = new Catalog();
@@ -48,7 +48,7 @@ public class UIController {
         register= new Register();
         welcome= new Login();
         
-        personalProfile = new PersonalProfile(loggedUser);
+        //personalProfile = new PersonalProfile(loggedUser);
 
         mainFrame.setVisible(true);
       
@@ -75,6 +75,7 @@ public class UIController {
     }
     public void setMissionPage(Mission mission){
         missionPage= new MissionPage(mission);
+        mainFrame.setPage(missionPage);
         
     }
     public void setProfilePage(User user){
@@ -90,8 +91,8 @@ public class UIController {
     private void display(JPanel pane) {
         mainFrame.setPage(pane);
     }
-    public void setPersonalProfile(){
-    
+    public void setPersonalProfile(User user){
+        personalProfile = new PersonalProfile(user);
         mainFrame.setPage(personalProfile);
     }
     public MainFrame getMainFrame() {

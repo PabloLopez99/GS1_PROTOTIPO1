@@ -7,11 +7,14 @@ package com.mycompany.gs1_prototipo1.view;
 
 import com.mycompany.gs1_prototipo1.control.Control;
 import com.mycompany.gs1_prototipo1.view.pages.PersonalProfile;
+import java.awt.Dimension;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
@@ -29,14 +32,19 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         control = Control.getInstance();
+        scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0,0));
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    
        
     }
     public void setPage(JPanel pane){
-        
+         
         System.out.println("a");
         displayPagePane.removeAll();
         displayPagePane.setLayout(new BoxLayout(displayPagePane, BoxLayout.PAGE_AXIS));
         displayPagePane.add(pane);
+        scrollPane.setVisible(true);
+        displayPagePane.repaint();
         pack();
     }
 
@@ -54,6 +62,7 @@ public class MainFrame extends javax.swing.JFrame {
         homeIco = new javax.swing.JLabel();
         profileIco = new javax.swing.JLabel();
         ladderIco = new javax.swing.JLabel();
+        scrollPane = new javax.swing.JScrollPane();
         displayPagePane = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -80,7 +89,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(ladderIco)
                 .addGap(84, 84, 84)
                 .addComponent(homeIco)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
                 .addComponent(profileIco)
                 .addGap(14, 14, 14))
         );
@@ -94,29 +103,37 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        scrollPane.setPreferredSize(new java.awt.Dimension(303, 608));
+
+        displayPagePane.setPreferredSize(new java.awt.Dimension(303, 608));
+
         javax.swing.GroupLayout displayPagePaneLayout = new javax.swing.GroupLayout(displayPagePane);
         displayPagePane.setLayout(displayPagePaneLayout);
         displayPagePaneLayout.setHorizontalGroup(
             displayPagePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 303, Short.MAX_VALUE)
+            .addGap(0, 310, Short.MAX_VALUE)
         );
         displayPagePaneLayout.setVerticalGroup(
             displayPagePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 608, Short.MAX_VALUE)
         );
 
+        scrollPane.setViewportView(displayPagePane);
+
+        //scrollPane.setVerticalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(buttonsPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(displayPagePane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(displayPagePane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(buttonsPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -149,5 +166,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel ladderIco;
     private javax.swing.JLabel profileIco;
+    private javax.swing.JScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables
 }
