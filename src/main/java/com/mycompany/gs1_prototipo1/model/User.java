@@ -81,13 +81,16 @@ public class User {
         this.lastName=lastName;
         this.dateBorn=dateBorn;
         this.login=new Login(username,password);
-    
+        this.files=new LinkedList<File>();
         this.registeredDate=registeredDate;
         this.location=location;
         this.ratings=new LinkedList<Rating>();
         this.phone=phone;
-       
+        this.location=new Location(new Street(-10, "hell"), name, name, name, password, new Coordinate(-1, -1), name);
         this.description=new Description("Mi descripción...",new LinkedList<Label>(),new LinkedList<Weekday>());
+        missions= new LinkedList<>();
+        subscribedMissions= new LinkedList<>();
+        gender="Helicoptero apache";
     }
     /*
      private static class Dob {

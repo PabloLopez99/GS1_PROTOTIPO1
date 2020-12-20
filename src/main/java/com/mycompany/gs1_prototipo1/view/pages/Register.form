@@ -242,14 +242,11 @@
           </Events>
         </Component>
         <Component class="javax.swing.JPasswordField" name="password1TextField">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jPasswordField1"/>
-          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="password1TextFieldActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JPasswordField" name="password2TextField">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jPasswordField2"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="createAccountLabel">
           <Properties>

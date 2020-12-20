@@ -102,9 +102,11 @@ public class Register extends javax.swing.JPanel {
             }
         });
 
-        password1TextField.setText("jPasswordField1");
-
-        password2TextField.setText("jPasswordField2");
+        password1TextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                password1TextFieldActionPerformed(evt);
+            }
+        });
 
         createAccountLabel.setText("Crear cuenta");
         createAccountLabel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -273,14 +275,13 @@ public class Register extends javax.swing.JPanel {
     //public static User registerUser(String username,String name, String lastName, String dateBorn,String email, String password, String password2 ){
         
     private void createAccountLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createAccountLabelMouseClicked
-        
-        
         User user= RegisterHandler.registerUser(userNameTextField.getText(), nameTextField.getText(), lastNameTextField.getText(),birthDateTextField.getText() ,mailTextField.getText(), String.valueOf(password1TextField.getPassword()),  String.valueOf(password1TextField.getPassword()));
+        System.out.println("-------------  "+lastNameTextField.getText());
         if(user!=null){
             Control.getInstance().getAllMembers().addMember(user);
             Control.getInstance().setLoggedUser(user);
             System.out.println("queso");
-            Control.getInstance().getUiController().setPersonalProfile(user);
+            //Control.getInstance().getUiController().setPersonalProfile(user);
         }else{
             System.out.println("null");
         }
@@ -293,6 +294,10 @@ public class Register extends javax.swing.JPanel {
     private void lastNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastNameTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_lastNameTextFieldActionPerformed
+
+    private void password1TextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password1TextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_password1TextFieldActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

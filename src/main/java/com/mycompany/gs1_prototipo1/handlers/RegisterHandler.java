@@ -58,16 +58,6 @@ public class RegisterHandler {
            badUserInputHandler.invalidLast();
            return null; 
         }
-        try{
-            Integer.parseInt(name);
-        }catch(NumberFormatException e){
-             badUserInputHandler.invalidName();
-        }
-         try{
-            Integer.parseInt(lastName);
-        }catch(NumberFormatException e){
-             badUserInputHandler.invalidLast();
-        }
         if(Control.getInstance().getAllMembers().containsMail(email)){
              badUserInputHandler.userWithThisUserNameExists();
              return null;

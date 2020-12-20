@@ -127,8 +127,8 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="imageLabel">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new ImageIcon(user.getPictureMedium())" type="code"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor" postCode="BufferedImage foto=user.getPictureMedium();&#xa;if(foto!=null) imageLabel.setIcon(new ImageIcon(foto));">
+                  <Connection code="null" type="code"/>
                 </Property>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[107, 134]"/>
