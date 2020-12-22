@@ -696,14 +696,20 @@ public class PersonalProfile extends JPanel {
     }//GEN-LAST:event_CrearActionPerformed
 
     private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
-        if(ownedMissions.getSelectedIndex() != -1)Control.getInstance().getUiController().setEditMissionPage(user.getMissions().get(ownedMissions.getSelectedIndex()));
+        try {
+            if(ownedMissions.getSelectedIndex() != -1)Control.getInstance().getUiController().setEditMissionPage(user.getMissions().get(ownedMissions.getSelectedIndex()));
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_EditarActionPerformed
 
     private void DestruirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DestruirActionPerformed
-        if(ownedMissions.getSelectedIndex() != -1){
-            MissionFactory.removeMission(user.getMissions().get(ownedMissions.getSelectedIndex()));
-            ownedMissionsModel.removeElementAt(ownedMissions.getSelectedIndex());
-            Control.getInstance().getUiController().updateCatalogPage(); 
+        try {
+            if(ownedMissions.getSelectedIndex() != -1){
+                MissionFactory.removeMission(user.getMissions().get(ownedMissions.getSelectedIndex()));
+                ownedMissionsModel.removeElementAt(ownedMissions.getSelectedIndex());
+                Control.getInstance().getUiController().updateCatalogPage(); 
+            }
+        } catch (Exception e) {
         }
     }//GEN-LAST:event_DestruirActionPerformed
 
@@ -714,8 +720,11 @@ public class PersonalProfile extends JPanel {
     }//GEN-LAST:event_filesListMouseClicked
 
     private void activeMissionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_activeMissionsMouseClicked
-       int selectedIndex = activeMissions.getSelectedIndex();
-       Control.getInstance().getUiController().setMissionPage(user.getSubscribedMissions().get(selectedIndex));
+        try {
+            int selectedIndex = activeMissions.getSelectedIndex();
+            Control.getInstance().getUiController().setMissionPage(user.getSubscribedMissions().get(selectedIndex));
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_activeMissionsMouseClicked
 
     private void setEditable(boolean editable){
