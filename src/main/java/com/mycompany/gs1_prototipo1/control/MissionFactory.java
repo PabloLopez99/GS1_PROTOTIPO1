@@ -3,6 +3,7 @@ package com.mycompany.gs1_prototipo1.control;
 
 import com.mycompany.gs1_prototipo1.model.types.Label;
 import com.mycompany.gs1_prototipo1.model.*;
+import com.mycompany.gs1_prototipo1.model.types.Weekday;
 
 import java.util.Date;
 import java.util.LinkedList;
@@ -24,7 +25,12 @@ public class MissionFactory {
        Mission newMission = new Mission(title,owner,description,startDate,endDate,labels,inPerson,location);
        owner.addMission(newMission);
        Control.getInstance().addMission(newMission);
-
+    }
+    
+    public static void NewMission(String title,User owner,String description, Date startDate, Date endDate, Boolean inPerson, Location location, List<Label> labels, List<Weekday> weekdays, int duration){
+       LongMission newMission = new LongMission(duration, weekdays, title,owner,description,startDate,endDate,labels,inPerson,location);
+       owner.addMission(newMission);
+       Control.getInstance().addMission(newMission);
     }
     
  

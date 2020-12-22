@@ -21,7 +21,7 @@ public class misionCellRender extends DefaultListCellRenderer{
     @Override
     public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         Color bgColor=Color.WHITE;
-        if(index%2==0) bgColor=Color.CYAN;
+        if(index%2==0) bgColor=new java.awt.Color(197, 241, 197);
         Component comp=new MissionCell(value, bgColor);
         return comp;
     }

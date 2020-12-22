@@ -131,6 +131,8 @@ public class PublicProfile extends javax.swing.JPanel {
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
+        contactos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        contactos.setForeground(new java.awt.Color(177, 74, 6));
         contactos.setText("Contactos");
 
         telefono.setText(user.getPhone());
@@ -138,20 +140,24 @@ public class PublicProfile extends javax.swing.JPanel {
         correo.setText(user.getEmail());
 
         jTextArea2.setEditable(false);
+        jTextArea2.setBackground(new java.awt.Color(197, 241, 197));
         jTextArea2.setLineWrap(true);
         jTextArea2.setWrapStyleWord(true);
         jScrollPane3.setViewportView(jTextArea2);
         jTextArea2.setText(user.getDescription().toString());
 
-        Misiones.setBackground(new java.awt.Color(255, 255, 153));
+        Misiones.setBackground(new java.awt.Color(255, 255, 255));
+        Misiones.setForeground(new java.awt.Color(177, 74, 6));
         Misiones.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Misiones.setText("Misions");
+        Misiones.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Misiones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 MisionesMouseClicked(evt);
             }
         });
 
+        jList1.setBackground(new java.awt.Color(197, 241, 197));
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = user.getFilesName();
             public int getSize() { return strings.length; }
@@ -164,6 +170,8 @@ public class PublicProfile extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jList1);
 
+        filestext.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        filestext.setForeground(new java.awt.Color(177, 74, 6));
         filestext.setText("Files");
 
         javax.swing.GroupLayout elRestoLayout = new javax.swing.GroupLayout(elResto);
@@ -175,14 +183,12 @@ public class PublicProfile extends javax.swing.JPanel {
                     .addGroup(elRestoLayout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(filestext))
+                    .addGroup(elRestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(elRestoLayout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addGroup(elRestoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(elRestoLayout.createSequentialGroup()
-                        .addGap(89, 89, 89)
-                        .addComponent(Misiones, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(78, 78, 78)
+                        .addComponent(Misiones, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         elRestoLayout.setVerticalGroup(

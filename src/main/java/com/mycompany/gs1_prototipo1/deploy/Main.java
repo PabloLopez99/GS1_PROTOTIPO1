@@ -19,10 +19,5 @@ public class Main {
     public static void main(String args[]) throws InterruptedException{
         Control control = Control.getInstance();
         control.run();
-        /*User genUser = UserGenerator.genUser();
-        PersonalProfile personalProfile = new PersonalProfile(genUser);
-        JFrame jFrame = new JFrame();
-        jFrame.add(personalProfile);
-        jFrame.setVisible(true);*/
     }
 }

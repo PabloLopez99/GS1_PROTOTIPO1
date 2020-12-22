@@ -39,23 +39,15 @@ public class UIController {
     private Personalmission personalMission;
 
     
-    
-    
     public UIController(){
- 
         mainFrame= new MainFrame();
         catalog = new Catalog();
         ladder        = new Ladder();
         register= new Register();
         welcome= new Login();
-        
-        //personalProfile = new PersonalProfile(loggedUser);
-
         mainFrame.setVisible(true);
-      
         mainFrame.setPage(welcome);
-        //Control.getInstance().getLoggedUser().addFile(new File("/Users/pabloantoniolopezmartin/Documents/intellij_shortcuts.docx"));
-        //setProfilePage(Control.getInstance().getLoggedUser());
+
     }
     
     public void setPage(String pageName){
@@ -75,6 +67,9 @@ public class UIController {
             display(missionPage);    
        }
    
+    }
+    public void updateCatalogPage(){
+        catalog = new Catalog();
     }
     public void setMissionPage(Mission mission){
         missionPage= new MissionPage(mission);
@@ -141,6 +136,10 @@ public class UIController {
 
     public Personalmission getPersonalMission() {
         return personalMission;
+    }
+
+    public void updatePersonalProfilePage() {
+        personalProfile= new PersonalProfile(Control.getInstance().getLoggedUser());
     }
    
 }

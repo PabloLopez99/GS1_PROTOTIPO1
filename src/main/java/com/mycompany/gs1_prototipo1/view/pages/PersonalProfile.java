@@ -6,6 +6,9 @@
 package com.mycompany.gs1_prototipo1.view.pages;
 
 import com.mycompany.gs1_prototipo1.control.Control;
+import com.mycompany.gs1_prototipo1.control.FileControl;
+import com.mycompany.gs1_prototipo1.control.MissionFactory;
+import com.mycompany.gs1_prototipo1.develop.Helper;
 import com.mycompany.gs1_prototipo1.model.Description;
 import com.mycompany.gs1_prototipo1.model.Location;
 import com.mycompany.gs1_prototipo1.model.Mission;
@@ -25,10 +28,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 
 /**
@@ -38,7 +43,8 @@ import javax.swing.ListSelectionModel;
 public class PersonalProfile extends JPanel {
     private User user;
     private boolean editable;
-      
+    private DefaultListModel ownedMissionsModel = new DefaultListModel();
+            
 
     /**
      * Creates new form PersonalProfile
@@ -49,6 +55,14 @@ public class PersonalProfile extends JPanel {
         this.editable = false;
         ownedMissions.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         System.out.println(user.getFirstName());
+        ownedMissions.setModel(ownedMissionsModel);
+        for (String missionName : user.getMissionName()) {
+            ownedMissionsModel.addElement(missionName);
+        }
+        if(user.getPictureMedium() != null){
+           Image img = new ImageIcon(user.getPictureMedium()).getImage();
+            imageLabel.setIcon(new ImageIcon(img.getScaledInstance(88, 113, Image.SCALE_SMOOTH))); 
+        }
     }
        
 
@@ -111,7 +125,6 @@ public class PersonalProfile extends JPanel {
 
         setPreferredSize(new java.awt.Dimension(290, 2500));
 
-        profileImagePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         profileImagePanel.setForeground(new java.awt.Color(240, 240, 240));
         profileImagePanel.setMaximumSize(new java.awt.Dimension(104, 130));
         profileImagePanel.setPreferredSize(new java.awt.Dimension(104, 130));
@@ -119,9 +132,11 @@ public class PersonalProfile extends JPanel {
         imageLabel.setIcon(null);
         BufferedImage foto=user.getPictureMedium();
         if(foto!=null) imageLabel.setIcon(new ImageIcon(foto));
-        imageLabel.setMaximumSize(new java.awt.Dimension(107, 134));
+        imageLabel.setMaximumSize(profileImagePanel.getSize());
 
+        changePhotoLabel.setForeground(new java.awt.Color(177, 74, 6));
         changePhotoLabel.setText("Cambiar foto");
+        changePhotoLabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         changePhotoLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 changePhotoLabelMouseClicked(evt);
@@ -133,25 +148,18 @@ public class PersonalProfile extends JPanel {
         profileImagePanelLayout.setHorizontalGroup(
             profileImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(profileImagePanelLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(changePhotoLabel)
-                .addContainerGap(22, Short.MAX_VALUE))
-            .addGroup(profileImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(profileImagePanelLayout.createSequentialGroup()
-                    .addGap(34, 34, 34)
-                    .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-                    .addGap(34, 34, 34)))
+                .addContainerGap()
+                .addGroup(profileImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(changePhotoLabel)
+                    .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         profileImagePanelLayout.setVerticalGroup(
             profileImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profileImagePanelLayout.createSequentialGroup()
-                .addGap(0, 120, Short.MAX_VALUE)
+                .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(changePhotoLabel))
-            .addGroup(profileImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profileImagePanelLayout.createSequentialGroup()
-                    .addContainerGap(42, Short.MAX_VALUE)
-                    .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(62, Short.MAX_VALUE)))
         );
 
         streetField.setEditable(false);
@@ -204,6 +212,7 @@ public class PersonalProfile extends JPanel {
 
         descriptionPanel.setPreferredSize(new java.awt.Dimension(311, 1500));
 
+        availabilityList.setBackground(new java.awt.Color(197, 241, 197));
         availabilityList.setModel(new javax.swing.AbstractListModel() {
             Weekday[] weekdays = {Weekday.Lunes,Weekday.Martes, Weekday.Miercoles,
                 Weekday.Jueves, Weekday.Viernes, Weekday.Sabado, Weekday.Domingo};
@@ -212,6 +221,7 @@ public class PersonalProfile extends JPanel {
         });
         jScrollPane30.setViewportView(availabilityList);
 
+        preferencesList.setBackground(new java.awt.Color(197, 241, 197));
         preferencesList.setModel(new javax.swing.AbstractListModel() {
             Label[] labels = {Label.Ambiental, Label.Apoyo_socio_sanitario,
                 Label.Comunitario, Label.Cuidado_de_mayores, Label.Cuidado_de_menores,
@@ -221,28 +231,36 @@ public class PersonalProfile extends JPanel {
         });
         jScrollPane31.setViewportView(preferencesList);
 
+        addDayLabel.setForeground(new java.awt.Color(177, 74, 6));
         addDayLabel.setText("Añadir día");
+        addDayLabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         addDayLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 addDayLabelMouseClicked(evt);
             }
         });
 
+        removeDayLabel.setForeground(new java.awt.Color(177, 74, 6));
         removeDayLabel.setText("Quitar día");
+        removeDayLabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         removeDayLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 removeDayLabelMouseClicked(evt);
             }
         });
 
+        addLabelLabel.setForeground(new java.awt.Color(177, 74, 6));
         addLabelLabel.setText("Añadir etiqueta");
+        addLabelLabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         addLabelLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 addLabelLabelMouseClicked(evt);
             }
         });
 
+        removeLabelLabel.setForeground(new java.awt.Color(177, 74, 6));
         removeLabelLabel.setText("Quitar etiqueta");
+        removeLabelLabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         removeLabelLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 removeLabelLabelMouseClicked(evt);
@@ -250,6 +268,7 @@ public class PersonalProfile extends JPanel {
         });
 
         availability.setEditable(false);
+        availability.setBackground(new java.awt.Color(197, 241, 197));
         availability.setColumns(20);
         availability.setLineWrap(true);
         availability.setRows(5);
@@ -258,6 +277,7 @@ public class PersonalProfile extends JPanel {
         availability.setText(user.getDescription().availabilityToString());
 
         preference.setEditable(false);
+        preference.setBackground(new java.awt.Color(197, 241, 197));
         preference.setColumns(20);
         preference.setLineWrap(true);
         preference.setRows(5);
@@ -266,6 +286,7 @@ public class PersonalProfile extends JPanel {
         preference.setText(user.getDescription().preferencesToString());
 
         aboutMe.setEditable(false);
+        aboutMe.setBackground(new java.awt.Color(197, 241, 197));
         aboutMe.setColumns(20);
         aboutMe.setLineWrap(true);
         aboutMe.setRows(5);
@@ -273,31 +294,35 @@ public class PersonalProfile extends JPanel {
         jScrollPane1.setViewportView(aboutMe);
         aboutMe.setText(user.getDescription().getAboutMe());
 
-        ownedMissions.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = user.getMissionName();
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
+        ownedMissions.setBackground(new java.awt.Color(197, 241, 197));
         jScrollPane35.setViewportView(ownedMissions);
 
+        ownedMissionsLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        ownedMissionsLabel.setForeground(new java.awt.Color(177, 74, 6));
         ownedMissionsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ownedMissionsLabel.setText("Owned Missions");
 
+        Crear.setForeground(new java.awt.Color(177, 74, 6));
         Crear.setText("Crear Mision");
+        Crear.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Crear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CrearActionPerformed(evt);
             }
         });
 
+        Editar.setForeground(new java.awt.Color(177, 74, 6));
         Editar.setText("Editar Mission");
+        Editar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Editar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EditarActionPerformed(evt);
             }
         });
 
+        Destruir.setForeground(new java.awt.Color(177, 74, 6));
         Destruir.setText("Eliminar Mision");
+        Destruir.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Destruir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DestruirActionPerformed(evt);
@@ -309,18 +334,13 @@ public class PersonalProfile extends JPanel {
         CRUDPanelLayout.setHorizontalGroup(
             CRUDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CRUDPanelLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(CRUDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(CRUDPanelLayout.createSequentialGroup()
-                        .addGroup(CRUDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Editar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Destruir))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(CRUDPanelLayout.createSequentialGroup()
-                        .addGroup(CRUDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(ownedMissionsLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Crear, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(CRUDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(Crear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Editar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Destruir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(ownedMissionsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
         CRUDPanelLayout.setVerticalGroup(
             CRUDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -331,37 +351,56 @@ public class PersonalProfile extends JPanel {
                 .addComponent(Crear)
                 .addGap(2, 2, 2)
                 .addComponent(Editar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Destruir)
-                .addGap(2, 2, 2))
+                .addGap(8, 8, 8)
+                .addComponent(Destruir))
         );
 
+        activeMissionsLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        activeMissionsLabel.setForeground(new java.awt.Color(177, 74, 6));
         activeMissionsLabel.setText("Active Missions");
 
+        filesLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        filesLabel.setForeground(new java.awt.Color(177, 74, 6));
         filesLabel.setText("Files");
 
+        filesList.setBackground(new java.awt.Color(197, 241, 197));
         filesList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = user.getFilesName();
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        filesList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                filesListMouseClicked(evt);
+            }
+        });
         jScrollPane34.setViewportView(filesList);
 
+        activeMissions.setBackground(new java.awt.Color(197, 241, 197));
         activeMissions.setModel(new javax.swing.AbstractListModel() {
             String[] strings = user.getSubscribedMissionName();
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        activeMissions.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                activeMissionsMouseClicked(evt);
+            }
+        });
         jScrollPane36.setViewportView(activeMissions);
 
+        addFileLabel.setForeground(new java.awt.Color(177, 74, 6));
         addFileLabel.setText("Añadir archivo");
+        addFileLabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         addFileLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 addFileLabelMouseClicked(evt);
             }
         });
 
+        removeFileLabel.setForeground(new java.awt.Color(177, 74, 6));
         removeFileLabel.setText("Quitar archivo");
+        removeFileLabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         removeFileLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 removeFileLabelMouseClicked(evt);
@@ -387,7 +426,7 @@ public class PersonalProfile extends JPanel {
                             .addComponent(filesLabel))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(listsPanelLayout.createSequentialGroup()
-                        .addComponent(CRUDPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(CRUDPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                         .addComponent(jScrollPane35, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
@@ -430,31 +469,29 @@ public class PersonalProfile extends JPanel {
                 .addContainerGap()
                 .addGroup(descriptionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(descriptionPanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane32, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addComponent(jScrollPane30, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(descriptionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(addDayLabel)
+                            .addComponent(removeDayLabel))
+                        .addGap(58, 58, 58))
                     .addGroup(descriptionPanelLayout.createSequentialGroup()
                         .addGroup(descriptionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane33, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane32, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, Short.MAX_VALUE)
-                        .addGroup(descriptionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane30, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-                            .addComponent(jScrollPane31, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGroup(descriptionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(descriptionPanelLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(descriptionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(addDayLabel)
-                                    .addComponent(removeDayLabel)))
-                            .addGroup(descriptionPanelLayout.createSequentialGroup()
+                                .addComponent(jScrollPane33, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane31, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(descriptionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(removeLabelLabel)
-                                    .addComponent(addLabelLabel))))
-                        .addGap(46, 46, 46))))
+                                    .addComponent(addLabelLabel)
+                                    .addComponent(removeLabelLabel))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(descriptionPanelLayout.createSequentialGroup()
                 .addComponent(listsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 43, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         descriptionPanelLayout.setVerticalGroup(
             descriptionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -489,7 +526,10 @@ public class PersonalProfile extends JPanel {
                 .addContainerGap())
         );
 
+        modifyLabel.setBackground(new java.awt.Color(255, 255, 255));
+        modifyLabel.setForeground(new java.awt.Color(177, 74, 6));
         modifyLabel.setText("Modificar perfil");
+        modifyLabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         modifyLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 modifyLabelMouseClicked(evt);
@@ -540,7 +580,7 @@ public class PersonalProfile extends JPanel {
                 .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(phoneField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(modifyLabel))
         );
 
@@ -558,7 +598,7 @@ public class PersonalProfile extends JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(descriptionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(locationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -571,7 +611,7 @@ public class PersonalProfile extends JPanel {
                 .addComponent(locationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(descriptionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(731, Short.MAX_VALUE))
+                .addContainerGap(729, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -586,29 +626,37 @@ public class PersonalProfile extends JPanel {
 
     private void addDayLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addDayLabelMouseClicked
         if (editable){
-            user.getDescription().addAvailability((Weekday) availabilityList.getSelectedValue());
-            availability.setText(user.getDescription().availabilityToString());
+            if(availabilityList.getSelectedValue() != null){
+                user.getDescription().addAvailability((Weekday) availabilityList.getSelectedValue());
+                availability.setText(user.getDescription().availabilityToString());
+            }
         }
     }//GEN-LAST:event_addDayLabelMouseClicked
 
     private void removeDayLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeDayLabelMouseClicked
         if (editable){
-            user.getDescription().removeAvailability((Weekday) availabilityList.getSelectedValue());
-            availability.setText(user.getDescription().availabilityToString());
+            if(availabilityList.getSelectedValue() != null){
+                user.getDescription().removeAvailability((Weekday) availabilityList.getSelectedValue());
+                availability.setText(user.getDescription().availabilityToString());
+            }
         }
     }//GEN-LAST:event_removeDayLabelMouseClicked
 
     private void addLabelLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addLabelLabelMouseClicked
         if (editable){
-            user.getDescription().addPreferences((Label) preferencesList.getSelectedValue());
-            preference.setText(user.getDescription().preferencesToString());
+            if(preferencesList.getSelectedValue() != null){
+                user.getDescription().addPreferences((Label) preferencesList.getSelectedValue());
+                preference.setText(user.getDescription().preferencesToString());
+            }
         }
     }//GEN-LAST:event_addLabelLabelMouseClicked
 
     private void removeLabelLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeLabelLabelMouseClicked
         if (editable){
-            user.getDescription().removePreferences((Label) preferencesList.getSelectedValue());
-            preference.setText(user.getDescription().preferencesToString());
+            if(preferencesList.getSelectedValue() != null){
+                user.getDescription().removePreferences((Label) preferencesList.getSelectedValue());
+                preference.setText(user.getDescription().preferencesToString());
+            }
         }
     }//GEN-LAST:event_removeLabelLabelMouseClicked
 
@@ -636,6 +684,11 @@ public class PersonalProfile extends JPanel {
         }
         Image img = new ImageIcon(user.getPictureMedium()).getImage();
         imageLabel.setIcon(new ImageIcon(img.getScaledInstance(imageLabel.getWidth(), imageLabel.getHeight(), Image.SCALE_SMOOTH)));
+        
+        
+        
+        Control.getInstance().getUiController().updatePersonalProfilePage();
+        Control.getInstance().getUiController().updateCatalogPage();
     }//GEN-LAST:event_changePhotoLabelMouseClicked
 
     private void CrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearActionPerformed
@@ -643,13 +696,27 @@ public class PersonalProfile extends JPanel {
     }//GEN-LAST:event_CrearActionPerformed
 
     private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
-        Control.getInstance().getUiController().setEditMissionPage(user.getMissions().get(ownedMissions.getSelectedIndex()));
+        if(ownedMissions.getSelectedIndex() != -1)Control.getInstance().getUiController().setEditMissionPage(user.getMissions().get(ownedMissions.getSelectedIndex()));
     }//GEN-LAST:event_EditarActionPerformed
 
     private void DestruirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DestruirActionPerformed
-        user.removeMission(user.getMissions().get(ownedMissions.getSelectedIndex()));
-        this.repaint();
+        if(ownedMissions.getSelectedIndex() != -1){
+            MissionFactory.removeMission(user.getMissions().get(ownedMissions.getSelectedIndex()));
+            ownedMissionsModel.removeElementAt(ownedMissions.getSelectedIndex());
+            Control.getInstance().getUiController().updateCatalogPage(); 
+        }
     }//GEN-LAST:event_DestruirActionPerformed
+
+    private void filesListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_filesListMouseClicked
+        if(user.getFiles().size() != 0){
+            FileControl.open(user.getFiles().get(filesList.getSelectedIndex()));
+        }
+    }//GEN-LAST:event_filesListMouseClicked
+
+    private void activeMissionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_activeMissionsMouseClicked
+       int selectedIndex = activeMissions.getSelectedIndex();
+       Control.getInstance().getUiController().setMissionPage(user.getSubscribedMissions().get(selectedIndex));
+    }//GEN-LAST:event_activeMissionsMouseClicked
 
     private void setEditable(boolean editable){
         this.editable = editable;
@@ -723,29 +790,16 @@ public class PersonalProfile extends JPanel {
     private void saveChanges(User user) {
         user.setFirstName(nameField.getText().substring(0, nameField.getText().indexOf(" ")));
         user.setLastName(nameField.getText().substring(nameField.getText().indexOf(" ")));
-        System.out.println(user.getName()+ " " + user.getLastName());
         user.setDateBorn(ageField.getText());
-        System.out.println(user.getAge());
         user.setEmail(emailField.getText());
-        System.out.println(user.getEmail());
         user.setGender(genderField.getText());
-        System.out.println(user.getGender());
         user.setPhone(phoneField.getText());
-        System.out.println(user.getPhone());
         user.setLocation(new Location(new Street(Integer.parseInt(streetField.getText().substring(streetField.getText().indexOf(",")+2)),
                 streetField.getText().substring(0, streetField.getText().indexOf(","))),
                 cityField.getText(), stateField.getText(), countryField.getText(),
                 postCodeField.getText(),user.getLocation().getCoordinates(), user.getLocation().getOffset()));
-        System.out.println(user.getLocation().getStreet());
-        System.out.println(user.getLocation().getCity());
-        System.out.println(user.getLocation().getState());
-        System.out.println(user.getLocation().getCountry());
-        System.out.println(user.getLocation().getPostCode());
         user.setDescription(new Description(aboutMe.getText(),user.getDescription().getPreferences(),
                 user.getDescription().getAvailability()));
-        System.out.println(user.getDescription().getAboutMe());
-        System.out.println(user.getDescription().availabilityToString());
-        System.out.println(user.getDescription().preferencesToString());
     }
 
     private BufferedImage fileToBuffered(File selectedFile) throws IOException {
@@ -764,4 +818,12 @@ public class PersonalProfile extends JPanel {
         }
         return false;
     }   
+    
+    public void updateActiveMission(){
+        activeMissions.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = user.getSubscribedMissionName();
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+    }
 }

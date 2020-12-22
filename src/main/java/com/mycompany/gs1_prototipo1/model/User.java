@@ -85,11 +85,11 @@ public class User {
         this.location=location;
         this.ratings=new LinkedList<Rating>();
         this.phone=phone;
-        this.location=new Location(new Street(-10, "hell"), name, name, name, password, new Coordinate(-1, -1), name);
+        this.location=new Location(new Street(-10, "calle"), "ciudad", "estado", "país", "código postal", new Coordinate(-1, -1), "offset");
         this.description=new Description("Mi descripción...",new LinkedList<Label>(),new LinkedList<Weekday>());
         missions= new LinkedList<>();
         subscribedMissions= new LinkedList<>();
-        gender="Helicoptero apache";
+        gender="No especificado";
     }
     /*
      private static class Dob {
@@ -246,8 +246,8 @@ public class User {
         return login;
     }
     public String getAge(){
-        //DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-d"); OJO
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-d");
+        //DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate fechaNac = LocalDate.parse(dateBorn, fmt);
         LocalDate ahora = LocalDate.now();
 

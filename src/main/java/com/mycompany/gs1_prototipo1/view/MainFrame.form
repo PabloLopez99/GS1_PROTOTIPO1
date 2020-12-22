@@ -90,11 +90,11 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Component id="ladderIco" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
                       <Component id="homeIco" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="profileIco" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -109,9 +109,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="homeIco">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\AZAEL\OneDrive\Documentos\NetBeansProjects\GS1_PROTOTIPO1\src\main\java\com\mycompany\gs1_prototipo1\media\icons8-home-50.png"/>
-                </Property>
+                <Property name="text" type="java.lang.String" value="Home"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="homeIcoMouseClicked"/>
@@ -119,9 +117,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="profileIco">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\AZAEL\OneDrive\Documentos\NetBeansProjects\GS1_PROTOTIPO1\src\main\java\com\mycompany\gs1_prototipo1\media\icons8-user-male-60.png"/>
-                </Property>
+                <Property name="text" type="java.lang.String" value="Profile"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="profileIcoMouseClicked"/>
@@ -129,9 +125,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="ladderIco">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\AZAEL\OneDrive\Documentos\NetBeansProjects\GS1_PROTOTIPO1\src\main\java\com\mycompany\gs1_prototipo1\media\icons8-trophy-60.png"/>
-                </Property>
+                <Property name="text" type="java.lang.String" value="Ranking"/>
               </Properties>
             </Component>
           </SubComponents>

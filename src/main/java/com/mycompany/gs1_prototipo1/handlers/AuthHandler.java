@@ -8,30 +8,17 @@ package com.mycompany.gs1_prototipo1.handlers;
 import com.mycompany.gs1_prototipo1.control.Control;
 import com.mycompany.gs1_prototipo1.model.User;
 
-/**
- *
- * @author pabloantoniolopezmartin
- */
 public class AuthHandler {
-    
-    
-    
-    
     public static User checkUser(String input, String password){
-        
         User user= Control.getInstance().getAllMembers().getUserByMailAndUsername(input);
-        
         if(user==null){
             badUserInputHandler.noUsername();
             return null;
         }
         if(user.getLogin().getPasswd().equals(password)){
-            System.out.println("op");
-            System.out.println(user.getFirstName());
             return user;
         }
         badUserInputHandler.badPassword();
         return null;
-       
     }
 }

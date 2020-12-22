@@ -33,7 +33,7 @@
                   <Component id="descriptionPanel" alignment="0" min="-2" pref="270" max="-2" attributes="0"/>
                   <Component id="locationPanel" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="20" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -49,7 +49,7 @@
               <Component id="locationPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="descriptionPanel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="731" max="32767" attributes="0"/>
+              <EmptySpace pref="729" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -57,11 +57,6 @@
   <SubComponents>
     <Container class="javax.swing.JPanel" name="profileImagePanel">
       <Properties>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-            <LineBorder/>
-          </Border>
-        </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="f0" green="f0" red="f0" type="rgb"/>
         </Property>
@@ -76,32 +71,22 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                  <Component id="changePhotoLabel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="22" max="32767" attributes="0"/>
-              </Group>
-              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                      <Component id="imageLabel" pref="26" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="changePhotoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="imageLabel" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="0" pref="120" max="32767" attributes="0"/>
+                  <Component id="imageLabel" min="-2" pref="113" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="changePhotoLabel" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="42" max="32767" attributes="0"/>
-                      <Component id="imageLabel" min="-2" pref="30" max="-2" attributes="0"/>
-                      <EmptySpace pref="62" max="32767" attributes="0"/>
-                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -112,14 +97,22 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor" postCode="BufferedImage foto=user.getPictureMedium();&#xa;if(foto!=null) imageLabel.setIcon(new ImageIcon(foto));">
               <Connection code="null" type="code"/>
             </Property>
-            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[107, 134]"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="profileImagePanel.getSize()" type="code"/>
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="changePhotoLabel">
           <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="6" green="4a" red="b1" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Cambiar foto"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                <BevelBorder/>
+              </Border>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="changePhotoLabelMouseClicked"/>
@@ -228,42 +221,37 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jScrollPane1" min="-2" pref="251" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jScrollPane32" min="-2" pref="96" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="32767" attributes="0"/>
+                          <Component id="jScrollPane30" min="-2" pref="63" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="addDayLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="removeDayLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane33" alignment="1" min="-2" pref="96" max="-2" attributes="0"/>
-                              <Component id="jScrollPane32" min="-2" pref="96" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jScrollPane30" pref="63" max="32767" attributes="0"/>
-                              <Component id="jScrollPane31" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="addDayLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="removeDayLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
+                              <Component id="jScrollPane1" min="-2" pref="251" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jScrollPane33" min="-2" pref="82" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane31" min="-2" pref="63" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="removeLabelLabel" min="-2" max="-2" attributes="0"/>
                                       <Component id="addLabelLabel" min="-2" max="-2" attributes="0"/>
+                                      <Component id="removeLabelLabel" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
               <Group type="102" attributes="0">
                   <Component id="listsPanel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="43" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -320,6 +308,9 @@
           <SubComponents>
             <Component class="javax.swing.JList" name="availabilityList">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="c5" green="f1" red="c5" type="rgb"/>
+                </Property>
                 <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new javax.swing.AbstractListModel() {&#xa;    Weekday[] weekdays = {Weekday.Lunes,Weekday.Martes, Weekday.Miercoles,&#xa;        Weekday.Jueves, Weekday.Viernes, Weekday.Sabado, Weekday.Domingo};&#xa;    public int getSize() { return weekdays.length; }&#xa;    public Object getElementAt(int i) { return weekdays[i]; }&#xa;}" type="code"/>
                 </Property>
@@ -336,6 +327,9 @@
           <SubComponents>
             <Component class="javax.swing.JList" name="preferencesList">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="c5" green="f1" red="c5" type="rgb"/>
+                </Property>
                 <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new javax.swing.AbstractListModel() {&#xa;    Label[] labels = {Label.Ambiental, Label.Apoyo_socio_sanitario,&#xa;        Label.Comunitario, Label.Cuidado_de_mayores, Label.Cuidado_de_menores,&#xa;        Label.Cultural, Label.Deportivo, Label.Educativo, Label.Social};&#xa;    public int getSize() { return labels.length; }&#xa;    public Object getElementAt(int i) { return labels[i]; }&#xa;}" type="code"/>
                 </Property>
@@ -345,7 +339,15 @@
         </Container>
         <Component class="javax.swing.JLabel" name="addDayLabel">
           <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="6" green="4a" red="b1" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="A&#xf1;adir d&#xed;a"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                <BevelBorder/>
+              </Border>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="addDayLabelMouseClicked"/>
@@ -353,7 +355,15 @@
         </Component>
         <Component class="javax.swing.JLabel" name="removeDayLabel">
           <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="6" green="4a" red="b1" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Quitar d&#xed;a"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                <BevelBorder/>
+              </Border>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="removeDayLabelMouseClicked"/>
@@ -361,7 +371,15 @@
         </Component>
         <Component class="javax.swing.JLabel" name="addLabelLabel">
           <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="6" green="4a" red="b1" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="A&#xf1;adir etiqueta"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                <BevelBorder/>
+              </Border>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="addLabelLabelMouseClicked"/>
@@ -369,7 +387,15 @@
         </Component>
         <Component class="javax.swing.JLabel" name="removeLabelLabel">
           <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="6" green="4a" red="b1" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Quitar etiqueta"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                <BevelBorder/>
+              </Border>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="removeLabelLabelMouseClicked"/>
@@ -385,6 +411,9 @@
             <Component class="javax.swing.JTextArea" name="availability">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="c5" green="f1" red="c5" type="rgb"/>
+                </Property>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="lineWrap" type="boolean" value="true"/>
                 <Property name="rows" type="int" value="5"/>
@@ -406,6 +435,9 @@
             <Component class="javax.swing.JTextArea" name="preference">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="c5" green="f1" red="c5" type="rgb"/>
+                </Property>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="lineWrap" type="boolean" value="true"/>
                 <Property name="rows" type="int" value="5"/>
@@ -427,6 +459,9 @@
             <Component class="javax.swing.JTextArea" name="aboutMe">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="c5" green="f1" red="c5" type="rgb"/>
+                </Property>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="lineWrap" type="boolean" value="true"/>
                 <Property name="rows" type="int" value="5"/>
@@ -462,7 +497,7 @@
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="CRUDPanel" min="-2" pref="113" max="-2" attributes="0"/>
+                              <Component id="CRUDPanel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="14" max="32767" attributes="0"/>
                               <Component id="jScrollPane35" min="-2" pref="121" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -519,8 +554,8 @@
               <SubComponents>
                 <Component class="javax.swing.JList" name="ownedMissions">
                   <Properties>
-                    <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="new javax.swing.AbstractListModel() {&#xa;    String[] strings = user.getMissionName();&#xa;    public int getSize() { return strings.length; }&#xa;    public Object getElementAt(int i) { return strings[i]; }&#xa;}" type="code"/>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="c5" green="f1" red="c5" type="rgb"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -532,23 +567,15 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="Editar" min="-2" pref="101" max="-2" attributes="0"/>
-                                      <Component id="Destruir" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="Crear" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="Editar" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="Destruir" alignment="0" max="32767" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="ownedMissionsLabel" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="Crear" alignment="0" pref="101" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="179" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="ownedMissionsLabel" min="-2" pref="101" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace min="0" pref="12" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -561,9 +588,8 @@
                           <Component id="Crear" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="Editar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                           <Component id="Destruir" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -571,13 +597,27 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="ownedMissionsLabel">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="6" green="4a" red="b1" type="rgb"/>
+                    </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="text" type="java.lang.String" value="Owned Missions"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="Crear">
                   <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="6" green="4a" red="b1" type="rgb"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Crear Mision"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                        <BevelBorder/>
+                      </Border>
+                    </Property>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CrearActionPerformed"/>
@@ -585,7 +625,15 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="Editar">
                   <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="6" green="4a" red="b1" type="rgb"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Editar Mission"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                        <BevelBorder/>
+                      </Border>
+                    </Property>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EditarActionPerformed"/>
@@ -593,7 +641,15 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="Destruir">
                   <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="6" green="4a" red="b1" type="rgb"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Eliminar Mision"/>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                        <BevelBorder/>
+                      </Border>
+                    </Property>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DestruirActionPerformed"/>
@@ -603,11 +659,23 @@
             </Container>
             <Component class="javax.swing.JLabel" name="activeMissionsLabel">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="6" green="4a" red="b1" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Active Missions"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="filesLabel">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="6" green="4a" red="b1" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Files"/>
               </Properties>
             </Component>
@@ -620,10 +688,16 @@
               <SubComponents>
                 <Component class="javax.swing.JList" name="filesList">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="c5" green="f1" red="c5" type="rgb"/>
+                    </Property>
                     <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="new javax.swing.AbstractListModel() {&#xa;    String[] strings = user.getFilesName();&#xa;    public int getSize() { return strings.length; }&#xa;    public Object getElementAt(int i) { return strings[i]; }&#xa;}" type="code"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="filesListMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -636,16 +710,30 @@
               <SubComponents>
                 <Component class="javax.swing.JList" name="activeMissions">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="c5" green="f1" red="c5" type="rgb"/>
+                    </Property>
                     <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="new javax.swing.AbstractListModel() {&#xa;    String[] strings = user.getSubscribedMissionName();&#xa;    public int getSize() { return strings.length; }&#xa;    public Object getElementAt(int i) { return strings[i]; }&#xa;}" type="code"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="activeMissionsMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
             <Component class="javax.swing.JLabel" name="addFileLabel">
               <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="6" green="4a" red="b1" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="A&#xf1;adir archivo"/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                    <BevelBorder/>
+                  </Border>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="addFileLabelMouseClicked"/>
@@ -653,7 +741,15 @@
             </Component>
             <Component class="javax.swing.JLabel" name="removeFileLabel">
               <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="6" green="4a" red="b1" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Quitar archivo"/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                    <BevelBorder/>
+                  </Border>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="removeFileLabelMouseClicked"/>
@@ -697,7 +793,7 @@
                   <Component id="emailField" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="phoneField" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="10" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="modifyLabel" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -706,7 +802,18 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="modifyLabel">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="6" green="4a" red="b1" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Modificar perfil"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+                <BevelBorder/>
+              </Border>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="modifyLabelMouseClicked"/>

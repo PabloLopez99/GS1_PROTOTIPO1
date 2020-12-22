@@ -6,19 +6,26 @@
 package com.mycompany.gs1_prototipo1.view.pages;
 
 import com.mycompany.gs1_prototipo1.control.Control;
+import com.mycompany.gs1_prototipo1.control.MissionFactory;
 import com.mycompany.gs1_prototipo1.control.UIController;
+import com.mycompany.gs1_prototipo1.model.Coordinate;
+import com.mycompany.gs1_prototipo1.model.Location;
 import com.mycompany.gs1_prototipo1.model.LongMission;
 import com.mycompany.gs1_prototipo1.model.Mission;
+import com.mycompany.gs1_prototipo1.model.Street;
 import com.mycompany.gs1_prototipo1.model.User;
 import com.mycompany.gs1_prototipo1.model.types.Label;
 import com.mycompany.gs1_prototipo1.model.types.Weekday;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.Enumeration;
+import java.util.LinkedList;
 import java.util.List;
+import javax.swing.AbstractButton;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
 
 /**
@@ -31,9 +38,9 @@ public class CRUDMissionPage extends javax.swing.JPanel {
      * Creates new form Mission
      */
     private Mission mission;
-    private LongMission longMission;
+    private boolean isLongMission;
+    private User userLogin;
     private List<Label> labels;
-    private List<User>  subscribedUsers;
     private List<Weekday> days;
     
     DefaultListModel modeloSubscribers = new DefaultListModel();
@@ -42,43 +49,50 @@ public class CRUDMissionPage extends javax.swing.JPanel {
     DefaultListModel modeloDays = new DefaultListModel();
     DefaultListModel modeloAddDays = new DefaultListModel();
     
+    //Constructor para crear nueva misión
     public CRUDMissionPage(){
         initComponents();
-        longMission = null;
-        labels = null;
-        subscribedUsers = null;
-        subscribers.setModel(modeloSubscribers);
-        myLabels.setModel(modeloLabels);
-        labelsList.setModel(modeloAddLabels);
         mission=null;
-    }
-    
-    public CRUDMissionPage(Mission mission) {
-        initComponents();
-        longMission = null;
-        labels = mission.getLabels();
-        subscribedUsers = mission.getSubscribedUsers();
-        subscribers.setModel(modeloSubscribers);
-        myLabels.setModel(modeloLabels);
-        labelsList.setModel(modeloAddLabels);
-        this.mission=mission;
-        updateMissionPage();
-    }
-    
-    public CRUDMissionPage(LongMission longMission){
-        initComponents();
-        mission = null;
-        labels = longMission.getLabels();
-        subscribedUsers = longMission.getSubscribedUsers();
-        days = longMission.getDays();
-        subscribers.setModel(modeloSubscribers);
+        isLongMission = false;
+        labels = new LinkedList<>();
+        days = new LinkedList<>();
+        userLogin = Control.getInstance().getLoggedUser();
         myLabels.setModel(modeloLabels);
         labelsList.setModel(modeloAddLabels);
         myDaysList.setModel(modeloDays);
         daysList.setModel(modeloAddDays);
-        this.longMission = longMission;
-        updateLongMissionPage();
+        for (Weekday day : Weekday.values()) {
+            modeloAddDays.addElement(day);
+        }
+        for (Label label : Label.values()) {
+            modeloAddLabels.addElement(label);
+        }
     }
+    
+    public CRUDMissionPage(Mission mission) {
+        initComponents();
+        simpleMissionButton.setVisible(false);
+        longMissionButton.setVisible(false);
+        userLogin = Control.getInstance().getLoggedUser();
+        labels = mission.getLabels();
+        subscribers.setModel(modeloSubscribers);
+        subscribers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        myLabels.setModel(modeloLabels);
+        labelsList.setModel(modeloAddLabels);
+
+        if(mission instanceof LongMission){
+            LongMission longMission = (LongMission) mission;
+            days = longMission.getDays();
+            myDaysList.setModel(modeloDays);
+            daysList.setModel(modeloAddDays);
+            isLongMission = true;
+        }else{
+            isLongMission = false;
+        }
+        this.mission=mission;
+        updateMissionPage();
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -89,11 +103,14 @@ public class CRUDMissionPage extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        typeMission = new javax.swing.ButtonGroup();
         header = new javax.swing.JLayeredPane();
         titleHeader = new javax.swing.JLabel();
+        save = new javax.swing.JLabel();
+        simpleMissionButton = new javax.swing.JRadioButton();
+        longMissionButton = new javax.swing.JRadioButton();
         body = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        title = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         description = new javax.swing.JTextArea();
@@ -114,7 +131,6 @@ public class CRUDMissionPage extends javax.swing.JPanel {
         addLabel = new javax.swing.JButton();
         inicialDate = new javax.swing.JTextField();
         deleteSubscriber = new javax.swing.JButton();
-        save = new javax.swing.JButton();
         details = new javax.swing.JPanel();
         placeTitle = new javax.swing.JLabel();
         place = new javax.swing.JTextField();
@@ -127,30 +143,81 @@ public class CRUDMissionPage extends javax.swing.JPanel {
         deleteDay = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         addDay = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        title = new javax.swing.JTextArea();
 
         setPreferredSize(new java.awt.Dimension(303, 608));
 
         titleHeader.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        titleHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleHeader.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         titleHeader.setText("Misión");
+        titleHeader.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         titleHeader.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        save.setForeground(new java.awt.Color(177, 74, 6));
+        save.setText("Guardar");
+        save.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        save.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                saveMouseClicked(evt);
+            }
+        });
+
+        typeMission.add(simpleMissionButton);
+        simpleMissionButton.setText("Misión corta");
+        simpleMissionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                simpleMissionButtonActionPerformed(evt);
+            }
+        });
+
+        typeMission.add(longMissionButton);
+        longMissionButton.setSelected(true);
+        longMissionButton.setText("Misión larga");
+        longMissionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                longMissionButtonActionPerformed(evt);
+            }
+        });
+
         header.setLayer(titleHeader, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        header.setLayer(save, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        header.setLayer(simpleMissionButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        header.setLayer(longMissionButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(titleHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(headerLayout.createSequentialGroup()
+                        .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(simpleMissionButton)
+                            .addComponent(longMissionButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(save))
+                    .addGroup(headerLayout.createSequentialGroup()
+                        .addGap(101, 101, 101)
+                        .addComponent(titleHeader)
+                        .addGap(0, 105, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
-                .addComponent(titleHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(titleHeader)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
+                        .addComponent(longMissionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(simpleMissionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
+                        .addComponent(save)
+                        .addGap(23, 23, 23)))
+                .addGap(125, 125, 125))
         );
 
         jLabel8.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
@@ -162,7 +229,7 @@ public class CRUDMissionPage extends javax.swing.JPanel {
         jLabel2.setText("Descripción:");
         jLabel2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
-        description.setBackground(new java.awt.Color(255, 255, 204));
+        description.setBackground(new java.awt.Color(197, 241, 197));
         description.setColumns(20);
         description.setFont(new java.awt.Font("Yu Gothic", 1, 11)); // NOI18N
         description.setLineWrap(true);
@@ -181,57 +248,56 @@ public class CRUDMissionPage extends javax.swing.JPanel {
         endDateTitle.setText("Final:");
         endDateTitle.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
+        endDate.setBackground(new java.awt.Color(197, 241, 197));
+
         jLabel4.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(177, 74, 6));
         jLabel4.setText("Categoría:");
 
-        subscribers.setBackground(new java.awt.Color(255, 255, 204));
+        subscribers.setBackground(new java.awt.Color(197, 241, 197));
         subscribers.setRequestFocusEnabled(false);
-        subscribers.setSelectionBackground(new java.awt.Color(246, 253, 212));
-        subscribers.setSelectionForeground(new java.awt.Color(0, 0, 0));
-        subscribers.setValueIsAdjusting(true);
         jScrollPane2.setViewportView(subscribers);
 
         jLabel6.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(177, 74, 6));
         jLabel6.setText("Participantes:");
 
-        myLabels.setBackground(new java.awt.Color(255, 255, 204));
+        myLabels.setBackground(new java.awt.Color(197, 241, 197));
         jScrollPane3.setViewportView(myLabels);
 
         jLabel5.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(177, 74, 6));
         jLabel5.setText("Añadir categoría:");
 
-        labelsList.setBackground(new java.awt.Color(255, 255, 204));
+        labelsList.setBackground(new java.awt.Color(197, 241, 197));
         jScrollPane4.setViewportView(labelsList);
 
+        deleteLabel.setForeground(new java.awt.Color(177, 74, 6));
         deleteLabel.setText("Eliminar");
+        deleteLabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         deleteLabel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteLabelActionPerformed(evt);
             }
         });
 
+        addLabel.setForeground(new java.awt.Color(177, 74, 6));
         addLabel.setText("Añadir");
+        addLabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         addLabel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addLabelActionPerformed(evt);
             }
         });
 
+        inicialDate.setBackground(new java.awt.Color(197, 241, 197));
+
+        deleteSubscriber.setForeground(new java.awt.Color(177, 74, 6));
         deleteSubscriber.setText("Eliminar");
+        deleteSubscriber.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         deleteSubscriber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteSubscriberActionPerformed(evt);
-            }
-        });
-
-        save.setAutoscrolls(true);
-        save.setFocusPainted(false);
-        save.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveActionPerformed(evt);
             }
         });
 
@@ -239,28 +305,34 @@ public class CRUDMissionPage extends javax.swing.JPanel {
         placeTitle.setForeground(new java.awt.Color(177, 74, 6));
         placeTitle.setText("Lugar:");
 
+        place.setBackground(new java.awt.Color(197, 241, 197));
+
         myDaysTitle.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         myDaysTitle.setForeground(new java.awt.Color(177, 74, 6));
         myDaysTitle.setText("Días:");
 
-        myDaysList.setBackground(new java.awt.Color(255, 255, 204));
+        myDaysList.setBackground(new java.awt.Color(197, 241, 197));
         myDaysPane.setViewportView(myDaysList);
 
         daysTitle.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
         daysTitle.setForeground(new java.awt.Color(177, 74, 6));
         daysTitle.setText("Añadir días:");
 
-        daysList.setBackground(new java.awt.Color(255, 255, 204));
+        daysList.setBackground(new java.awt.Color(197, 241, 197));
         daysPane.setViewportView(daysList);
 
+        deleteDay.setForeground(new java.awt.Color(177, 74, 6));
         deleteDay.setText("Eliminar");
+        deleteDay.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         deleteDay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteDayActionPerformed(evt);
             }
         });
 
+        addDay.setForeground(new java.awt.Color(177, 74, 6));
         addDay.setText("Añadir");
+        addDay.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         addDay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addDayActionPerformed(evt);
@@ -273,10 +345,7 @@ public class CRUDMissionPage extends javax.swing.JPanel {
             detailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(detailsLayout.createSequentialGroup()
                 .addGroup(detailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(detailsLayout.createSequentialGroup()
-                        .addComponent(placeTitle)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(place, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSeparator1)
                     .addGroup(detailsLayout.createSequentialGroup()
                         .addGroup(detailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(myDaysTitle)
@@ -288,18 +357,23 @@ public class CRUDMissionPage extends javax.swing.JPanel {
                                 .addComponent(addDay, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, detailsLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(7, 7, 7)
                                 .addGroup(detailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(daysTitle)
-                                    .addComponent(daysPane, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addComponent(jSeparator1))
+                                    .addComponent(daysPane, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(daysTitle))
+                                .addGap(9, 9, 9))))
+                    .addGroup(detailsLayout.createSequentialGroup()
+                        .addComponent(placeTitle)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(place, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         detailsLayout.setVerticalGroup(
             detailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(detailsLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(detailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(placeTitle)
                     .addComponent(place, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -317,6 +391,14 @@ public class CRUDMissionPage extends javax.swing.JPanel {
                     .addComponent(addDay)))
         );
 
+        title.setBackground(new java.awt.Color(197, 241, 197));
+        title.setColumns(20);
+        title.setFont(new java.awt.Font("Yu Gothic", 1, 11)); // NOI18N
+        title.setLineWrap(true);
+        title.setRows(5);
+        title.setWrapStyleWord(true);
+        jScrollPane5.setViewportView(title);
+
         javax.swing.GroupLayout bodyLayout = new javax.swing.GroupLayout(body);
         body.setLayout(bodyLayout);
         bodyLayout.setHorizontalGroup(
@@ -325,57 +407,59 @@ public class CRUDMissionPage extends javax.swing.JPanel {
                 .addGap(0, 0, 0)
                 .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(details, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator3)
                     .addGroup(bodyLayout.createSequentialGroup()
                         .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel2)
-                                .addComponent(jSeparator3)
-                                .addComponent(jLabel6)
-                                .addGroup(bodyLayout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(inicialDate, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(12, 12, 12)
-                                    .addComponent(endDateTitle)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(endDate, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2)
+                            .addGroup(bodyLayout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(deleteSubscriber))
+                            .addComponent(jLabel6)
+                            .addGroup(bodyLayout.createSequentialGroup()
+                                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(bodyLayout.createSequentialGroup()
+                                            .addComponent(deleteLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(50, 50, 50))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bodyLayout.createSequentialGroup()
+                                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                    .addGroup(bodyLayout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(65, 65, 65)))
+                                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(addLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(bodyLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(inicialDate, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(endDateTitle)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(endDate, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(bodyLayout.createSequentialGroup()
                                     .addGap(2, 2, 2)
                                     .addComponent(jLabel8)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(save))
-                                .addComponent(jScrollPane1)
-                                .addGroup(bodyLayout.createSequentialGroup()
-                                    .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel4)
-                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(deleteLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(addLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)))))
-                            .addGroup(bodyLayout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(deleteSubscriber)))
+                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         bodyLayout.setVerticalGroup(
             bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bodyLayout.createSequentialGroup()
-                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bodyLayout.createSequentialGroup()
-                        .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2))
-                    .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel8))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -384,28 +468,31 @@ public class CRUDMissionPage extends javax.swing.JPanel {
                     .addComponent(inicialDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(endDateTitle)
                     .addComponent(endDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(deleteLabel)
                     .addComponent(addLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(deleteSubscriber))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(details, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(bodyLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(details, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(bodyLayout.createSequentialGroup()
+                        .addComponent(deleteSubscriber)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -423,21 +510,21 @@ public class CRUDMissionPage extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void deleteLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteLabelActionPerformed
-        List<Label> deleteLabels = new ArrayList<>();
+        List<Label> deleteLabels = new LinkedList<>();
         int[] selectedIndices = myLabels.getSelectedIndices();
         for (int index : selectedIndices) {
             deleteLabels.add((Label) modeloLabels.getElementAt(index));
         }
         if(!deleteLabels.isEmpty()){
-            List<Label> eliminarLabels = new ArrayList<>();
+            List<Label> eliminarLabels = new LinkedList<>();
             for (Label label : labels) {
                 for (Label eliminarLabel : deleteLabels) {
                     if(label.equals(eliminarLabel)){
@@ -454,7 +541,7 @@ public class CRUDMissionPage extends javax.swing.JPanel {
     }//GEN-LAST:event_deleteLabelActionPerformed
 
     private void addLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLabelActionPerformed
-        List<Label> addLabels = new ArrayList<>();
+        List<Label> addLabels = new LinkedList<>();
         int[] selectedIndices = labelsList.getSelectedIndices();
         for (int index : selectedIndices) {
             addLabels.add((Label) modeloAddLabels.getElementAt(index));
@@ -479,115 +566,36 @@ public class CRUDMissionPage extends javax.swing.JPanel {
     }//GEN-LAST:event_addLabelActionPerformed
 
     private void deleteSubscriberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSubscriberActionPerformed
-        List<String> deteleUser = new ArrayList<>();
+        List<String> deteleUser = new LinkedList<>();
         int[] selectedIndices = subscribers.getSelectedIndices();
         for (int index : selectedIndices) {
             deteleUser.add((String) modeloSubscribers.getElementAt(index));
-        }
+        } 
         if(!modeloSubscribers.isEmpty()){
             int answer = JOptionPane.showConfirmDialog(this, "¿Quiere eliminar los suscriptores seleccionados?", "Salir", JOptionPane.YES_NO_OPTION);
             if(answer == JOptionPane.YES_OPTION){
-                List<User> eliminarUser = new ArrayList<>();
+                List<User> subscribedUsers = mission.getSubscribedUsers();
                 for (User user : subscribedUsers) {
                     for (String deleteUser : deteleUser) {
-                        if(user.getName().equals(deleteUser)){
-                            eliminarUser.add(user);
+                        if(user.getLogin().getUsername().equals(deleteUser)){
+                            mission.removeSubscribedUser(user);
                             modeloSubscribers.removeElement(deleteUser);
                             break;
                         }
                     }
                 }
-                if(!eliminarUser.isEmpty()){
-                    subscribedUsers.removeAll(eliminarUser);
-                }
             }
         }
     }//GEN-LAST:event_deleteSubscriberActionPerformed
 
-    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
-        if(title.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "No puede dejar el Título en blanco", "Campo obligatorio", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-        if(description.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "No puede dejar la Descripción en blanco", "Campo obligatorio", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-        if(inicialDate.getText().isEmpty()|| endDate.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "No puede dejar ninguna fecha en blanco", "Campo obligatorio", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-        if(modeloLabels.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Tiene que tener al menos una categoría", "Campo obligatorio", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-        if(place.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "No puede dejar el Lugar en blanco", "Campo obligatorio", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-        if(modeloDays.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Tiene que tener al menos un día", "Campo obligatorio", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-        if(longMission != null){
-            longMission.setLabels(labels);
-            longMission.setSubscribedUsers(subscribedUsers);
-            longMission.setDescription(description.getText());
-            longMission.setTitle(title.getText());
-            if(longMission.getInPerson()){
-                longMission.getLocation().setCity(place.getText());
-            }
-            try{
-                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                Date starDate = dateFormat.parse(inicialDate.getText());
-                Date finalDate = dateFormat.parse(endDate.getText());
-                //validar fecha;
-                longMission.setStartDate(starDate);
-                longMission.setEndDate(finalDate);
-                int newDuration=(int) ((finalDate.getTime()-starDate.getTime())/86400000);
-                longMission.setDuration(newDuration);
-            }catch (Exception e){
-                JOptionPane.showMessageDialog(this, "La fecha tiene que estar en el formato d/m/yyyy", "Campo obligatorio", JOptionPane.INFORMATION_MESSAGE);
-                return;
-            }
-        }else{
-            mission.setLabels(labels);
-            mission.setSubscribedUsers(subscribedUsers);
-            mission.setDescription(description.getText());
-            mission.setTitle(title.getText());
-            if(mission.getInPerson()) mission.getLocation().setCity(place.getText());
-            try{
-                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                Date starDate = dateFormat.parse(inicialDate.getText());
-                Date finalDate = dateFormat.parse(endDate.getText());
-                //validar fecha;
-                mission.setStartDate(starDate);
-                mission.setEndDate(finalDate);
-                
-            }catch (Exception e){
-                JOptionPane.showMessageDialog(this, "La fecha tiene que estar en el formato d/m/yyyy", "Campo obligatorio", JOptionPane.INFORMATION_MESSAGE);
-                return;
-            }
-        }
-        JOptionPane.showMessageDialog(this, "Los cambios se han guardado correctamente", "Guardado", JOptionPane.INFORMATION_MESSAGE);
-        if(mission != null){
-            //Control.getInstance().getUiController().setPersonalMission(mission.getOwner());
-        }else{
-           //Control.getInstance().getUiController().setPersonalMission(longMission.getOwner());
-        }
-        this.setVisible(false);
-        this.setEnabled(false);
-        Control.getInstance().getUiController().setPage("PersonalMission");
-    }//GEN-LAST:event_saveActionPerformed
-
     private void deleteDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteDayActionPerformed
-        List<Weekday> deleteDays = new ArrayList<>();
+        List<Weekday> deleteDays = new LinkedList<>();
         int[] selectedIndices = myDaysList.getSelectedIndices();
         for (int index : selectedIndices) {
             deleteDays.add((Weekday) modeloDays.getElementAt(index));
         }
         if(!deleteDays.isEmpty()){
-            List<Weekday> eliminarDays = new ArrayList<>();
+            List<Weekday> eliminarDays = new LinkedList<>();
             for (Weekday day : days) {
                 for (Weekday eliminarDay : deleteDays) {
                     if(day.equals(eliminarDay)){
@@ -604,7 +612,7 @@ public class CRUDMissionPage extends javax.swing.JPanel {
     }//GEN-LAST:event_deleteDayActionPerformed
 
     private void addDayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDayActionPerformed
-        List<Weekday> addDays = new ArrayList<>();
+        List<Weekday> addDays = new LinkedList<>();
         int[] selectedIndices = daysList.getSelectedIndices();
         for (int index : selectedIndices) {
             addDays.add((Weekday) modeloAddDays.getElementAt(index));
@@ -627,6 +635,103 @@ public class CRUDMissionPage extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_addDayActionPerformed
+
+    private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
+        if(title.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "No puede dejar el Título en blanco", "Campo obligatorio", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        if(description.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "No puede dejar la Descripción en blanco", "Campo obligatorio", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        if(inicialDate.getText().isEmpty()|| endDate.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "No puede dejar ninguna fecha en blanco", "Campo obligatorio", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        if(modeloLabels.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Tiene que tener al menos una categoría", "Campo obligatorio", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        
+        if(mission == null){
+            boolean isInPerson = false;
+            Location location = null;
+            if(!place.getText().isEmpty()){
+                location = new Location(new Street(0, "calle"),  place.getText() , "state", "country", "postCode", null, "offset");
+                isInPerson = true;
+            }
+            try{
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date starDate = dateFormat.parse(inicialDate.getText());
+                Date finalDate = dateFormat.parse(endDate.getText());
+                if(longMissionButton.isSelected()){
+                    if(modeloDays.isEmpty()){
+                            JOptionPane.showMessageDialog(this, "Tiene que tener al menos un día", "Campo obligatorio", JOptionPane.INFORMATION_MESSAGE);
+                            return;
+                    }
+                    int newDuration=(int) ((finalDate.getTime()-starDate.getTime())/86400000);
+                    MissionFactory.NewMission(title.getText(),userLogin,description.getText(),starDate,finalDate, isInPerson, location, labels, days, newDuration);
+                }else{
+                     MissionFactory.NewMission(title.getText(),userLogin,description.getText(),starDate,finalDate, isInPerson, location, labels);
+                }
+               
+            }catch (Exception e){
+                JOptionPane.showMessageDialog(this, "La fecha tiene que estar en el formato dd/mm/yyyy", "Campo obligatorio", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+             JOptionPane.showMessageDialog(this, "La misión se ha creado correctamente", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            mission.setLabels(labels);
+            mission.setDescription(description.getText());
+            mission.setTitle(title.getText());
+            if(place.getText().isEmpty()){
+                mission.setInPerson(false);
+            }else{
+                if(!mission.getInPerson()){
+                    mission.setInPerson(true);
+                }
+                mission.getLocation().setCity(place.getText());
+            }
+            try{
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date starDate = dateFormat.parse(inicialDate.getText());
+                Date finalDate = dateFormat.parse(endDate.getText());
+                mission.setStartDate(starDate);
+                mission.setEndDate(finalDate);
+                if(isLongMission){
+                    LongMission longMission = (LongMission) mission;
+                    int newDuration=(int) ((finalDate.getTime()-starDate.getTime())/86400000);
+                    longMission.setDuration(newDuration);
+                    if(modeloDays.isEmpty()){
+                        JOptionPane.showMessageDialog(this, "Tiene que tener al menos un día", "Campo obligatorio", JOptionPane.INFORMATION_MESSAGE);
+                        return;
+                    }
+                    longMission.setDays(days);
+                }
+            }catch (Exception e){
+                JOptionPane.showMessageDialog(this, "La fecha tiene que estar en el formato dd/mm/yyyy", "Campo obligatorio", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            JOptionPane.showMessageDialog(this, "Los cambios se han guardado correctamente", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+        }
+        Control.getInstance().getUiController().updateCatalogPage();
+        Control.getInstance().getUiController().setPersonalProfile(userLogin);
+    }//GEN-LAST:event_saveMouseClicked
+
+    private void longMissionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_longMissionButtonActionPerformed
+        if(longMissionButton.isSelected()){
+            modeloDays.removeAllElements();
+            activateDetails(0);
+        }
+    }//GEN-LAST:event_longMissionButtonActionPerformed
+
+    private void simpleMissionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpleMissionButtonActionPerformed
+        if(simpleMissionButton.isSelected()){
+            activateDetails(1);
+            disableDetails(2);
+        }
+    }//GEN-LAST:event_simpleMissionButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -655,19 +760,23 @@ public class CRUDMissionPage extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JList<String> labelsList;
+    private javax.swing.JRadioButton longMissionButton;
     private javax.swing.JList<String> myDaysList;
     private javax.swing.JScrollPane myDaysPane;
     private javax.swing.JLabel myDaysTitle;
     private javax.swing.JList<String> myLabels;
     private javax.swing.JTextField place;
     private javax.swing.JLabel placeTitle;
-    private javax.swing.JButton save;
+    private javax.swing.JLabel save;
+    private javax.swing.JRadioButton simpleMissionButton;
     private javax.swing.JList<String> subscribers;
-    private javax.swing.JTextField title;
+    private javax.swing.JTextArea title;
     private javax.swing.JLabel titleHeader;
+    private javax.swing.ButtonGroup typeMission;
     // End of variables declaration//GEN-END:variables
 
     private void updateMissionPage() {
@@ -679,13 +788,38 @@ public class CRUDMissionPage extends javax.swing.JPanel {
         endDate.setText(finalDate);
         details.removeAll();
         if(!mission.getInPerson()){
-            disableDetails(0);
+            if(isLongMission){
+                disableDetails(1);
+                activateDetails(2);
+            }else{
+                disableDetails(0);
+            }
+            
         }else{
-            activateDetails(1);
-            disableDetails(2);
+            if(isLongMission){
+                activateDetails(0);
+            }else{
+                activateDetails(1);
+                disableDetails(2);
+            }
+            
             place.setText(mission.getLocation().getCity());
         }
+        if(isLongMission){
+            LongMission longMission = (LongMission) mission;
+            modeloAddDays.removeAllElements();
+            for (Weekday day : Weekday.values()) {
+                modeloAddDays.addElement((Weekday) day);
+            }
+            modeloDays.removeAllElements();
+            if(!longMission.getDays().isEmpty()){
+                for (Weekday day : longMission.getDays()) {
+                    modeloDays.addElement((Weekday) day);
+                }
+            }
+        }
         
+        modeloAddLabels.removeAllElements();
         for (Label label : Label.values()) {
             modeloAddLabels.addElement(label);
         }
@@ -695,64 +829,14 @@ public class CRUDMissionPage extends javax.swing.JPanel {
                 modeloLabels.addElement(label);
             }
         }
-        myLabels.setModel(modeloLabels);
         modeloSubscribers.removeAllElements();
         if(!mission.getSubscribedUsers().isEmpty()){
             for (User subscribedUser : mission.getSubscribedUsers()) {
                 modeloSubscribers.addElement(subscribedUser.getLogin().getUsername());
             }
         }
-        subscribers.setModel(modeloSubscribers);
     }
 
-    
-    private void updateLongMissionPage() {
-        title.setText(longMission.getTitle());
-        description.setText(longMission.getDescription());
-        String startDate = new SimpleDateFormat("dd/MM/yyyy").format(longMission.getStartDate());
-        inicialDate.setText(startDate);
-        String finalDate = new SimpleDateFormat("dd/MM/yyyy").format(longMission.getEndDate());
-        endDate.setText(finalDate);
-        details.removeAll();
-        if(!longMission.getInPerson()){
-            disableDetails(1);
-            activateDetails(2);
-        }else{
-            activateDetails(0);
-            place.setText(longMission.getLocation().getCity());
-        }
-        modeloDays.removeAllElements();
-        if(!longMission.getLabels().isEmpty()){
-            for (Weekday day : longMission.getDays()) {
-                modeloDays.addElement((Weekday) day);
-            }
-        }
-        for (Label label : Label.values()) {
-            modeloAddLabels.addElement(label);
-        }
-        myDaysList.setModel(modeloDays);
-        modeloAddDays.removeAllElements();
-        if(!longMission.getDays().isEmpty()){
-            for (Weekday day : Weekday.values()) {
-                modeloAddDays.addElement((Weekday) day);
-            }
-        }
-        daysList.setModel(modeloAddDays);
-        modeloLabels.removeAllElements();
-        if(!longMission.getLabels().isEmpty()){
-            for (Label label : longMission.getLabels()) {
-                modeloLabels.addElement(label);
-            }
-        }
-        myLabels.setModel(modeloLabels);
-        modeloSubscribers.removeAllElements();
-        if(!longMission.getSubscribedUsers().isEmpty()){
-            for (User subscribedUser : longMission.getSubscribedUsers()) {
-                modeloSubscribers.addElement(subscribedUser.getLogin().getUsername());
-            }
-        }
-        subscribers.setModel(modeloSubscribers);
-    }
 
     private void disableDetails(int disable) {
         

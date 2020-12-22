@@ -94,7 +94,7 @@ public class jListMission extends javax.swing.JPanel {
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         int selectedIndex = jList1.getSelectedIndex();
         Control.getInstance().getUiController().setMissionPage((jListModel.getElementAt(selectedIndex)));
-        System.out.println("Se abre una mision detallada "+((Mission)jListModel.getElementAt(selectedIndex)).getTitle());
+      
     }//GEN-LAST:event_jList1MouseClicked
 
 

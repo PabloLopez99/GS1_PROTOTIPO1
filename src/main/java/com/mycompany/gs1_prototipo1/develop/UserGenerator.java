@@ -26,16 +26,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONObject;
 
-/**
- *
- * @author pabloantoniolopezmartin
- */
+
 public class UserGenerator {
-      
-     //It adds users to members
     private static int count;
-    private static Description[] descriptions;
-    private static Location[] locations;
+    private static final Description[] descriptions;
+    //TEMPLATES
     static{
         descriptions= new Description[10];
         
@@ -119,98 +114,70 @@ public class UserGenerator {
         descriptions[6]=new Description("Solo disponible por las tardes",preferences5,availability5);
         descriptions[7]=new Description("Atentos a mi perfil. Publico una misión semanalmente!",preferences3,availability3);
         descriptions[8]=new Description("Salvemos el planeta!! Aún no es demasiado tarde!!",preferences,availability4);
-        descriptions[9]=new Description("",preferences5,availability6);
-        
-        locations= new Location[10];
-        locations[0]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
-        locations[1]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
-        locations[2]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
-        locations[3]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
-        locations[4]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
-        locations[5]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
-        locations[6]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
-        locations[7]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
-        locations[8]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
-        locations[9]= new Location(new Street(1,"a"),"","","","",new Coordinate(10,20),"a");
-     
+        descriptions[9]=new Description("Listo para ayudar",preferences5,availability6);
     }
     public static void generateUsers(int ammount) throws InterruptedException{
-      
         Members members= Control.getInstance().getAllMembers();
-       
         for (int i = 0; i < ammount; i++) {
             User user= genUser();
-            
-          
-           if(user!=null){
+            if(user!=null){
                 members.addMember(user);
-                 System.out.println("USUARIO AUTOGEn N:"+i+"\n");
-          
-            System.out.println(user.getFirstName());
-             System.out.println(user.getLogin().getUsername());
-             System.out.println(user.getLogin().getPasswd());
-               System.out.println("");
-            System.out.println("");
+                System.out.println("USUARIO AUTOGENERADO N:"+i);
+                System.out.println("NOMBRE: "+user.getFirstName());
+                System.out.println("USERNAME: "+user.getLogin().getUsername());
+                System.out.println("PASSWORD: "+user.getLogin().getPasswd()+"\n");
            } 
         }
-  
+        genPersonalInfo();
     }
     public static User genUser() throws InterruptedException{
-          User user=null;
+        User user=null;
         try {
             JSONObject response = new JSONObject(sendGet("https://randomuser.me/api/")).getJSONArray("results").getJSONObject(0);
             JSONObject login = response.getJSONObject("login");
             JSONObject location = response.getJSONObject("location");
-     
-           
-                user = new User(
-                                response.getJSONObject("name").getString("first"),
-                                response.getJSONObject("name").getString("last"), 
-                                new Login(login.getString("uuid"), 
-                                          login.getString("username"), 
-                                          login.getString("password"), 
-                                          login.getString("salt"), 
-                                          login.getString("md5"), 
-                                          login.getString("sha1"), 
-                                          login.getString("sha256")), 
-                                response.getString("email"),
-                                new Location(new Street(location.getJSONObject("street").getInt("number"),
-                                                        location.getJSONObject("street").getString("name")),
-                                             location.getString("city"),
-                                             location.getString("state"),
-                                             location.getString("country"),
-                                             location.get("postcode").toString(),
-                                             new Coordinate(Float.parseFloat(location.getJSONObject("coordinates").getString("latitude")),
-                                                            Float.parseFloat(location.getJSONObject("coordinates").getString("longitude"))),
-                                             location.getJSONObject("timezone").getString("offset")),
-                                response.getJSONObject("dob").getString("date").substring(0, response.getJSONObject("dob").getString("date").indexOf('T')-1),
-                                response.getJSONObject("registered").getString("date").substring(0, response.getJSONObject("dob").getString("date").indexOf('T')-1),           
-                                descriptions[(int) (Math.random() * 9)], 
-                                response.getString("gender"),
-                                response.getString("phone"),
-                                Helper.getBufferedImage(response.getJSONObject("picture").getString("large")),
-                                Helper.getBufferedImage(response.getJSONObject("picture").getString("medium")),
-                                Helper.getBufferedImage(response.getJSONObject("picture").getString("thumbnail")));
-                                
-                           
+            user = new User(
+                            response.getJSONObject("name").getString("first"),
+                            response.getJSONObject("name").getString("last"), 
+                            new Login(login.getString("uuid"), 
+                                      login.getString("username"), 
+                                      login.getString("password"), 
+                                      login.getString("salt"), 
+                                      login.getString("md5"), 
+                                      login.getString("sha1"), 
+                                      login.getString("sha256")), 
+                            response.getString("email"),
+                            new Location(new Street(location.getJSONObject("street").getInt("number"),
+                                                    location.getJSONObject("street").getString("name")),
+                                         location.getString("city"),
+                                         location.getString("state"),
+                                         location.getString("country"),
+                                         location.get("postcode").toString(),
+                                         new Coordinate(Float.parseFloat(location.getJSONObject("coordinates").getString("latitude")),
+                                                        Float.parseFloat(location.getJSONObject("coordinates").getString("longitude"))),
+                                         location.getJSONObject("timezone").getString("offset")),
+                            response.getJSONObject("dob").getString("date").substring(0, response.getJSONObject("dob").getString("date").indexOf('T')-1),
+                            response.getJSONObject("registered").getString("date").substring(0, response.getJSONObject("dob").getString("date").indexOf('T')-1),           
+                            descriptions[(int) (Math.random() * 9)], 
+                            response.getString("gender"),
+                            response.getString("phone"),
+                            Helper.getBufferedImage(response.getJSONObject("picture").getString("large")),
+                            Helper.getBufferedImage(response.getJSONObject("picture").getString("medium")),
+                            Helper.getBufferedImage(response.getJSONObject("picture").getString("thumbnail")));
         } catch (Exception ex) {
             count++;
-            if(count>30){ //Se pone umbral para que no entre en bucle infinito
+            if(count>30){
                 ex.printStackTrace();
             }else{
-                return genUser(); //Debido a que en ocasiones, la api devuelve error 503 (api gratis) se usa recursividad
+                return genUser(); 
             }
-           
         }
        return user;
     }
 
     private static void genPersonalInfo() {
-        
         for (int i = 0; i <  Control.getInstance().getAllMembers().getActiveMembers().size(); i++) {
             Control.getInstance().getAllMembers().getActiveMembers().get(i).setDescription(descriptions[i%descriptions.length]);
-            Control.getInstance().getAllMembers().getActiveMembers().get(i).setLocation(locations[i%locations.length]);
-           
         }
     }     
 }

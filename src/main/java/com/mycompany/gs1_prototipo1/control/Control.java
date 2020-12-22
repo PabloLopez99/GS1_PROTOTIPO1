@@ -28,28 +28,23 @@ public class Control {
         this.members= new Members(); 
         this.catalogo = new LinkedList<>();
         this.removedMissions= new LinkedList<>();
-        
     }
 
     public List<Mission> getCatalogo() {
         return catalogo;
     }
     
-    public void run() throws InterruptedException { //OJO TIENEN Q GENERARSE MINIMO LA MISMA CANTIDAD DE USUARIOS QUE DE MISIONES
-       
+    public void run() throws InterruptedException {
         loadTestUsers();
         loadTestMissions();
-
          uiController= new UIController();
     }
     public  UIController getUiController(){ 
         return uiController;
     }
     public Boolean setLoggedUser(User user){
-      
         if(members.containsUser(user)){
              loggedUser=user;
-             
              return true;
         }
         return false;  
@@ -79,10 +74,8 @@ public class Control {
         return catalogo;
     }
    
-
     private void loadTestUsers() throws InterruptedException {
-         UserGenerator.generateUsers(5);
-         //loggedUser=members.getActiveMembers().get(0);
+         UserGenerator.generateUsers(10);
     }
     private void loadTestMissions(){
         MissionGenerator.generateMissions(5);

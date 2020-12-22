@@ -9,6 +9,7 @@ import com.mycompany.gs1_prototipo1.control.Control;
 import com.mycompany.gs1_prototipo1.model.LongMission;
 import com.mycompany.gs1_prototipo1.model.Mission;
 import com.mycompany.gs1_prototipo1.model.User;
+import com.mycompany.gs1_prototipo1.model.Login;
 import com.mycompany.gs1_prototipo1.model.types.Label;
 import com.mycompany.gs1_prototipo1.model.types.Weekday;
 import java.text.SimpleDateFormat;
@@ -26,40 +27,40 @@ public class MissionPage extends javax.swing.JPanel {
      * Creates new form Mission
      */
     private Mission mission=null;
-    private LongMission longMission=null;
+    private boolean isLongMission;
+    private Login userLogin;
+    private List<User> subscribedUsers;
     DefaultListModel modeloSubscribers = new DefaultListModel();
     DefaultListModel modeloLabels = new DefaultListModel();
     DefaultListModel modeloDays = new DefaultListModel();
     
     public MissionPage(Mission mission) {
         initComponents();
+        subscribedUsers = mission.getSubscribedUsers();
+        userLogin = Control.getInstance().getLoggedUser().getLogin();
         subscribers.setModel(modeloSubscribers);
         labels.setModel(modeloLabels);
+        if(userLogin.getUsername().equals(mission.getOwner().getLogin().getUsername())){
+            subscriberButton.setVisible(false);
+            subscriberButton.setEnabled(false);
+        }else{
+            subscriberButton.setText("Suscribirse");
+            if(subscribedUsers.contains(Control.getInstance().getLoggedUser())){
+                subscriberButton.setText("Quitar suscripción");
+            }
+            subscriberButton.setVisible(true);
+            subscriberButton.setEnabled(true);
+        }
+        if(mission instanceof LongMission){
+            myDaysList.setModel(modeloDays);
+            isLongMission = true;
+        }else{
+            isLongMission = false;
+        }
         this.mission=mission;
         updateMissionPage();
-        if(Control.getInstance().getLoggedUser().getLogin().getUsername().equals(mission.getOwner().getLogin().getUsername())){
-            subscriberButton.setVisible(false);
-            subscriberButton.setEnabled(false);
-        }else{
-            subscriberButton.setVisible(true);
-            subscriberButton.setEnabled(true);
-        }
     }
-    public MissionPage(LongMission mission){
-        initComponents();
-        subscribers.setModel(modeloSubscribers);
-        labels.setModel(modeloLabels);
-        myDaysList.setModel(modeloDays);
-        this.longMission = mission;
-        updateLongMissionPage();
-        if(Control.getInstance().getLoggedUser().getLogin().getUsername().equals(mission.getOwner().getLogin().getUsername())){
-            subscriberButton.setVisible(false);
-            subscriberButton.setEnabled(false);
-        }else{
-            subscriberButton.setVisible(true);
-            subscriberButton.setEnabled(true);
-        }
-    }
+        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -71,8 +72,7 @@ public class MissionPage extends javax.swing.JPanel {
     private void initComponents() {
 
         header = new javax.swing.JLayeredPane();
-        title = new javax.swing.JLabel();
-        subscriberButton = new javax.swing.JButton();
+        headerTitle = new javax.swing.JLabel();
         body = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         author = new javax.swing.JLabel();
@@ -99,45 +99,37 @@ public class MissionPage extends javax.swing.JPanel {
         durationTitle = new javax.swing.JLabel();
         duration = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        title = new javax.swing.JTextArea();
+        subscriberButton = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(303, 608));
 
-        title.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title.setText("Misión");
-        title.setAlignmentY(1.0F);
-        title.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        headerTitle.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        headerTitle.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        headerTitle.setText("Misión");
+        headerTitle.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        headerTitle.setAlignmentY(1.0F);
+        headerTitle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        subscriberButton.setText("Subscribirse");
-        subscriberButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                subscriberButtonActionPerformed(evt);
-            }
-        });
-
-        header.setLayer(title, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        header.setLayer(subscriberButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        header.setLayer(headerTitle, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(subscriberButton)
-                .addGap(85, 85, 85))
+                .addGap(110, 110, 110)
+                .addComponent(headerTitle)
+                .addContainerGap(124, Short.MAX_VALUE))
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
-                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(subscriberButton)
-                .addGap(0, 11, Short.MAX_VALUE))
+                .addGap(22, 22, 22)
+                .addComponent(headerTitle)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         jLabel7.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
@@ -164,7 +156,7 @@ public class MissionPage extends javax.swing.JPanel {
         jLabel2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         description.setEditable(false);
-        description.setBackground(new java.awt.Color(255, 255, 204));
+        description.setBackground(new java.awt.Color(197, 241, 197));
         description.setColumns(20);
         description.setFont(new java.awt.Font("Yu Gothic", 1, 11)); // NOI18N
         description.setLineWrap(true);
@@ -191,7 +183,7 @@ public class MissionPage extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(177, 74, 6));
         jLabel4.setText("Categoría:");
 
-        subscribers.setBackground(new java.awt.Color(255, 255, 204));
+        subscribers.setBackground(new java.awt.Color(197, 241, 197));
         subscribers.setRequestFocusEnabled(false);
         subscribers.setSelectionBackground(new java.awt.Color(246, 253, 212));
         subscribers.setSelectionForeground(new java.awt.Color(0, 0, 0));
@@ -202,7 +194,7 @@ public class MissionPage extends javax.swing.JPanel {
         jLabel6.setForeground(new java.awt.Color(177, 74, 6));
         jLabel6.setText("Participantes");
 
-        labels.setBackground(new java.awt.Color(255, 255, 204));
+        labels.setBackground(new java.awt.Color(197, 241, 197));
         labels.setValueIsAdjusting(true);
         jScrollPane3.setViewportView(labels);
 
@@ -216,7 +208,7 @@ public class MissionPage extends javax.swing.JPanel {
 
         myDaysPane.setAlignmentX(0.0F);
 
-        myDaysList.setBackground(new java.awt.Color(255, 255, 204));
+        myDaysList.setBackground(new java.awt.Color(197, 241, 197));
         myDaysList.setRequestFocusEnabled(false);
         myDaysList.setSelectionBackground(new java.awt.Color(246, 253, 212));
         myDaysList.setSelectionForeground(new java.awt.Color(0, 0, 0));
@@ -262,8 +254,31 @@ public class MissionPage extends javax.swing.JPanel {
                 .addComponent(myDaysTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(myDaysPane, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jLabel8.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(177, 74, 6));
+        jLabel8.setText("Título:");
+
+        title.setEditable(false);
+        title.setBackground(new java.awt.Color(197, 241, 197));
+        title.setColumns(20);
+        title.setFont(new java.awt.Font("Yu Gothic", 1, 11)); // NOI18N
+        title.setLineWrap(true);
+        title.setRows(5);
+        title.setWrapStyleWord(true);
+        title.setCursor(new java.awt.Cursor(java.awt.Cursor.NW_RESIZE_CURSOR));
+        jScrollPane4.setViewportView(title);
+
+        subscriberButton.setForeground(new java.awt.Color(177, 74, 6));
+        subscriberButton.setText("Suscribirse");
+        subscriberButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        subscriberButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                subscriberButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout bodyLayout = new javax.swing.GroupLayout(body);
         body.setLayout(bodyLayout);
@@ -282,22 +297,26 @@ public class MissionPage extends javax.swing.JPanel {
                 .addGap(82, 82, 82))
             .addGroup(bodyLayout.createSequentialGroup()
                 .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, bodyLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(subscriberButton)
+                        .addGap(10, 10, 10))
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jSeparator1)
             .addGroup(bodyLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(bodyLayout.createSequentialGroup()
-                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                     .addComponent(jLabel2)
                     .addGroup(bodyLayout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(author, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(author, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel8)
+                    .addComponent(jScrollPane4))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         bodyLayout.setVerticalGroup(
@@ -307,30 +326,36 @@ public class MissionPage extends javax.swing.JPanel {
                     .addComponent(jLabel7)
                     .addComponent(author))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(9, 9, 9)
+                .addGap(12, 12, 12)
                 .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(endDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(endDateTitle)
-                        .addComponent(inicialDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(inicialDate, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(endDateTitle)
+                    .addComponent(endDate, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
-                .addComponent(jLabel4)
-                .addGap(4, 4, 4)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(subscriberButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(details, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
+                .addComponent(details, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -340,25 +365,28 @@ public class MissionPage extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(header)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addContainerGap(23, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(header)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void authorMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_authorMouseEntered
-        author.setForeground(new java.awt.Color(177, 74, 6));
+        if(!userLogin.getUsername().equals(mission.getOwner().getLogin().getUsername())){
+            author.setForeground(new java.awt.Color(177, 74, 6));
+        }
     }//GEN-LAST:event_authorMouseEntered
 
     private void authorMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_authorMouseExited
@@ -366,45 +394,43 @@ public class MissionPage extends javax.swing.JPanel {
     }//GEN-LAST:event_authorMouseExited
 
     private void authorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_authorMouseClicked
-        if(mission != null){
+        if(!userLogin.getUsername().equals(mission.getOwner().getLogin().getUsername())){
             Control.getInstance().getUiController().setProfilePage(mission.getOwner());
-            
-        }else{
-            Control.getInstance().getUiController().setProfilePage(longMission.getOwner());
         }
     }//GEN-LAST:event_authorMouseClicked
 
-    private void subscriberButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subscriberButtonActionPerformed
-        if(mission != null){
-            List<User> subscribedUsers = mission.getSubscribedUsers();
-            if(!subscribedUsers.contains(Control.getInstance().getLoggedUser())){
-                mission.addSubscribedUser(Control.getInstance().getLoggedUser());
-                modeloSubscribers.removeAllElements();
-                if(!mission.getSubscribedUsers().isEmpty()){
-                    for (User subscribedUser : mission.getSubscribedUsers()) {
-                        modeloSubscribers.addElement(subscribedUser.getLogin().getUsername());
-                    }
+    private void subscriberButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subscriberButtonMouseClicked
+        if(subscriberButton.getText().equals("Suscribirse")){
+            mission.addSubscribedUser(Control.getInstance().getLoggedUser());
+            Control.getInstance().getLoggedUser().subscribeTo(mission);
+            modeloSubscribers.removeAllElements();
+            if(!mission.getSubscribedUsers().isEmpty()){
+                for (User subscribedUser : mission.getSubscribedUsers()) {
+                    modeloSubscribers.addElement(subscribedUser.getLogin().getUsername());
                 }
-                subscribers.setModel(modeloSubscribers);
-                JOptionPane.showMessageDialog(this, "Ya está suscrito a la missión", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+            }
+            JOptionPane.showMessageDialog(this, "Ya está suscrito a la misión", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+            subscriberButton.setText("Quitar suscripción");
+            try{
+                Control.getInstance().getUiController().getPersonalProfile().updateActiveMission(); 
+            }catch(Exception e){
+                
             }
            
-        } else{
-            List<User> subscribedUsers = longMission.getSubscribedUsers();
-            if(!subscribedUsers.contains(Control.getInstance().getLoggedUser())){
-                longMission.addSubscribedUser(Control.getInstance().getLoggedUser());
-                modeloSubscribers.removeAllElements();
-                if(!longMission.getSubscribedUsers().isEmpty()){
-                    for (User subscribedUser : longMission.getSubscribedUsers()) {
-                        modeloSubscribers.addElement(subscribedUser.getLogin().getUsername());
-                    }
+        }else{
+            mission.removeSubscribedUser(Control.getInstance().getLoggedUser());
+            Control.getInstance().getLoggedUser().unSubscribeMission(mission);
+            modeloSubscribers.removeAllElements();
+            if(!mission.getSubscribedUsers().isEmpty()){
+                for (User subscribedUser : mission.getSubscribedUsers()) {
+                    modeloSubscribers.addElement(subscribedUser.getLogin().getUsername());
                 }
-                subscribers.setModel(modeloSubscribers);
-                JOptionPane.showMessageDialog(this, "Ya está suscrito a la missión", "Guardado", JOptionPane.INFORMATION_MESSAGE);
             }
-         
+            JOptionPane.showMessageDialog(this, "Ya no está suscripto a la misión", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+            subscriberButton.setText("Suscribirse");
+            Control.getInstance().getUiController().getPersonalProfile().updateActiveMission();
         }
-    }//GEN-LAST:event_subscriberButtonActionPerformed
+    }//GEN-LAST:event_subscriberButtonMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -417,15 +443,18 @@ public class MissionPage extends javax.swing.JPanel {
     private javax.swing.JLabel endDate;
     private javax.swing.JLabel endDateTitle;
     private javax.swing.JLayeredPane header;
+    private javax.swing.JLabel headerTitle;
     private javax.swing.JLabel inicialDate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JList<String> labels;
@@ -434,14 +463,12 @@ public class MissionPage extends javax.swing.JPanel {
     private javax.swing.JLabel myDaysTitle;
     private javax.swing.JLabel place;
     private javax.swing.JLabel placeTitle;
-    private javax.swing.JButton subscriberButton;
+    private javax.swing.JLabel subscriberButton;
     private javax.swing.JList<String> subscribers;
-    private javax.swing.JLabel title;
+    private javax.swing.JTextArea title;
     // End of variables declaration//GEN-END:variables
-
-    private void updateMissionPage() {
-        
-        title.setText("Misión: "+ mission.getTitle());
+ private void updateMissionPage() {
+        title.setText(mission.getTitle());
         author.setText(mission.getOwner().getName());
         description.setText(mission.getDescription());
         String startDate = new SimpleDateFormat("dd/MM/yyyy").format(mission.getStartDate());
@@ -449,71 +476,46 @@ public class MissionPage extends javax.swing.JPanel {
         String finalDate = new SimpleDateFormat("dd/MM/yyyy").format(mission.getEndDate());
         endDate.setText(finalDate);
         details.removeAll();
-        if(!mission.getInPerson()){
-            disableDetails(0);
-            
-        }else{
-            activateDetails(1);
-            disableDetails(2);
+        if(mission.getInPerson()){
+            if(isLongMission){
+                activateDetails(0);
+            }else{
+                activateDetails(1);
+                disableDetails(2);
+            }
             place.setText(mission.getLocation().getCity());
+        }else{
+            if(isLongMission){
+                disableDetails(1);
+                activateDetails(2);
+            }else{
+                disableDetails(0);
+            }
         }
-        
+        if(isLongMission){
+            LongMission longMission = (LongMission) mission;
+            duration.setText(longMission.getDuration()+" días");
+            modeloDays.removeAllElements();
+            if(!longMission.getDays().isEmpty()){
+                for (Weekday day : longMission.getDays()) {
+                    modeloDays.addElement((Weekday) day);
+                }
+            }
+        }
         modeloLabels.removeAllElements();
         if(!mission.getLabels().isEmpty()){
             for (Label label : mission.getLabels()) {
                 modeloLabels.addElement(label.name());
             }
         }
-        labels.setModel(modeloLabels);
         modeloSubscribers.removeAllElements();
         if(!mission.getSubscribedUsers().isEmpty()){
             for (User subscribedUser : mission.getSubscribedUsers()) {
                 modeloSubscribers.addElement(subscribedUser.getLogin().getUsername());
             }
         }
-        subscribers.setModel(modeloSubscribers);
     }
-
-    private void updateLongMissionPage() {
-        title.setText("Misión: "+ longMission.getTitle());
-        author.setText(longMission.getOwner().getName());
-        description.setText(longMission.getDescription());
-        String startDate = new SimpleDateFormat("dd/MM/yyyy").format(longMission.getStartDate());
-        inicialDate.setText(startDate);
-        String finalDate = new SimpleDateFormat("dd/MM/yyyy").format(longMission.getEndDate());
-        endDate.setText(finalDate);
-        
-        if(!longMission.getInPerson()){
-            disableDetails(1);
-            activateDetails(2);
-        }else{
-            activateDetails(0);
-            place.setText(longMission.getLocation().getCity());
-        }
-        duration.setText(longMission.getDuration()+" días");
-        modeloDays.removeAllElements();
-        if(!longMission.getLabels().isEmpty()){
-            for (Weekday day : longMission.getDays()) {
-                modeloDays.addElement((Weekday) day);
-            }
-        }
-        myDaysList.setModel(modeloDays);
-        modeloLabels.removeAllElements();
-        if(!longMission.getLabels().isEmpty()){
-            for (Label label : longMission.getLabels()) {
-                modeloLabels.addElement((Label) label);
-            }
-        }
-        labels.setModel(modeloLabels);
-        modeloSubscribers.removeAllElements();
-        if(!longMission.getSubscribedUsers().isEmpty()){
-            for (User subscribedUser : longMission.getSubscribedUsers()) {
-                modeloSubscribers.addElement( subscribedUser.getLogin().getUsername());
-            }
-        }
-        subscribers.setModel(modeloSubscribers);
-    }
-    
+ 
     private void disableDetails(int disable) {
         
         switch(disable){

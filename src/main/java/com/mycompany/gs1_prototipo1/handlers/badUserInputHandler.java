@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.gs1_prototipo1.handlers;
 
 import com.mycompany.gs1_prototipo1.control.Control;
 
-/**
- *
- * @author pabloantoniolopezmartin
- */
 public class badUserInputHandler {
     public static void noUsername(){
         displayLoginWarning("Usuario no encontrado");
@@ -28,13 +19,13 @@ public class badUserInputHandler {
         displayRegisterWarning("Este usuario ya está registrado");
     }
     public static void weakPassword(){
-         displayRegisterWarning("Contraseña débil");
+        displayRegisterWarning("Contraseña débil");
     }
     public static void noValidEmail(){
-         displayRegisterWarning("Email inválido");
+        displayRegisterWarning("Email inválido");
     }
     public static void invalidDateBorn(){
-         displayRegisterWarning("Fecha de nacimiento inválida");
+        displayRegisterWarning("Fecha de nacimiento inválida");
     }
     public static void invalidPhone(){
         displayRegisterWarning("Teléfono inválido");
@@ -46,7 +37,7 @@ public class badUserInputHandler {
         displayRegisterWarning("Apellido inválido");
     }
     public static void invalidUsername() {
-       displayRegisterWarning("Usuario inválido"); 
+        displayRegisterWarning("Usuario inválido"); 
     }
     static void displayRegisterWarning(String text){
         Control.getInstance().getUiController().getRegister().setWarningLabel(text); 
@@ -54,6 +45,4 @@ public class badUserInputHandler {
     static void displayLoginWarning(String text){
         Control.getInstance().getUiController().getWelcome().setWarningLabel(text); 
     }
-    
-    
 }

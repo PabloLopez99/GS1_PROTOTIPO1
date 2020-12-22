@@ -7,6 +7,7 @@ package com.mycompany.gs1_prototipo1.view.pages.containers;
 
 import com.mycompany.gs1_prototipo1.model.Mission;
 import java.awt.Color;
+import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -16,19 +17,21 @@ import javax.swing.ImageIcon;
  */
 public class MissionCell extends javax.swing.JPanel {
 
-    /**
-     * Creates new form NewJPanel
-     */
+  
     public MissionCell(Object value, Color bg) {
         initComponents();
         this.setBackground(bg);
         iniLabels((Mission) value);
+       
     }
     
     private void iniLabels(Mission value) {
         Titulo.setText(value.getTitle());
         Fecha.setText(value.getStartDate().toString());
-        Imagen.setIcon(new ImageIcon(value.getOwner().getPictureThumbnail()));
+        
+        Image img = new ImageIcon(value.getOwner().getPictureMedium()).getImage();
+        Imagen.setIcon(new ImageIcon(img.getScaledInstance(88, 113, Image.SCALE_SMOOTH)));
+ 
         Etiquetas.setText(value.getLabels().toString());
     }
     /**
@@ -45,7 +48,7 @@ public class MissionCell extends javax.swing.JPanel {
         Fecha = new javax.swing.JLabel();
         Etiquetas = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(153, 255, 255));
+        setBackground(new java.awt.Color(197, 241, 197));
 
         Imagen.setBackground(new java.awt.Color(51, 255, 255));
 
